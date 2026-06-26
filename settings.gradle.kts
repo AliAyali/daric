@@ -29,5 +29,14 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "daric"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
- 
+include(":core:model")
+include(":core:domain")
+include(":core:data")
+include(":core:network")
+include(":core:navigation")
+include(":core:designsystem")
+include(":core:testing")
+include(":feature:home")
+include(":core:common")
