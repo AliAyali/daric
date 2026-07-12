@@ -39,6 +39,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.compose.material3.navigationSuite)
+    implementation(libs.androidx.compose.material3.adaptive)
+    implementation(libs.androidx.compose.material3.adaptive.navigation3)
     implementation(libs.androidx.navigation3.ui)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
@@ -57,6 +60,8 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     implementation(projects.feature.home)
+    implementation(projects.feature.search)
+    implementation(projects.feature.setting)
     implementation(projects.core.navigation)
     implementation(projects.core.designsystem)
     implementation(libs.hilt.android)
