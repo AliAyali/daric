@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -23,5 +24,7 @@ android {
 }
 
 dependencies {
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    api(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.savedstate.compose)
+    implementation(libs.androidx.lifecycle.viewModel.navigation3)
 }

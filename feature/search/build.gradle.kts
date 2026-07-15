@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.aliayali.home"
+    namespace = "com.aliayali.search"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -21,18 +21,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    buildFeatures {
-        compose = true
-    }
+
 }
 
 dependencies {
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.navigation3.runtime)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
     testImplementation(libs.junit)
