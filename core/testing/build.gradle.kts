@@ -1,13 +1,17 @@
 plugins {
-    id("java-library")
-    alias(libs.plugins.jetbrains.kotlin.jvm)
+    alias(libs.plugins.daric.android.library)
+    alias(libs.plugins.daric.hilt)
 }
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+android {
+    namespace = "com.aliayali.daric.core.testing"
 }
-kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
-    }
+dependencies {
+    api(libs.kotlinx.coroutines.test)
+    api(projects.core.common)
+    api(projects.core.data)
+    api(projects.core.model)
+
+    implementation(libs.androidx.test.rules)
+    implementation(libs.hilt.android.testing)
+    implementation(libs.kotlinx.datetime)
 }

@@ -1,30 +1,20 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.daric.android.library)
+    alias(libs.plugins.daric.android.library.jacoco)
+    alias(libs.plugins.daric.hilt)
+    id("kotlinx-serialization")
 }
 
 android {
     namespace = "com.aliayali.data"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
-
-    defaultConfig {
-        minSdk = 28
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
-    api(projects.core.network)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(projects.core.testing)
     implementation(projects.core.common)
+    implementation(projects.core.network)
+
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.kotlinx.serialization.json)
+    testImplementation(projects.core.testing)
 }

@@ -167,7 +167,7 @@ internal fun DaricApp(
                     NavDisplay(
                         entries = appState.navigationState.toEntries(entryProvider),
                         onBack = { navigator.goBack() },
-                        sceneStrategies = listOf(listDetailStrategy),
+                        sceneStrategy = listDetailStrategy
                     )
                 }
             }

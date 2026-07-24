@@ -1,33 +1,29 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.daric.android.library)
+    alias(libs.plugins.daric.android.library.jacoco)
+    alias(libs.plugins.daric.hilt)
+    id("kotlinx-serialization")
 }
 
 android {
+    buildFeatures {
+        buildConfig = true
+    }
     namespace = "com.aliayali.network"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
-
-    defaultConfig {
-        minSdk = 28
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
+    implementation(libs.kotlinx.datetime)
     implementation(projects.core.common)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
+    implementation(projects.core.model)
+
+    implementation(libs.coil.kt)
+    implementation(libs.coil.kt.svg)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.okhttp.logging)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.kotlin.serialization)
+
+    testImplementation(libs.kotlinx.coroutines.test)
 }

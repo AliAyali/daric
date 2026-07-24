@@ -1,21 +1,20 @@
+import com.google.samples.apps.nowinandroid.DaricBuildType
+
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.daric.android.application)
+    alias(libs.plugins.daric.android.application.compose)
+    alias(libs.plugins.daric.android.application.flavors)
+    alias(libs.plugins.daric.android.application.jacoco)
+    alias(libs.plugins.daric.hilt)
+    alias(libs.plugins.google.osslicenses)
+    alias(libs.plugins.baselineprofile)
+    alias(libs.plugins.roborazzi)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "com.aliayali.daric"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
-
     defaultConfig {
         applicationId = "com.aliayali.daric"
-        minSdk = 28
-        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -23,22 +22,35 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix = DaricBuildType.DEBUG.applicationIdSuffix
+        }
         release {
-            optimization {
-                enable = false
-            }
+            isMinifyEnabled = providers.gradleProperty("minifyWithR8")
+                .map(String::toBooleanStrict).getOrElse(true)
+            applicationIdSuffix = DaricBuildType.RELEASE.applicationIdSuffix
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            )
+            signingConfig = signingConfigs.named("debug").get()
+            baselineProfile.automaticGenerationDuringBuild = false
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+    packaging {
+        resources {
+            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+        }
     }
-    buildFeatures {
-        compose = true
-    }
+    testOptions.unitTests.isIncludeAndroidResources = true
+    namespace = "com.aliayali.daric"
 }
 
 dependencies {
+    implementation(libs.androidx.compose.material3.adaptive.layout)
+    implementation(libs.androidx.compose.material3.adaptive.navigation)
+    implementation(libs.androidx.compose.material3.windowSizeClass)
+    implementation(libs.androidx.lifecycle.viewModel.navigation3)
+    implementation(libs.androidx.window.core)
     implementation(libs.androidx.compose.material3.navigationSuite)
     implementation(libs.androidx.compose.material3.adaptive)
     implementation(libs.androidx.compose.material3.adaptive.navigation3)
@@ -50,13 +62,15 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.androidx.profileinstaller)
+    implementation(libs.androidx.core.splashscreen)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.compose.ui.test)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    debugImplementation(libs.androidx.compose.ui.testManifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     implementation(projects.feature.home)
@@ -64,6 +78,13 @@ dependencies {
     implementation(projects.feature.setting)
     implementation(projects.core.navigation)
     implementation(projects.core.designsystem)
+    implementation(projects.core.common)
+    implementation(projects.core.data)
+    implementation(projects.core.model)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+}
+baselineProfile {
+    automaticGenerationDuringBuild = false
+    dexLayoutOptimization = true
 }
