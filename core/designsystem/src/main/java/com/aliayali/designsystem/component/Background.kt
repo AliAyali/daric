@@ -39,16 +39,8 @@ annotation class ThemePreviews
 
 @ThemePreviews
 @Composable
-fun LightBackgroundDefault() {
-    DaricTheme(darkTheme = false) {
-        DaricBackground(Modifier.size(100.dp), content = {})
-    }
-}
-
-@ThemePreviews
-@Composable
-fun DarkBackground() {
-    DaricTheme(darkTheme = true) {
+fun BackgroundDefault() {
+    DaricTheme {
         DaricBackground(Modifier.size(100.dp), content = {})
     }
 }
