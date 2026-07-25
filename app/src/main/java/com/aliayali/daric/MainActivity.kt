@@ -2,12 +2,11 @@ package com.aliayali.daric
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.aliayali.daric.ui.DaricApp
 import com.aliayali.daric.ui.rememberDaricAppState
-import com.aliayali.daric.ui.theme.DaricTheme
+import com.aliayali.designsystem.theme.DaricTheme
 
 class MainActivity : ComponentActivity() {
 
