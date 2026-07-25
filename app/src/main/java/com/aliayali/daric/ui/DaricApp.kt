@@ -34,7 +34,7 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.aliayali.daric.navigation.TOP_LEVEL_NAV_ITEMS
-import com.aliayali.designsystem.DaricIcons
+import com.aliayali.designsystem.icon.DaricIcons
 import com.aliayali.designsystem.component.DaricTopAppBar
 import com.aliayali.home.navigation.homeEntry
 import com.aliayali.navigation.Navigator

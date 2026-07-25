@@ -1,4 +1,4 @@
-package com.aliayali.designsystem
+package com.aliayali.designsystem.icon
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
