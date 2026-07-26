@@ -3,7 +3,7 @@ package com.aliayali.daric.navigation
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.aliayali.daric.R
-import com.aliayali.designsystem.DaricIcons
+import com.aliayali.designsystem.icon.DaricIcons
 import com.aliayali.home.navigation.HomeNavKey
 import com.aliayali.home.R as homeR
 
