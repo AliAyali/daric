@@ -19,8 +19,6 @@ import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneStrategy
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,8 +32,9 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.aliayali.daric.navigation.TOP_LEVEL_NAV_ITEMS
-import com.aliayali.designsystem.icon.DaricIcons
+import com.aliayali.designsystem.component.DaricNavigationSuiteScaffold
 import com.aliayali.designsystem.component.DaricTopAppBar
+import com.aliayali.designsystem.icon.DaricIcons
 import com.aliayali.home.navigation.homeEntry
 import com.aliayali.navigation.Navigator
 import com.aliayali.navigation.toEntries
@@ -81,9 +80,8 @@ internal fun DaricApp(
         )
     }
     val listDetailStrategy = rememberListDetailSceneStrategy<NavKey>()
-    val layoutType = NavigationSuiteScaffoldDefaults
-        .calculateFromAdaptiveInfo(windowAdaptiveInfo)
-    NavigationSuiteScaffold(
+    DaricNavigationSuiteScaffold(
+        windowAdaptiveInfo = windowAdaptiveInfo,
         navigationSuiteItems = {
             TOP_LEVEL_NAV_ITEMS.forEach { (navKey, navItem) ->
                 val selected = navKey == appState.navigationState.currentTopLevelKey
@@ -92,11 +90,12 @@ internal fun DaricApp(
                     onClick = { navigator.navigate(navKey) },
                     icon = {
                         Icon(
-                            imageVector = if (selected)
+                            imageVector = if (selected) {
                                 navItem.selectedIcon
-                            else
-                                navItem.unselectedIcon,
-                            contentDescription = null
+                            } else {
+                                navItem.unselectedIcon
+                            },
+                            contentDescription = null,
                         )
                     },
                     label = {
@@ -105,13 +104,12 @@ internal fun DaricApp(
                 )
             }
         },
-        layoutType = layoutType,
     ) {
         Scaffold(
             modifier = modifier,
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
             containerColor = Color.Transparent,
-            contentColor = MaterialTheme.colorScheme.onBackground
+            contentColor = MaterialTheme.colorScheme.onBackground,
         ) { padding ->
             Column(
                 Modifier
