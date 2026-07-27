@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtimeCompose)
     implementation(libs.androidx.profileinstaller)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.coil.kt)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test)

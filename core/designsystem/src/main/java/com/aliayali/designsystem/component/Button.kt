@@ -56,7 +56,7 @@ fun DaricOutlinedButton(
         ),
         border = BorderStroke(
             width = 1.dp,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.onBackground,
         ),
         contentPadding = contentPadding,
         content = content,
