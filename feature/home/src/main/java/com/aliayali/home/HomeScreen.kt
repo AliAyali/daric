@@ -2,10 +2,11 @@ package com.aliayali.home
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.aliayali.designsystem.component.DaricButton
-import com.aliayali.designsystem.component.DaricOutlinedButton
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    homeViewModel: HomeViewModel = hiltViewModel(),
+) {
     Text("خانه")
 }
