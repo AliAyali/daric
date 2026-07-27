@@ -7,7 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import com.aliayali.daric.ui.DaricApp
 import com.aliayali.daric.ui.rememberDaricAppState
 import com.aliayali.designsystem.theme.DaricTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

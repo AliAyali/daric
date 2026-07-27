@@ -51,8 +51,7 @@ fun DaricNavigationSuiteScaffold(
                 navigationSuiteItemColors = navigationSuiteItemColors,
             ).run(navigationSuiteItems)
         },
-        layoutType = NavigationSuiteScaffoldDefaults
-            .calculateFromAdaptiveInfo(windowAdaptiveInfo),
+        layoutType = NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(windowAdaptiveInfo),
         modifier = modifier,
         content = content,
         navigationSuiteColors = NavigationSuiteDefaults.colors(
