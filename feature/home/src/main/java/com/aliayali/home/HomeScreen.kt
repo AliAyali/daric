@@ -1,14 +1,16 @@
 package com.aliayali.home
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.aliayali.designsystem.component.DaricLoadingIndicator
 import com.aliayali.home.components.MarketOverviewCard
+import com.aliayali.home.components.MarketSection
 
 @Composable
 fun HomeScreen(
@@ -22,13 +24,33 @@ fun HomeScreen(
         }
 
         is HomeUiState.Success -> {
-            Column(
+            LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxSize(),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
             ) {
-                MarketOverviewCard()
+
+                item {
+                    MarketOverviewCard(
+                        overview = uiState.overview
+                    )
+                }
+
+                items(uiState.sections) { section ->
+
+                    MarketSection(
+                        section = section,
+                        onMoreClick = {
+                            onEvent(HomeEvent.SectionMoreClick)
+                        },
+                        onCoinClick = {
+                            onEvent(HomeEvent.CoinClick("0"))
+                        }
+                    )
+
+                }
+
             }
         }
 

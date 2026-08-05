@@ -31,7 +31,7 @@ import com.aliayali.designsystem.icon.DaricIcons.ArrowUp
 @Composable
 fun MarketPriceCard(
     title: String,
-    price: String,
+    price: String?,
     change: String,
     isPositive: Boolean,
     modifier: Modifier = Modifier,
@@ -71,11 +71,13 @@ fun MarketPriceCard(
         )
 
 
-        Text(
-            text = price,
-            style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.background,
-        )
+        price?.let {
+            Text(
+                text = it,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.background,
+            )
+        }
 
 
         Spacer(

@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.aliayali.home.R
 
 @Composable
-fun Header() {
+fun MarketOverviewHeader() {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -28,7 +28,7 @@ fun Header() {
         Row(
             modifier = Modifier
                 .background(
-                    Color.White.copy(.08f),
+                    MaterialTheme.colorScheme.background.copy(.08f),
                     RoundedCornerShape(50)
                 )
                 .padding(
@@ -44,7 +44,7 @@ fun Header() {
 
             Text(
                 text = stringResource(R.string.feature_home_market_live),
-                color = Color.White.copy(.8f),
+                color = MaterialTheme.colorScheme.background.copy(.8f),
                 style = MaterialTheme.typography.labelMedium,
             )
 

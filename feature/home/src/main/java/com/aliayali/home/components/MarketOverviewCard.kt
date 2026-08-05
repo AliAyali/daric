@@ -16,12 +16,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.aliayali.home.R
+import com.aliayali.home.model.MarketOverviewCardUiModel
 
 @Composable
 fun MarketOverviewCard(
+    overview: MarketOverviewCardUiModel,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -43,7 +43,7 @@ fun MarketOverviewCard(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            Header()
+            MarketOverviewHeader()
 
             Spacer(Modifier.height(28.dp))
 
@@ -52,13 +52,11 @@ fun MarketOverviewCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                MarketStatusRing(status = MarketStatus.Volatile)
+                MarketStatusRing(status = overview.marketStatus)
                 Spacer(Modifier.width(10.dp))
                 MarketInsight(
-                    title = stringResource(R.string.feature_home_market_insight_title),
-                    description = stringResource(
-                        R.string.feature_home_market_insight_description
-                    ),
+                    title = overview.insightTitle,
+                    description = overview.insightDescription,
                 )
             }
 
@@ -77,18 +75,18 @@ fun MarketOverviewCard(
 
                 MarketPriceCard(
                     modifier = Modifier.weight(1f),
-                    title = "دلار آمریکا",
-                    price = "85,320 تومان",
-                    change = "+1.24%",
-                    isPositive = true,
+                    title = overview.usd.name,
+                    price = overview.usd.formattedTomanPrice,
+                    change = overview.usd.formattedChange,
+                    isPositive = overview.usd.isPositive,
                 )
 
                 MarketPriceCard(
                     modifier = Modifier.weight(1f),
-                    title = "طلای ۱۸ عیار",
-                    price = "7,210,000",
-                    change = "-0.31%",
-                    isPositive = false,
+                    title = overview.gold18.name,
+                    price = overview.gold18.formattedTomanPrice,
+                    change = overview.gold18.formattedChange,
+                    isPositive = overview.gold18.isPositive,
                 )
             }
 

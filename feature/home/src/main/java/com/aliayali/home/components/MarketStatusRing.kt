@@ -19,6 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
+import com.aliayali.home.model.MarketStatus
+import com.aliayali.home.model.MarketStatusTone
 
 @Composable
 fun MarketStatusRing(
@@ -29,8 +31,8 @@ fun MarketStatusRing(
     val statusColor = when (status.tone) {
         MarketStatusTone.Success -> MaterialTheme.colorScheme.primary
         MarketStatusTone.Normal -> MaterialTheme.colorScheme.tertiary
-        MarketStatusTone.Warning -> MaterialTheme.colorScheme.error
-        MarketStatusTone.Error -> MaterialTheme.colorScheme.onErrorContainer
+        MarketStatusTone.Warning -> MaterialTheme.colorScheme.onErrorContainer
+        MarketStatusTone.Error -> MaterialTheme.colorScheme.error
     }
     val animatedProgress by animateFloatAsState(
         targetValue = status.progress,

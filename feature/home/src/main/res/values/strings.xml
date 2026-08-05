@@ -3,14 +3,7 @@
     <string name="feature_home_title">خانه</string>
     <string name="feature_home_market_summary_today">خلاصه وضعیت امروز</string>
     <string name="feature_home_market_live">زنده</string>
-    <string name="feature_home_market_status_calm">آرام</string>
-    <string name="feature_home_market_status_calm_description">بازار کم نوسان</string>
-    <string name="feature_home_market_status_normal">معمولی</string>
-    <string name="feature_home_market_status_normal_description">نوسان طبیعی</string>
-    <string name="feature_home_market_status_volatile">پر نوسان</string>
-    <string name="feature_home_market_status_volatile_description">نوسان زیاد</string>
-    <string name="feature_home_market_status_critical">بحرانی</string>
-    <string name="feature_home_market_status_critical_description">ریسک بالا</string>
-    <string name="feature_home_market_insight_title">بازار امروز آرام است</string>
     <string name="feature_home_market_insight_description">دلار رشد ملایمی داشته و طلا تغییر محسوسی نسبت به روز گذشته نداشته است.</string>
+    <string name="feature_home_more">مشاهده همه</string>
+    <string name="feature_home_assets">دارایی</string>
 </resources>

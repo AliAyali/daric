@@ -29,7 +29,7 @@ fun MarketInsight(
             textAlign = TextAlign.Start,
             text = title,
             style = MaterialTheme.typography.titleMedium,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.background,
         )
 
 
@@ -43,7 +43,7 @@ fun MarketInsight(
             textAlign = TextAlign.Start,
             text = description,
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.White.copy(alpha = .65f),
+            color = MaterialTheme.colorScheme.background.copy(alpha = .65f),
         )
 
     }

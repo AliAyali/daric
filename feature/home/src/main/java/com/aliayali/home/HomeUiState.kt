@@ -1,13 +1,14 @@
 package com.aliayali.home
 
-import com.aliayali.home.model.CoinUiModel
+import com.aliayali.home.model.MarketOverviewCardUiModel
+import com.aliayali.home.model.MarketSectionCardUiModel
 
 sealed interface HomeUiState {
     data object Loading : HomeUiState
 
     data class Success(
-        val featuredItems: List<CoinUiModel>,
-        val popularItems: List<CoinUiModel>,
+        val overview: MarketOverviewCardUiModel,
+        val sections: List<MarketSectionCardUiModel>,
     ) : HomeUiState
 
     data class Error(
