@@ -2,7 +2,8 @@ package com.aliayali.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aliayali.domain.MarketRepository
+import com.aliayali.domain.GetMarketOverviewUseCase
+import com.aliayali.domain.GetMarketSectionsUseCase
 import com.aliayali.home.mapper.asUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: MarketRepository,
+    private val getMarketOverviewUseCase: GetMarketOverviewUseCase,
+    private val getMarketSectionsUseCase: GetMarketSectionsUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
@@ -28,12 +30,10 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             try {
 
-                val overview = repository
-                    .getMarketOverview()
+                val overview = getMarketOverviewUseCase()
                     .asUiModel()
 
-                val sections = repository
-                    .getMarketSections()
+                val sections = getMarketSectionsUseCase()
                     .map { it.asUiModel() }
 
                 _uiState.value = HomeUiState.Success(
