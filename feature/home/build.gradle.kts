@@ -12,6 +12,7 @@ android {
 dependencies {
     implementation(libs.accompanist.permissions)
     implementation(projects.core.domain)
+    implementation(projects.core.model)
     implementation(projects.core.navigation)
     implementation(libs.androidx.activity.compose)
     testImplementation(libs.hilt.android.testing)

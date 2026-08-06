@@ -1,4 +1,4 @@
-package com.aliayali.home.components
+package com.aliayali.home.components.overview
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.aliayali.home.components
+package com.aliayali.home.components.market
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

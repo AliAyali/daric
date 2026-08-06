@@ -13,6 +13,8 @@ android {
 dependencies {
     implementation(projects.core.common)
     implementation(projects.core.network)
+    implementation(projects.core.model)
+    implementation(projects.core.domain)
 
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.kotlinx.serialization.json)
