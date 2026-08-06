@@ -1,7 +1,7 @@
 package com.aliayali.data.di
 
 import com.aliayali.data.repository.MarketRepositoryImpl
-import com.aliayali.domain.MarketRepository
+import com.aliayali.domain.repository.MarketRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

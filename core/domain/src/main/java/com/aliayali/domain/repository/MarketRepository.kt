@@ -1,4 +1,4 @@
-package com.aliayali.domain
+package com.aliayali.domain.repository
 
 import com.aliayali.model.data.MarketOverview
 import com.aliayali.model.data.MarketSection

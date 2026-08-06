@@ -1,7 +1,7 @@
 package com.aliayali.data.repository
 
 import com.aliayali.data.datasource.FakeMarketDataSource
-import com.aliayali.domain.MarketRepository
+import com.aliayali.domain.repository.MarketRepository
 import com.aliayali.model.data.MarketOverview
 import com.aliayali.model.data.MarketSection
 import javax.inject.Inject
