@@ -6,4 +6,7 @@
     <string name="feature_home_market_insight_description">دلار رشد ملایمی داشته و طلا تغییر محسوسی نسبت به روز گذشته نداشته است.</string>
     <string name="feature_home_more">مشاهده همه</string>
     <string name="feature_home_assets">دارایی</string>
+    <string name="feature_home_crypto">ارزهای دیجیتال</string>
+    <string name="feature_home_currency">ارزهای رایج</string>
+    <string name="feature_home_gold">طلا و فلزات</string>
 </resources>
