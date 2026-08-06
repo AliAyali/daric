@@ -26,7 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.aliayali.designsystem.icon.DaricIcons.ArrowDown
 import com.aliayali.designsystem.icon.DaricIcons.ArrowUp
-import com.aliayali.home.mapper.coinIcon
+import com.aliayali.home.ui.icon.coinIcon
 import com.aliayali.home.model.CoinUiModel
 
 @Composable

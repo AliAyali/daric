@@ -14,6 +14,7 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.model)
     implementation(projects.core.navigation)
+    implementation(projects.core.common)
     implementation(libs.androidx.activity.compose)
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.robolectric)

@@ -1,11 +1,10 @@
-package com.aliayali.home.mapper
+package com.aliayali.home.ui.icon
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CurrencyBitcoin
 import androidx.compose.material.icons.filled.Diamond
 import androidx.compose.material.icons.filled.Euro
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MonetizationOn
 import androidx.compose.ui.graphics.vector.ImageVector
 
