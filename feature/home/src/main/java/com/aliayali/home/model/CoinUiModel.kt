@@ -4,6 +4,7 @@ data class CoinUiModel(
     val id: String,
     val symbol: String,
     val name: String,
+    val imageUrl: String?,
     val formattedDollarPrice: String?,
     val formattedTomanPrice: String?,
     val formattedChange: String,

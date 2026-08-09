@@ -1,3 +1,7 @@
+import com.android.build.api.variant.BuildConfigField
+import java.io.StringReader
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.daric.android.library)
     alias(libs.plugins.daric.android.library.jacoco)
@@ -26,4 +30,26 @@ dependencies {
     implementation(libs.retrofit.kotlin.serialization)
 
     testImplementation(libs.kotlinx.coroutines.test)
+}
+val coinGeckoApiKey = providers.fileContents(
+    isolated.rootProject.projectDirectory.file("local.properties")
+).asText.map { text ->
+    val properties = Properties()
+    properties.load(StringReader(text))
+    properties["coinGeckoApiKey"]
+}.orElse("")
+
+androidComponents {
+    onVariants {
+        it.buildConfigFields!!.put(
+            "COIN_GECKO_API_KEY",
+            coinGeckoApiKey.map { value ->
+                BuildConfigField(
+                    type = "String",
+                    value = "\"$value\"",
+                    comment = null,
+                )
+            },
+        )
+    }
 }

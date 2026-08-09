@@ -1,6 +1,7 @@
 package com.aliayali.home
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,10 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.aliayali.designsystem.component.DaricLoadingIndicator
+import com.aliayali.home.components.market.MarketAssetItem
+import com.aliayali.home.components.market.MarketListHeader
 import com.aliayali.home.components.overview.MarketOverviewCard
-import com.aliayali.home.components.market.MarketSection
+import com.aliayali.home.model.CoinUiModel
 import com.aliayali.home.model.MarketOverviewCardUiModel
-import com.aliayali.home.model.MarketSectionCardUiModel
 
 @Composable
 fun HomeScreen(
@@ -33,11 +35,10 @@ fun HomeScreen(
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(20.dp),
             ) {
-
                 homeOverview(uiState.overview)
 
                 homeSections(
-                    sections = uiState.sections,
+                    coins = uiState.coins,
                     onMoreClick = {
                         onEvent(HomeEvent.SectionMoreClick)
                     },
@@ -49,7 +50,15 @@ fun HomeScreen(
 
         }
 
-        is HomeUiState.Error -> {}
+        is HomeUiState.Error -> {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                androidx.compose.material3.Text(
+                    text = "Error: ${uiState.message}",
+                )
+            }
+        }
     }
 }
 
@@ -64,15 +73,19 @@ private fun LazyListScope.homeOverview(
 }
 
 private fun LazyListScope.homeSections(
-    sections: List<MarketSectionCardUiModel>,
+    coins: List<CoinUiModel>,
     onMoreClick: () -> Unit,
     onCoinClick: (String) -> Unit,
 ) {
-    items(sections) { section ->
-        MarketSection(
-            section = section,
-            onMoreClick = onMoreClick,
-            onCoinClick = onCoinClick,
+    item {
+        MarketListHeader(
+            onMoreClick = onMoreClick
+        )
+    }
+    items(coins) { coin ->
+        MarketAssetItem(
+            item = coin,
+            onCoinClick = onCoinClick
         )
     }
 }

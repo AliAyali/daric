@@ -24,9 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.aliayali.designsystem.component.DaricAsyncImage
 import com.aliayali.designsystem.icon.DaricIcons.ArrowDown
 import com.aliayali.designsystem.icon.DaricIcons.ArrowUp
-import com.aliayali.home.ui.icon.coinIcon
 import com.aliayali.home.model.CoinUiModel
 
 @Composable
@@ -77,9 +77,10 @@ fun MarketAssetItem(
                     contentAlignment = Alignment.Center,
                 ) {
 
-                    Icon(
-                        imageVector = coinIcon(item.symbol),
+                    DaricAsyncImage(
+                        imageUrl = item.imageUrl,
                         contentDescription = null,
+                        modifier = modifier
                     )
 
                 }
