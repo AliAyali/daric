@@ -1,9 +1,7 @@
 package com.aliayali.domain.repository
 
-import com.aliayali.model.data.MarketOverview
-import com.aliayali.model.data.MarketSection
+import com.aliayali.model.data.Coin
 
 interface MarketRepository {
-    suspend fun getMarketOverview(): MarketOverview
-    suspend fun getMarketSections(): List<MarketSection>
+    suspend fun getCoins(): List<Coin>
 }
