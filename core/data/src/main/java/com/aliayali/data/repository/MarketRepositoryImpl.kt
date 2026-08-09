@@ -1,19 +1,32 @@
 package com.aliayali.data.repository
 
-import com.aliayali.data.datasource.FakeMarketDataSource
+import com.aliayali.data.config.MarketConfig.defaultCoinIds
 import com.aliayali.domain.repository.MarketRepository
-import com.aliayali.model.data.MarketOverview
-import com.aliayali.model.data.MarketSection
+import com.aliayali.model.data.Coin
+import com.aliayali.network.CoinGeckoNetworkDataSource
+import com.aliayali.network.model.CoinGeckoCoinDto
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class MarketRepositoryImpl @Inject constructor(
-    private val fakeDataSource: FakeMarketDataSource
+    private val networkDataSource: CoinGeckoNetworkDataSource,
 ) : MarketRepository {
-    override suspend fun getMarketOverview(): MarketOverview {
-        return fakeDataSource.getOverview()
-    }
 
-    override suspend fun getMarketSections(): List<MarketSection> {
-        return fakeDataSource.getSections()
-    }
+    override suspend fun getCoins(): List<Coin> =
+        networkDataSource
+            .getMarkets(
+                ids = defaultCoinIds.joinToString(",")
+            )
+            .map(CoinGeckoCoinDto::asModel)
 }
+
+fun CoinGeckoCoinDto.asModel(): Coin =
+    Coin(
+        id = id,
+        symbol = symbol,
+        name = name,
+        price = currentPrice,
+        changePercent24h = priceChangePercentage24h,
+        imageUrl = image
+    )
