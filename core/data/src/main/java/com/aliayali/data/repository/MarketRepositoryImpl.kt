@@ -3,6 +3,8 @@ package com.aliayali.data.repository
 import com.aliayali.data.config.MarketConfig.defaultCoinIds
 import com.aliayali.domain.repository.MarketRepository
 import com.aliayali.model.data.Coin
+import com.aliayali.model.data.MarketData
+import com.aliayali.network.BrsNetworkDataSource
 import com.aliayali.network.CoinGeckoNetworkDataSource
 import com.aliayali.network.model.CoinGeckoCoinDto
 import javax.inject.Inject
@@ -11,14 +13,28 @@ import javax.inject.Singleton
 @Singleton
 class MarketRepositoryImpl @Inject constructor(
     private val networkDataSource: CoinGeckoNetworkDataSource,
+    private val brsNetworkDataSource: BrsNetworkDataSource,
 ) : MarketRepository {
 
-    override suspend fun getCoins(): List<Coin> =
-        networkDataSource
+    override suspend fun getMarketData(): MarketData {
+
+        val coins = networkDataSource
             .getMarkets(
                 ids = defaultCoinIds.joinToString(",")
             )
             .map(CoinGeckoCoinDto::asModel)
+
+        val brsMarket = brsNetworkDataSource.getMarket()
+
+        val dollarToToman = brsMarket.currency
+            .firstOrNull { it.symbol == "USD" }
+            ?.price
+
+        return MarketData(
+            coins = coins,
+            dollarToToman = dollarToToman,
+        )
+    }
 }
 
 fun CoinGeckoCoinDto.asModel(): Coin =
@@ -28,5 +44,5 @@ fun CoinGeckoCoinDto.asModel(): Coin =
         name = name,
         price = currentPrice,
         changePercent24h = priceChangePercentage24h,
-        imageUrl = image
+        imageUrl = image,
     )

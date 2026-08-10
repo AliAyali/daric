@@ -1,7 +1,7 @@
 package com.aliayali.domain.repository
 
-import com.aliayali.model.data.Coin
+import com.aliayali.model.data.MarketData
 
 interface MarketRepository {
-    suspend fun getCoins(): List<Coin>
+    suspend fun getMarketData(): MarketData
 }

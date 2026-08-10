@@ -2,9 +2,10 @@ package com.aliayali.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aliayali.domain.GetMarketAssetsUseCase
 import com.aliayali.domain.GetMarketCoinsUseCase
 import com.aliayali.home.mapper.asUiModel
-import com.aliayali.home.model.CoinUiModel
+import com.aliayali.home.model.MarketAssetUiModel
 import com.aliayali.home.model.MarketOverviewCardUiModel
 import com.aliayali.home.model.MarketStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getMarketCoinsUseCase: GetMarketCoinsUseCase,
+    private val getMarketAssetsUseCase: GetMarketAssetsUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(
@@ -34,12 +36,19 @@ class HomeViewModel @Inject constructor(
             _uiState.value = HomeUiState.Loading
 
             try {
-                val coins = getMarketCoinsUseCase()
+                val marketData = getMarketCoinsUseCase()
+
+                val coins = marketData.coins.map {
+                    it.asUiModel(marketData.dollarToToman)
+                }
+
+                val marketAssets = getMarketAssetsUseCase()
                     .map { it.asUiModel() }
 
                 _uiState.value = HomeUiState.Success(
-                    overview = createMarketOverview(coins),
+                    overview = createMarketOverview(marketAssets),
                     coins = coins,
+                    marketAssets = marketAssets,
                 )
             } catch (e: Exception) {
                 _uiState.value = HomeUiState.Error(
@@ -60,7 +69,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun createMarketOverview(
-        coins: List<CoinUiModel>,
+        coins: List<MarketAssetUiModel>,
     ): MarketOverviewCardUiModel {
         return MarketOverviewCardUiModel(
             marketStatus = MarketStatus.Volatile,

@@ -76,7 +76,7 @@ fun MarketOverviewCard(
                 MarketPriceCard(
                     modifier = Modifier.weight(1f),
                     title = overview.usd.name,
-                    price = overview.usd.formattedTomanPrice,
+                    price = overview.usd.formattedPrice,
                     change = overview.usd.formattedChange,
                     isPositive = overview.usd.isPositive,
                 )
@@ -84,7 +84,7 @@ fun MarketOverviewCard(
                 MarketPriceCard(
                     modifier = Modifier.weight(1f),
                     title = overview.gold18.name,
-                    price = overview.gold18.formattedTomanPrice,
+                    price = overview.gold18.formattedPrice,
                     change = overview.gold18.formattedChange,
                     isPositive = overview.gold18.isPositive,
                 )
