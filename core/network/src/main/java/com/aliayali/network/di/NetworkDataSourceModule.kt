@@ -1,6 +1,8 @@
 package com.aliayali.network.di
 
+import com.aliayali.network.BrsNetworkDataSource
 import com.aliayali.network.CoinGeckoNetworkDataSource
+import com.aliayali.network.RetrofitBrsNetworkDataSource
 import com.aliayali.network.RetrofitCoinGeckoNetworkDataSource
 import dagger.Binds
 import dagger.Module
@@ -17,4 +19,10 @@ abstract class NetworkDataSourceModule {
     abstract fun bindCoinGeckoNetworkDataSource(
         impl: RetrofitCoinGeckoNetworkDataSource,
     ): CoinGeckoNetworkDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindBrsNetworkDataSource(
+        impl: RetrofitBrsNetworkDataSource,
+    ): BrsNetworkDataSource
 }

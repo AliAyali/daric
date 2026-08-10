@@ -3,14 +3,10 @@ package com.aliayali.common.util
 import java.text.NumberFormat
 import java.util.Locale
 
-fun Long.formatPrice(): String {
-    return NumberFormat
+fun Double.formattedPrice(): String =
+    NumberFormat
         .getNumberInstance(Locale.US)
         .format(this)
-}
 
-fun Double.formatPrice(): String {
-    return NumberFormat
-        .getNumberInstance(Locale.US)
-        .format(this)
-}
+fun Double.formattedPercent(): String =
+    "${if (this >= 0) "+" else ""}${"%.2f".format(Locale.US, this)}%"
