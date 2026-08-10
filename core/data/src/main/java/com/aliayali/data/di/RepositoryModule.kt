@@ -1,6 +1,8 @@
 package com.aliayali.data.di
 
+import com.aliayali.data.repository.MarketAssetRepositoryImpl
 import com.aliayali.data.repository.MarketRepositoryImpl
+import com.aliayali.domain.repository.MarketAssetRepository
 import com.aliayali.domain.repository.MarketRepository
 import dagger.Binds
 import dagger.Module
@@ -17,4 +19,10 @@ abstract class RepositoryModule {
     abstract fun bindMarketRepository(
         impl: MarketRepositoryImpl,
     ): MarketRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindMarketAssetRepository(
+        impl: MarketAssetRepositoryImpl,
+    ): MarketAssetRepository
 }
