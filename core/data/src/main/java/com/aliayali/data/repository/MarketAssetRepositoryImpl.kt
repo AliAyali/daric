@@ -1,7 +1,7 @@
 package com.aliayali.data.repository
 
 import com.aliayali.domain.repository.MarketAssetRepository
-import com.aliayali.model.data.MarketAsset
+import com.aliayali.model.market.MarketAsset
 import com.aliayali.network.BrsNetworkDataSource
 import com.aliayali.network.model.BrsMarketItemDto
 import javax.inject.Inject

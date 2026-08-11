@@ -2,8 +2,8 @@ package com.aliayali.data.repository
 
 import com.aliayali.data.config.MarketConfig.defaultCoinIds
 import com.aliayali.domain.repository.MarketRepository
-import com.aliayali.model.data.Coin
-import com.aliayali.model.data.MarketData
+import com.aliayali.model.market.Coin
+import com.aliayali.model.market.MarketData
 import com.aliayali.network.CoinGeckoNetworkDataSource
 import com.aliayali.network.model.CoinGeckoCoinDto
 import javax.inject.Inject

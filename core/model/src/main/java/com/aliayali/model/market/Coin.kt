@@ -1,4 +1,4 @@
-package com.aliayali.model.data
+package com.aliayali.model.market
 
 data class Coin(
     val id: String,

@@ -4,8 +4,8 @@ import com.aliayali.common.util.formattedPercent
 import com.aliayali.common.util.formattedPrice
 import com.aliayali.home.model.CoinUiModel
 import com.aliayali.home.model.MarketAssetUiModel
-import com.aliayali.model.data.Coin
-import com.aliayali.model.data.MarketAsset
+import com.aliayali.model.market.Coin
+import com.aliayali.model.market.MarketAsset
 
 fun Coin.asUiModel(
     dollarToToman: Double?,
