@@ -12,11 +12,12 @@ class MarketAssetRepositoryImpl @Inject constructor(
     private val networkDataSource: BrsNetworkDataSource,
 ) : MarketAssetRepository {
 
-    override suspend fun getMarketAssets(): List<MarketAsset> =
-        networkDataSource
-            .getMarket()
-            .gold
+    override suspend fun getMarketAssets(): List<MarketAsset> {
+        val market = networkDataSource.getMarket()
+
+        return (market.gold + market.currency)
             .map(BrsMarketItemDto::asModel)
+    }
 }
 
 fun BrsMarketItemDto.asModel(): MarketAsset =

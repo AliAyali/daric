@@ -40,5 +40,6 @@ fun MarketAsset.asUiModel(): MarketAssetUiModel =
         formattedChange = changePercent?.let {
             "${if (it >= 0) "+" else ""}$it%"
         } ?: "-",
+        price = price,
         isPositive = (changePercent ?: 0.0) >= 0,
     )

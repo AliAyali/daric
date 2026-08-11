@@ -38,12 +38,16 @@ class HomeViewModel @Inject constructor(
             try {
                 val marketData = getMarketCoinsUseCase()
 
-                val coins = marketData.coins.map {
-                    it.asUiModel(marketData.dollarToToman)
-                }
-
                 val marketAssets = getMarketAssetsUseCase()
                     .map { it.asUiModel() }
+
+                val dollarToToman = marketAssets
+                    .firstOrNull { it.symbol == "USD" }
+                    ?.price
+
+                val coins = marketData.coins.map {
+                    it.asUiModel(dollarToToman)
+                }
 
                 _uiState.value = HomeUiState.Success(
                     overview = createMarketOverview(marketAssets),
@@ -69,14 +73,20 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun createMarketOverview(
-        coins: List<MarketAssetUiModel>,
+        marketAssets: List<MarketAssetUiModel>,
     ): MarketOverviewCardUiModel {
+        val usd = marketAssets.firstOrNull {
+            it.symbol == "USD"
+        }
+        val gold18 = marketAssets.firstOrNull {
+            it.symbol == "IR_GOLD_18K"
+        }
         return MarketOverviewCardUiModel(
             marketStatus = MarketStatus.Volatile,
             insightTitle = "بازار در وضعیت نوسانی",
             insightDescription = "تحلیل بازار به‌زودی اضافه می‌شود.",
-            usd = coins.first(),
-            gold18 = coins.getOrNull(1) ?: coins.first(),
+            usd = usd ?: error("USD not found"),
+            gold18 = gold18 ?: error("18K Gold not found"),
         )
     }
 }
