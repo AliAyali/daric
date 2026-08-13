@@ -1,9 +1,9 @@
 package com.aliayali.domain
 
-import com.aliayali.model.market.MarketAsset
-import com.aliayali.model.market.MarketData
 import com.aliayali.model.analysis.MarketOverview
 import com.aliayali.model.analysis.MarketSnapshot
+import com.aliayali.model.market.MarketAsset
+import com.aliayali.model.market.MarketData
 import javax.inject.Inject
 
 class GetMarketOverviewUseCase @Inject constructor(
@@ -27,23 +27,18 @@ class GetMarketOverviewUseCase @Inject constructor(
             it.symbol == "XAUUSD"
         }
 
-        val btc = marketData.coins.first {
-            it.symbol.equals("btc", ignoreCase = true)
-        }
-
         val snapshot = MarketSnapshot(
             usd = usd,
             gold18 = gold18,
             goldOunce = goldOunce,
-            btc = btc,
+            coins = marketData.coins,
+            marketAssets = marketAssets,
         )
 
         val analysis = marketAnalyzer.analyze(snapshot)
 
         return MarketOverview(
-            marketStatus = analysis.status,
-            insightTitle = analysis.title,
-            insightDescription = analysis.description,
+            analysis = analysis,
             usd = usd,
             gold18 = gold18,
         )

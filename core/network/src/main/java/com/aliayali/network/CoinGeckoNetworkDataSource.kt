@@ -5,6 +5,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 interface CoinGeckoNetworkDataSource {
+
     suspend fun getMarkets(
         ids: String,
     ): List<CoinGeckoCoinDto>
@@ -14,6 +15,9 @@ interface CoinGeckoNetworkDataSource {
 class RetrofitCoinGeckoNetworkDataSource @Inject constructor(
     private val api: CoinGeckoApi,
 ) : CoinGeckoNetworkDataSource {
-    override suspend fun getMarkets(ids: String): List<CoinGeckoCoinDto> =
+
+    override suspend fun getMarkets(
+        ids: String,
+    ): List<CoinGeckoCoinDto> =
         api.getMarkets(ids = ids)
 }

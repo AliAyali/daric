@@ -2,72 +2,59 @@ package com.aliayali.data.analyzer
 
 import com.aliayali.domain.MarketAnalyzer
 import com.aliayali.model.analysis.MarketAnalysis
+import com.aliayali.model.analysis.MarketCondition
 import com.aliayali.model.analysis.MarketSnapshot
-import com.aliayali.model.analysis.MarketStatus
 import javax.inject.Inject
 
-class RuleBasedMarketAnalyzer @Inject constructor() : MarketAnalyzer {
+class RuleBasedMarketAnalyzer @Inject constructor(
+    private val scoreCalculator: MarketScoreCalculator,
+    private val confidenceCalculator: MarketConfidenceCalculator,
+    private val reasonBuilder: MarketReasonBuilder,
+) : MarketAnalyzer {
 
-    override fun analyze(snapshot: MarketSnapshot): MarketAnalysis {
+    override fun analyze(
+        snapshot: MarketSnapshot,
+    ): MarketAnalysis {
 
-        val score =
-            calculateScore(snapshot)
+        val signals = scoreCalculator.createSignals(snapshot)
 
-        val status = when {
-            score >= 0.5 -> MarketStatus.Bullish
-            score <= -0.5 -> MarketStatus.Bearish
-            else -> MarketStatus.Volatile
-        }
+        val score = scoreCalculator.calculateScore(signals)
+
+        val confidence = confidenceCalculator.calculate(signals)
+
+        val condition = calculateCondition(score)
+
+        val reasons = reasonBuilder.build(
+            snapshot = snapshot,
+            signals = signals,
+        )
 
         return MarketAnalysis(
-            status = status,
+            condition = condition,
             score = score,
-            title = createTitle(status),
-            description = createDescription(
-                status = status,
-                score = score,
-            ),
+            confidence = confidence,
+            signals = signals,
+            reasons = reasons,
         )
     }
 
-    private fun calculateScore(
-        snapshot: MarketSnapshot,
-    ): Double {
-
-        val usd = snapshot.usd.changePercent ?: 0.0
-        val gold18 = snapshot.gold18.changePercent ?: 0.0
-        val goldOunce = snapshot.goldOunce.changePercent ?: 0.0
-        val btc = snapshot.btc.changePercent24h ?: 0.0
-
-        return (usd * 0.30 + gold18 * 0.30 + goldOunce * 0.20 + btc * 0.20)
-    }
-
-    private fun createTitle(
-        status: MarketStatus,
-    ): String =
-        when (status) {
-            MarketStatus.Bullish ->
-                "بازار تمایل صعودی دارد"
-
-            MarketStatus.Bearish ->
-                "بازار تمایل نزولی دارد"
-
-            MarketStatus.Volatile ->
-                "بازار در وضعیت نوسانی است"
-        }
-
-    private fun createDescription(
-        status: MarketStatus,
+    private fun calculateCondition(
         score: Double,
-    ): String =
-        when (status) {
-            MarketStatus.Bullish ->
-                "بررسی شاخص‌های اصلی نشان‌دهنده فشار صعودی در بازار است."
+    ): MarketCondition {
+        val absoluteScore = kotlin.math.abs(score)
 
-            MarketStatus.Bearish ->
-                "بررسی شاخص‌های اصلی نشان‌دهنده فشار نزولی در بازار است."
+        return when {
+            absoluteScore >= 0.75 ->
+                MarketCondition.Critical
 
-            MarketStatus.Volatile ->
-                "شاخص‌های اصلی جهت مشخصی را نشان نمی‌دهند و بازار نوسانی است."
+            absoluteScore >= 0.45 ->
+                MarketCondition.Volatile
+
+            absoluteScore >= 0.20 ->
+                MarketCondition.Normal
+
+            else ->
+                MarketCondition.Calm
         }
+    }
 }

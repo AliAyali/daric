@@ -8,14 +8,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 
 @Composable
 fun MarketInsight(
-    title: String,
-    description: String,
+    titleRes: Int,
+    descriptionRes: Int,
     modifier: Modifier = Modifier,
 ) {
 
@@ -26,7 +27,7 @@ fun MarketInsight(
         Text(
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start,
-            text = title,
+            text = stringResource(titleRes),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.background,
         )
@@ -40,11 +41,14 @@ fun MarketInsight(
         Text(
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start,
-            text = description,
+            text = stringResource(descriptionRes),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.background.copy(alpha = .65f),
         )
 
+        Spacer(
+            modifier = Modifier.height(8.dp),
+        )
     }
 
 }

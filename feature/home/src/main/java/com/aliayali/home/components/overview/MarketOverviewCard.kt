@@ -55,12 +55,19 @@ fun MarketOverviewCard(
                 MarketStatusRing(status = overview.marketStatus)
                 Spacer(Modifier.width(10.dp))
                 MarketInsight(
-                    title = overview.insightTitle,
-                    description = overview.insightDescription,
+                    titleRes = overview.insightTitleRes,
+                    descriptionRes = overview.insightDescriptionRes,
                 )
             }
 
-            Spacer(Modifier.height(28.dp))
+            Spacer(Modifier.height(16.dp))
+
+            MarketAnalysisDetails(
+                signals = overview.signals,
+                reasons = overview.reasons,
+            )
+
+            Spacer(Modifier.height(16.dp))
 
             HorizontalDivider(
                 color = MaterialTheme.colorScheme.background.copy(alpha = 0.08f),

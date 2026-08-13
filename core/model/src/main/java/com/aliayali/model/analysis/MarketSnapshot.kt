@@ -7,5 +7,6 @@ data class MarketSnapshot(
     val usd: MarketAsset,
     val gold18: MarketAsset,
     val goldOunce: MarketAsset,
-    val btc: Coin,
+    val coins: List<Coin>,
+    val marketAssets: List<MarketAsset>,
 )
