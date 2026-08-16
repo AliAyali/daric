@@ -3,14 +3,18 @@ package com.aliayali.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.aliayali.designsystem.component.DaricLoadingIndicator
+import com.aliayali.home.components.loading.MarketAssetItemSkeleton
+import com.aliayali.home.components.loading.MarketOverviewCardSkeleton
 import com.aliayali.home.components.market.MarketAssetItem
 import com.aliayali.home.components.market.MarketListHeader
 import com.aliayali.home.components.overview.MarketOverviewCard
@@ -25,7 +29,16 @@ fun HomeScreen(
     when (uiState) {
 
         HomeUiState.Loading -> {
-            DaricLoadingIndicator()
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                MarketOverviewCardSkeleton()
+                Spacer(Modifier.height(20.dp))
+                repeat(2) {
+                    MarketAssetItemSkeleton()
+                }
+            }
         }
 
         is HomeUiState.Success -> {
@@ -47,7 +60,6 @@ fun HomeScreen(
                     }
                 )
             }
-
         }
 
         is HomeUiState.Error -> {
