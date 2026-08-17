@@ -28,168 +28,67 @@
     <string name="feature_home_market_status_critical">بازار در وضعیت حساسی قرار دارد</string>
 
     <!-- Market Description -->
-    <string name="feature_home_market_description_calm_high_confidence">
-        شاخص‌های اصلی بازار تغییرات شدیدی ندارند و سیگنال‌ها هم‌جهت هستند.
-    </string>
-
-    <string name="feature_home_market_description_normal_high_confidence">
-        شاخص‌های اصلی بازار در محدوده متعادل قرار دارند و بیشتر سیگنال‌ها هم‌جهت هستند.
-    </string>
-
-    <string name="feature_home_market_description_volatile_high_confidence">
-        نوسانات بازار قابل‌توجه است و بیشتر شاخص‌ها حرکت مشخصی دارند.
-    </string>
-
-    <string name="feature_home_market_description_critical_high_confidence">
-        بازار در شرایط حساسی قرار دارد و تغییرات شاخص‌های اصلی شدید است.
-    </string>
-
-    <string name="feature_home_market_description_calm_medium_confidence">
-        بازار نسبتاً آرام است، اما بخشی از شاخص‌ها سیگنال متفاوتی نشان می‌دهند.
-    </string>
-
-    <string name="feature_home_market_description_normal_medium_confidence">
-        شرایط کلی بازار متعادل است، اما برخی شاخص‌ها هم‌جهت نیستند.
-    </string>
-
-    <string name="feature_home_market_description_volatile_medium_confidence">
-        بازار نوسانی است و جهت حرکت شاخص‌ها کاملاً مشخص نیست.
-    </string>
-
-    <string name="feature_home_market_description_critical_medium_confidence">
-        شرایط بازار حساس است و برای نتیجه‌گیری قطعی به داده بیشتری نیاز است.
-    </string>
-
-    <string name="feature_home_market_description_low_confidence">
-        سیگنال‌های بازار قدرت کافی برای یک نتیجه‌گیری مطمئن ندارند.
-    </string>
+    <string name="feature_home_market_description_calm_high_confidence">شاخص‌های اصلی بازار تغییرات شدیدی ندارند و سیگنال‌ها هم‌جهت هستند.</string>
+    <string name="feature_home_market_description_normal_high_confidence">شاخص‌های اصلی بازار در محدوده متعادل قرار دارند و بیشتر سیگنال‌ها هم‌جهت هستند.</string>
+    <string name="feature_home_market_description_volatile_high_confidence">نوسانات بازار قابل‌توجه است و بیشتر شاخص‌ها حرکت مشخصی دارند.</string>
+    <string name="feature_home_market_description_critical_high_confidence">بازار در شرایط حساسی قرار دارد و تغییرات شاخص‌های اصلی شدید است.</string>
+    <string name="feature_home_market_description_calm_medium_confidence">بازار نسبتاً آرام است، اما بخشی از شاخص‌ها سیگنال متفاوتی نشان می‌دهند.</string>
+    <string name="feature_home_market_description_normal_medium_confidence">شرایط کلی بازار متعادل است، اما برخی شاخص‌ها هم‌جهت نیستند.</string>
+    <string name="feature_home_market_description_volatile_medium_confidence">بازار نوسانی است و جهت حرکت شاخص‌ها کاملاً مشخص نیست.</string>
+    <string name="feature_home_market_description_critical_medium_confidence">شرایط بازار حساس است و برای نتیجه‌گیری قطعی به داده بیشتری نیاز است.</string>
+    <string name="feature_home_market_description_low_confidence">سیگنال‌های بازار قدرت کافی برای یک نتیجه‌گیری مطمئن ندارند.</string>
 
     <!-- Market Reasons: USD -->
-    <string name="feature_home_market_reason_usd_significant_increase">
-        دلار افزایش قابل‌توجهی داشته است.
-    </string>
-
-    <string name="feature_home_market_reason_usd_increase">
-        دلار روند افزایشی دارد.
-    </string>
-
-    <string name="feature_home_market_reason_usd_significant_decrease">
-        دلار کاهش قابل‌توجهی داشته است.
-    </string>
-
-    <string name="feature_home_market_reason_usd_decrease">
-        دلار روند کاهشی دارد.
-    </string>
-
-    <string name="feature_home_market_reason_usd_minor_change">
-        دلار تغییر جزئی داشته است.
-    </string>
+    <string name="feature_home_market_reason_usd_significant_increase">دلار افزایش قابل‌توجهی داشته است.</string>
+    <string name="feature_home_market_reason_usd_increase">دلار روند افزایشی دارد.</string>
+    <string name="feature_home_market_reason_usd_significant_decrease">دلار کاهش قابل‌توجهی داشته است.</string>
+    <string name="feature_home_market_reason_usd_decrease">دلار روند کاهشی دارد.</string>
+    <string name="feature_home_market_reason_usd_minor_change">دلار تغییر جزئی داشته است.</string>
 
     <!-- Market Reasons: Gold 18K -->
-    <string name="feature_home_market_reason_gold_18k_significant_increase">
-        طلای ۱۸ عیار افزایش قابل‌توجهی داشته است.
-    </string>
-
-    <string name="feature_home_market_reason_gold_18k_increase">
-        طلای ۱۸ عیار روند افزایشی دارد.
-    </string>
-
-    <string name="feature_home_market_reason_gold_18k_significant_decrease">
-        طلای ۱۸ عیار کاهش قابل‌توجهی داشته است.
-    </string>
-
-    <string name="feature_home_market_reason_gold_18k_decrease">
-        طلای ۱۸ عیار روند کاهشی دارد.
-    </string>
-
-    <string name="feature_home_market_reason_gold_18k_minor_change">
-        طلای ۱۸ عیار تغییر جزئی داشته است.
-    </string>
+    <string name="feature_home_market_reason_gold_18k_significant_increase">طلای ۱۸ عیار افزایش قابل‌توجهی داشته است.</string>
+    <string name="feature_home_market_reason_gold_18k_increase">طلای ۱۸ عیار روند افزایشی دارد.</string>
+    <string name="feature_home_market_reason_gold_18k_significant_decrease">طلای ۱۸ عیار کاهش قابل‌توجهی داشته است.</string>
+    <string name="feature_home_market_reason_gold_18k_decrease">طلای ۱۸ عیار روند کاهشی دارد.</string>
+    <string name="feature_home_market_reason_gold_18k_minor_change">طلای ۱۸ عیار تغییر جزئی داشته است.</string>
 
     <!-- Market Reasons: Gold Ounce -->
-    <string name="feature_home_market_reason_gold_ounce_significant_increase">
-        اونس جهانی طلا افزایش قابل‌توجهی داشته است.
-    </string>
-
-    <string name="feature_home_market_reason_gold_ounce_increase">
-        اونس جهانی طلا روند افزایشی دارد.
-    </string>
-
-    <string name="feature_home_market_reason_gold_ounce_significant_decrease">
-        اونس جهانی طلا کاهش قابل‌توجهی داشته است.
-    </string>
-
-    <string name="feature_home_market_reason_gold_ounce_decrease">
-        اونس جهانی طلا روند کاهشی دارد.
-    </string>
-
-    <string name="feature_home_market_reason_gold_ounce_minor_change">
-        اونس جهانی طلا تغییر جزئی داشته است.
-    </string>
+    <string name="feature_home_market_reason_gold_ounce_significant_increase">اونس جهانی طلا افزایش قابل‌توجهی داشته است.</string>
+    <string name="feature_home_market_reason_gold_ounce_increase">اونس جهانی طلا روند افزایشی دارد.</string>
+    <string name="feature_home_market_reason_gold_ounce_significant_decrease">اونس جهانی طلا کاهش قابل‌توجهی داشته است.</string>
+    <string name="feature_home_market_reason_gold_ounce_decrease">اونس جهانی طلا روند کاهشی دارد.</string>
+    <string name="feature_home_market_reason_gold_ounce_minor_change">اونس جهانی طلا تغییر جزئی داشته است.</string>
 
     <!-- Market Reasons: Crypto -->
-    <string name="feature_home_market_reason_crypto_strong_positive">
-        بیشتر رمزارزهای بررسی‌شده رشد قابل‌توجهی دارند.
-    </string>
-
-    <string name="feature_home_market_reason_crypto_moderate_positive">
-        بیشتر رمزارزهای بررسی‌شده روند مثبتی دارند.
-    </string>
-
-    <string name="feature_home_market_reason_crypto_weak_positive">
-        بیشتر رمزارزهای بررسی‌شده تغییرات مثبتی دارند.
-    </string>
-
-    <string name="feature_home_market_reason_crypto_strong_negative">
-        بیشتر رمزارزهای بررسی‌شده کاهش قابل‌توجهی دارند.
-    </string>
-
-    <string name="feature_home_market_reason_crypto_moderate_negative">
-        بیشتر رمزارزهای بررسی‌شده روند منفی دارند.
-    </string>
-
-    <string name="feature_home_market_reason_crypto_weak_negative">
-        بیشتر رمزارزهای بررسی‌شده تغییرات منفی دارند.
-    </string>
-
-    <string name="feature_home_market_reason_crypto_mixed">
-        بازار رمزارزها سیگنال یکدستی ندارد.
-    </string>
+    <string name="feature_home_market_reason_crypto_strong_positive">بیشتر رمزارزهای بررسی‌شده رشد قابل‌توجهی دارند.</string>
+    <string name="feature_home_market_reason_crypto_moderate_positive">بیشتر رمزارزهای بررسی‌شده روند مثبتی دارند.</string>
+    <string name="feature_home_market_reason_crypto_weak_positive">بیشتر رمزارزهای بررسی‌شده تغییرات مثبتی دارند.</string>
+    <string name="feature_home_market_reason_crypto_strong_negative">بیشتر رمزارزهای بررسی‌شده کاهش قابل‌توجهی دارند.</string>
+    <string name="feature_home_market_reason_crypto_moderate_negative">بیشتر رمزارزهای بررسی‌شده روند منفی دارند.</string>
+    <string name="feature_home_market_reason_crypto_weak_negative">بیشتر رمزارزهای بررسی‌شده تغییرات منفی دارند.</string>
+    <string name="feature_home_market_reason_crypto_mixed">بازار رمزارزها سیگنال یکدستی ندارد.</string>
 
     <!-- Market Reasons: Local Market -->
-    <string name="feature_home_market_reason_local_strong_positive">
-        شاخص‌های بازار داخلی روند صعودی قابل‌توجهی دارند.
-    </string>
-
-    <string name="feature_home_market_reason_local_strong_negative">
-        شاخص‌های بازار داخلی روند نزولی قابل‌توجهی دارند.
-    </string>
-
-    <string name="feature_home_market_reason_local_moderate_positive">
-        شاخص‌های بازار داخلی روند مثبتی دارند.
-    </string>
-
-    <string name="feature_home_market_reason_local_moderate_negative">
-        شاخص‌های بازار داخلی روند منفی دارند.
-    </string>
-
-    <string name="feature_home_market_reason_local_weak">
-        شاخص‌های بازار داخلی تغییرات محدودی دارند.
-    </string>
+    <string name="feature_home_market_reason_local_strong_positive">شاخص‌های بازار داخلی روند صعودی قابل‌توجهی دارند.</string>
+    <string name="feature_home_market_reason_local_strong_negative">شاخص‌های بازار داخلی روند نزولی قابل‌توجهی دارند.</string>
+    <string name="feature_home_market_reason_local_moderate_positive">شاخص‌های بازار داخلی روند مثبتی دارند.</string>
+    <string name="feature_home_market_reason_local_moderate_negative">شاخص‌های بازار داخلی روند منفی دارند.</string>
+    <string name="feature_home_market_reason_local_weak">شاخص‌های بازار داخلی تغییرات محدودی دارند.</string>
 
     <!-- Market Reasons: BTC -->
-    <string name="feature_home_market_reason_btc_trend_rising">
-        روند هفت روزه بیت‌کوین صعودی است.
-    </string>
-
-    <string name="feature_home_market_reason_btc_trend_falling">
-        روند هفت روزه بیت‌کوین نزولی است.
-    </string>
-
-    <string name="feature_home_market_reason_btc_trend_stable">
-        بیت‌کوین در وضعیت نسبتاً باثباتی قرار دارد.
-    </string>
-
+    <string name="feature_home_market_reason_btc_trend_rising">روند هفت روزه بیت‌کوین صعودی است.</string>
+    <string name="feature_home_market_reason_btc_trend_falling">روند هفت روزه بیت‌کوین نزولی است.</string>
+    <string name="feature_home_market_reason_btc_trend_stable">بیت‌کوین در وضعیت نسبتاً باثباتی قرار دارد.</string>
     <string name="feature_home_currency_toman">تومان</string>
 
+    <!-- Error -->
+    <string name="feature_home_error_no_internet_title">اتصال به اینترنت برقرار نیست</string>
+    <string name="feature_home_error_no_internet_description">اتصال اینترنت خود را بررسی کنید و دوباره تلاش کنید.</string>
+    <string name="feature_home_error_timeout_title">ارتباط با سرور زمان‌بر شد</string>
+    <string name="feature_home_error_timeout_description">ارتباط با سرور بیش از حد طول کشید. دوباره تلاش کنید.</string>
+    <string name="feature_home_error_server_title">دریافت اطلاعات با خطا مواجه شد</string>
+    <string name="feature_home_error_server_description">در حال حاضر دریافت اطلاعات بازار امکان‌پذیر نیست.</string>
+    <string name="feature_home_error_unknown_title">خطایی رخ داد</string>
+    <string name="feature_home_error_unknown_description">مشکلی در دریافت اطلاعات رخ داده است. دوباره تلاش کنید.</string>
+    <string name="feature_home_error_retry">تلاش مجدد</string>
 </resources>

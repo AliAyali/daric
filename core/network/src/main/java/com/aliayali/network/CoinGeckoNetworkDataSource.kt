@@ -1,5 +1,6 @@
 package com.aliayali.network
 
+import com.aliayali.network.error.safeNetworkCall
 import com.aliayali.network.model.CoinGeckoCoinDto
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,5 +20,7 @@ class RetrofitCoinGeckoNetworkDataSource @Inject constructor(
     override suspend fun getMarkets(
         ids: String,
     ): List<CoinGeckoCoinDto> =
-        api.getMarkets(ids = ids)
+        safeNetworkCall {
+            api.getMarkets(ids = ids)
+        }
 }

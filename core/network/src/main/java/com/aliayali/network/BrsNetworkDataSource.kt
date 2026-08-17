@@ -1,5 +1,6 @@
 package com.aliayali.network
 
+import com.aliayali.network.error.safeNetworkCall
 import com.aliayali.network.model.BrsMarketResponseDto
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,7 +15,9 @@ class RetrofitBrsNetworkDataSource @Inject constructor(
 ) : BrsNetworkDataSource {
 
     override suspend fun getMarket(): BrsMarketResponseDto =
-        api.getMarket(
-            apiKey = BuildConfig.BRS_API_KEY,
-        )
+        safeNetworkCall {
+            api.getMarket(
+                apiKey = BuildConfig.BRS_API_KEY,
+            )
+        }
 }

@@ -3,6 +3,7 @@ package com.aliayali.home
 import com.aliayali.home.model.CoinUiModel
 import com.aliayali.home.model.MarketAssetUiModel
 import com.aliayali.home.model.MarketOverviewCardUiModel
+import com.aliayali.model.error.AppError
 
 sealed interface HomeUiState {
     data object Loading : HomeUiState
@@ -15,6 +16,6 @@ sealed interface HomeUiState {
     ) : HomeUiState
 
     data class Error(
-        val message: String,
+        val error: AppError,
     ) : HomeUiState
 }

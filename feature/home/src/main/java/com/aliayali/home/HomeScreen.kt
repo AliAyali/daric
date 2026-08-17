@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.aliayali.designsystem.component.DaricPullToRefresh
+import com.aliayali.home.components.error.HomeErrorContent
 import com.aliayali.home.components.loading.MarketAssetItemSkeleton
 import com.aliayali.home.components.loading.MarketOverviewCardSkeleton
 import com.aliayali.home.components.market.MarketAssetItem
@@ -85,13 +86,13 @@ fun HomeScreen(
         }
 
         is HomeUiState.Error -> {
-            Column(
+            HomeErrorContent(
+                error = uiState.error,
+                onRetry = {
+                    onEvent(HomeEvent.Refresh)
+                },
                 modifier = Modifier.fillMaxSize(),
-            ) {
-                androidx.compose.material3.Text(
-                    text = "Error: ${uiState.message}",
-                )
-            }
+            )
         }
     }
 }
