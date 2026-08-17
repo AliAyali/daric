@@ -10,9 +10,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.aliayali.designsystem.component.DaricPullToRefresh
 import com.aliayali.home.components.loading.MarketAssetItemSkeleton
 import com.aliayali.home.components.loading.MarketOverviewCardSkeleton
 import com.aliayali.home.components.market.MarketAssetItem
@@ -42,23 +47,40 @@ fun HomeScreen(
         }
 
         is HomeUiState.Success -> {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(20.dp),
-            ) {
-                homeOverview(uiState.overview)
+            val listState = rememberLazyListState()
 
-                homeSections(
-                    coins = uiState.coins,
-                    onMoreClick = {
-                        onEvent(HomeEvent.SectionMoreClick)
-                    },
-                    onCoinClick = {
-                        onEvent(HomeEvent.CoinClick(it))
-                    }
-                )
+            val isAtTop by remember {
+                derivedStateOf {
+                    listState.firstVisibleItemIndex == 0 &&
+                            listState.firstVisibleItemScrollOffset == 0
+                }
+            }
+
+            DaricPullToRefresh(
+                isRefreshing = uiState.isRefreshing,
+                isAtTop = isAtTop,
+                onRefresh = {
+                    onEvent(HomeEvent.Refresh)
+                },
+            ) {
+                LazyColumn(
+                    state = listState,
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(20.dp),
+                ) {
+                    homeOverview(uiState.overview)
+
+                    homeSections(
+                        coins = uiState.coins,
+                        onMoreClick = {
+                            onEvent(HomeEvent.SectionMoreClick)
+                        },
+                        onCoinClick = {
+                            onEvent(HomeEvent.CoinClick(it))
+                        },
+                    )
+                }
             }
         }
 

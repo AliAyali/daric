@@ -11,6 +11,7 @@ sealed interface HomeUiState {
         val overview: MarketOverviewCardUiModel,
         val coins: List<CoinUiModel>,
         val marketAssets: List<MarketAssetUiModel>,
+        val isRefreshing: Boolean = false,
     ) : HomeUiState
 
     data class Error(
