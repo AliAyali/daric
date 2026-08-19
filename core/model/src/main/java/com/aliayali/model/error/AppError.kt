@@ -12,3 +12,13 @@ sealed interface AppError {
 
     data object Unknown : AppError
 }
+
+val AppError.isRetryable: Boolean
+    get() = when (this) {
+        AppError.NoInternet -> true
+        AppError.Timeout -> true
+
+        is AppError.Server -> code in 500..599
+
+        AppError.Unknown -> false
+    }

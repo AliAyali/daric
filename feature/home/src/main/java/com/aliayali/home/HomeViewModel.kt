@@ -3,7 +3,10 @@ package com.aliayali.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aliayali.domain.GetHomeMarketDataUseCase
+import com.aliayali.domain.ObserveNetworkConnectivityUseCase
+import com.aliayali.domain.sync.MarketSyncer
 import com.aliayali.home.mapper.asUiData
+import com.aliayali.model.HomeMarketData
 import com.aliayali.model.result.AppResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getHomeMarketDataUseCase: GetHomeMarketDataUseCase,
+    private val observeNetworkConnectivityUseCase: ObserveNetworkConnectivityUseCase,
+    private val marketSyncer: MarketSyncer,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(
@@ -24,29 +29,133 @@ class HomeViewModel @Inject constructor(
 
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
+    private var hasLocalData = false
+    private var isOnline: Boolean? = null
+
     init {
-        loadHomeData()
+        observeNetwork()
+        observeHomeData()
+        performSync()
     }
 
-    private fun loadHomeData() {
+    private fun observeNetwork() {
         viewModelScope.launch {
-            _uiState.value = HomeUiState.Loading
+            observeNetworkConnectivityUseCase()
+                .collect { online ->
 
-            when (val result = getHomeMarketDataUseCase()) {
+                    val wasOffline = isOnline == false
+                    isOnline = online
+
+                    _uiState.update { currentState ->
+                        if (currentState is HomeUiState.Success) {
+                            currentState.copy(
+                                isOffline = !online,
+                            )
+                        } else {
+                            currentState
+                        }
+                    }
+
+                    if (wasOffline && online) {
+                        refresh()
+                    }
+                }
+        }
+    }
+
+    private fun observeHomeData() {
+        viewModelScope.launch {
+            getHomeMarketDataUseCase
+                .observeHomeMarketData()
+                .collect { homeData ->
+
+                    if (!hasUsableData(homeData)) {
+                        return@collect
+                    }
+
+                    hasLocalData = true
+
+                    val uiData = homeData.asUiData()
+
+                    _uiState.update { currentState ->
+                        when (currentState) {
+                            is HomeUiState.Success -> {
+                                currentState.copy(
+                                    overview = uiData.overview,
+                                    coins = uiData.coins,
+                                    marketAssets = uiData.marketAssets,
+                                )
+                            }
+
+                            else -> {
+                                HomeUiState.Success(
+                                    overview = uiData.overview,
+                                    coins = uiData.coins,
+                                    marketAssets = uiData.marketAssets,
+                                    isRefreshing = false,
+                                    isOffline = isOnline != true,
+                                )
+                            }
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun performSync(
+        showRefreshing: Boolean = false,
+    ) {
+        viewModelScope.launch {
+
+            if (!hasLocalData && !showRefreshing) {
+                _uiState.value = HomeUiState.Loading
+            }
+
+            if (showRefreshing) {
+                _uiState.update { currentState ->
+                    if (currentState is HomeUiState.Success) {
+                        currentState.copy(
+                            isRefreshing = true,
+                        )
+                    } else {
+                        currentState
+                    }
+                }
+            }
+
+            when (val result = marketSyncer.sync()) {
+
                 is AppResult.Success -> {
-                    val uiData = result.data.asUiData()
-
-                    _uiState.value = HomeUiState.Success(
-                        overview = uiData.overview,
-                        coins = uiData.coins,
-                        marketAssets = uiData.marketAssets,
-                    )
+                    _uiState.update { currentState ->
+                        if (currentState is HomeUiState.Success) {
+                            currentState.copy(
+                                isRefreshing = false,
+                                isOffline = false,
+                            )
+                        } else {
+                            currentState
+                        }
+                    }
                 }
 
                 is AppResult.Failure -> {
-                    _uiState.value = HomeUiState.Error(
-                        error = result.error,
-                    )
+                    _uiState.update { currentState ->
+
+                        when (currentState) {
+                            is HomeUiState.Success -> {
+                                currentState.copy(
+                                    isRefreshing = false,
+                                    isOffline = true,
+                                )
+                            }
+
+                            else -> {
+                                HomeUiState.Error(
+                                    error = result.error,
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -55,35 +164,22 @@ class HomeViewModel @Inject constructor(
     private fun refresh() {
         val currentState = _uiState.value
 
-        if (currentState !is HomeUiState.Success) return
-        if (currentState.isRefreshing) return
-
-        viewModelScope.launch {
-            _uiState.update {
-                currentState.copy(
-                    isRefreshing = true,
-                )
-            }
-
-            when (val result = getHomeMarketDataUseCase()) {
-                is AppResult.Success -> {
-                    val uiData = result.data.asUiData()
-
-                    _uiState.value = HomeUiState.Success(
-                        overview = uiData.overview,
-                        coins = uiData.coins,
-                        marketAssets = uiData.marketAssets,
-                        isRefreshing = false,
-                    )
-                }
-
-                is AppResult.Failure -> {
-                    _uiState.value = currentState.copy(
-                        isRefreshing = false,
-                    )
-                }
-            }
+        if (currentState !is HomeUiState.Success) {
+            return
         }
+
+        if (currentState.isRefreshing) {
+            return
+        }
+
+        performSync(showRefreshing = true)
+    }
+
+    private fun hasUsableData(
+        data: HomeMarketData,
+    ): Boolean {
+        return data.coins.isNotEmpty() &&
+                data.marketAssets.isNotEmpty()
     }
 
     fun onEvent(event: HomeEvent) {

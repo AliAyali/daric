@@ -3,7 +3,9 @@ package com.aliayali.domain
 import com.aliayali.domain.repository.MarketAssetRepository
 import com.aliayali.domain.repository.MarketRepository
 import com.aliayali.model.HomeMarketData
-import com.aliayali.model.result.AppResult
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import javax.inject.Inject
 
 class GetHomeMarketDataUseCase @Inject constructor(
@@ -12,41 +14,33 @@ class GetHomeMarketDataUseCase @Inject constructor(
     private val getMarketOverviewUseCase: GetMarketOverviewUseCase,
 ) {
 
-    suspend operator fun invoke(): AppResult<HomeMarketData> {
+    fun observeHomeMarketData(): Flow<HomeMarketData> {
+        return combine(
+            marketRepository.observeMarketData(),
+            marketAssetRepository.observeMarketAssets(),
+        ) { marketData, marketAssets ->
 
-        val marketResult = marketRepository.getMarketData()
+            val hasRequiredAssets =
+                marketAssets.any { it.symbol == "USD" } &&
+                        marketAssets.any { it.symbol == "IR_GOLD_18K" } &&
+                        marketAssets.any { it.symbol == "XAUUSD" }
+            if (
+                marketData.coins.isEmpty() ||
+                !hasRequiredAssets
+            ) {
+                null
+            } else {
+                val marketOverview = getMarketOverviewUseCase(
+                    marketData = marketData,
+                    marketAssets = marketAssets,
+                )
 
-        if (marketResult is AppResult.Failure) {
-            return AppResult.Failure(
-                error = marketResult.error,
-            )
-        }
-
-        val assetResult = marketAssetRepository.getMarketAssets()
-
-        if (assetResult is AppResult.Failure) {
-            return AppResult.Failure(
-                error = assetResult.error,
-            )
-        }
-
-        val marketData =
-            (marketResult as AppResult.Success).data
-
-        val marketAssets =
-            (assetResult as AppResult.Success).data
-
-        val marketOverview = getMarketOverviewUseCase(
-            marketData = marketData,
-            marketAssets = marketAssets,
-        )
-
-        return AppResult.Success(
-            data = HomeMarketData(
-                marketOverview = marketOverview,
-                coins = marketData.coins,
-                marketAssets = marketAssets,
-            ),
-        )
+                HomeMarketData(
+                    marketOverview = marketOverview,
+                    coins = marketData.coins,
+                    marketAssets = marketAssets,
+                )
+            }
+        }.filterNotNull()
     }
 }

@@ -8,16 +8,9 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CoinDao {
-
     @Upsert
-    suspend fun upsertAll(coins: List<CoinEntity>, )
-
-    @Query("SELECT * FROM coins")
-    suspend fun getAll(): List<CoinEntity>
+    suspend fun upsertAll(coins: List<CoinEntity>)
 
     @Query("SELECT * FROM coins")
     fun observeAll(): Flow<List<CoinEntity>>
-
-    @Query("DELETE FROM coins")
-    suspend fun clear()
 }

@@ -13,6 +13,7 @@ sealed interface HomeUiState {
         val coins: List<CoinUiModel>,
         val marketAssets: List<MarketAssetUiModel>,
         val isRefreshing: Boolean = false,
+        val isOffline: Boolean = false,
     ) : HomeUiState
 
     data class Error(

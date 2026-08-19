@@ -74,6 +74,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.testManifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
+    implementation(projects.sync)
     implementation(projects.feature.home)
     implementation(projects.feature.search)
     implementation(projects.feature.setting)

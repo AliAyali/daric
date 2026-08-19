@@ -10,7 +10,7 @@ class GetMarketOverviewUseCase @Inject constructor(
     private val marketAnalyzer: MarketAnalyzer,
 ) {
 
-    suspend operator fun invoke(
+    operator fun invoke(
         marketData: MarketData,
         marketAssets: List<MarketAsset>,
     ): MarketOverview {

@@ -91,4 +91,6 @@
     <string name="feature_home_error_unknown_title">خطایی رخ داد</string>
     <string name="feature_home_error_unknown_description">مشکلی در دریافت اطلاعات رخ داده است. دوباره تلاش کنید.</string>
     <string name="feature_home_error_retry">تلاش مجدد</string>
+    <string name="feature_home_offline_title">اتصال به اینترنت برقرار نیست</string>
+    <string name="feature_home_offline_message">داده‌های ذخیره‌شده نمایش داده می‌شوند.</string>
 </resources>
