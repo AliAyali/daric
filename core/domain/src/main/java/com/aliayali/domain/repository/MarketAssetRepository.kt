@@ -1,7 +1,7 @@
 package com.aliayali.domain.repository
 
+import com.aliayali.common.result.AppResult
 import com.aliayali.model.market.MarketAsset
-import com.aliayali.model.result.AppResult
 import kotlinx.coroutines.flow.Flow
 
 interface MarketAssetRepository {

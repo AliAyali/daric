@@ -1,6 +1,6 @@
 package com.aliayali.data.error
 
-import com.aliayali.model.error.AppError
+import com.aliayali.common.error.AppError
 import com.aliayali.network.error.NetworkError
 import com.aliayali.network.error.NetworkException
 

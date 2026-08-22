@@ -15,7 +15,7 @@ import com.aliayali.database.model.MarketAssetEntity
     version = 1,
     exportSchema = true,
 )
-abstract class DaricDatabase : RoomDatabase() {
+internal abstract class DaricDatabase : RoomDatabase() {
 
     abstract fun coinDao(): CoinDao
 

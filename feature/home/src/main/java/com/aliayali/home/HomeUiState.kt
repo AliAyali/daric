@@ -1,17 +1,13 @@
 package com.aliayali.home
 
-import com.aliayali.home.model.CoinUiModel
-import com.aliayali.home.model.MarketAssetUiModel
-import com.aliayali.home.model.MarketOverviewCardUiModel
-import com.aliayali.model.error.AppError
+import com.aliayali.common.error.AppError
+import com.aliayali.home.model.HomeUiData
 
 sealed interface HomeUiState {
     data object Loading : HomeUiState
 
     data class Success(
-        val overview: MarketOverviewCardUiModel,
-        val coins: List<CoinUiModel>,
-        val marketAssets: List<MarketAssetUiModel>,
+        val homeUiData: HomeUiData,
         val isRefreshing: Boolean = false,
         val isOffline: Boolean = false,
     ) : HomeUiState

@@ -1,6 +1,6 @@
-package com.aliayali.model.result
+package com.aliayali.common.result
 
-import com.aliayali.model.error.AppError
+import com.aliayali.common.error.AppError
 
 sealed interface AppResult<out T> {
 

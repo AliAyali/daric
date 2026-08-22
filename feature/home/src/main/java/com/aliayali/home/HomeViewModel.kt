@@ -2,12 +2,13 @@ package com.aliayali.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aliayali.common.result.AppResult
 import com.aliayali.domain.GetHomeMarketDataUseCase
 import com.aliayali.domain.ObserveNetworkConnectivityUseCase
 import com.aliayali.domain.sync.MarketSyncer
 import com.aliayali.home.mapper.asUiData
+import com.aliayali.home.model.HomeUiData
 import com.aliayali.model.HomeMarketData
-import com.aliayali.model.result.AppResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -77,21 +78,25 @@ class HomeViewModel @Inject constructor(
 
                     val uiData = homeData.asUiData()
 
-                    _uiState.update { currentState ->
-                        when (currentState) {
+                    _uiState.update { homeUiState ->
+                        when (homeUiState) {
                             is HomeUiState.Success -> {
-                                currentState.copy(
-                                    overview = uiData.overview,
-                                    coins = uiData.coins,
-                                    marketAssets = uiData.marketAssets,
+                                homeUiState.copy(
+                                    homeUiData = HomeUiData(
+                                        overview = uiData.overview,
+                                        coins = uiData.coins,
+                                        marketAssets = uiData.marketAssets,
+                                    )
                                 )
                             }
 
                             else -> {
                                 HomeUiState.Success(
-                                    overview = uiData.overview,
-                                    coins = uiData.coins,
-                                    marketAssets = uiData.marketAssets,
+                                    homeUiData = HomeUiData(
+                                        overview = uiData.overview,
+                                        coins = uiData.coins,
+                                        marketAssets = uiData.marketAssets,
+                                    ),
                                     isRefreshing = false,
                                     isOffline = isOnline != true,
                                 )

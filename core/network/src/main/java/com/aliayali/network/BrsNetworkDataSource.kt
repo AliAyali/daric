@@ -2,6 +2,7 @@ package com.aliayali.network
 
 import com.aliayali.network.error.safeNetworkCall
 import com.aliayali.network.model.BrsMarketResponseDto
+import com.aliayali.network.retrofit.BrsApi
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -1,4 +1,4 @@
-package com.aliayali.model.error
+package com.aliayali.common.error
 
 sealed interface AppError {
 

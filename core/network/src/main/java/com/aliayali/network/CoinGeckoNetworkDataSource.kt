@@ -2,6 +2,7 @@ package com.aliayali.network
 
 import com.aliayali.network.error.safeNetworkCall
 import com.aliayali.network.model.CoinGeckoCoinDto
+import com.aliayali.network.retrofit.CoinGeckoApi
 import javax.inject.Inject
 import javax.inject.Singleton
 

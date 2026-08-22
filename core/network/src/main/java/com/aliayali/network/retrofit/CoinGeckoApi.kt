@@ -1,4 +1,4 @@
-package com.aliayali.network
+package com.aliayali.network.retrofit
 
 import com.aliayali.network.model.CoinGeckoCoinDto
 import retrofit2.http.GET

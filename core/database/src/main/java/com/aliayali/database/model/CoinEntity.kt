@@ -2,6 +2,7 @@ package com.aliayali.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.aliayali.model.market.Coin
 
 @Entity(tableName = "coins")
 data class CoinEntity(
@@ -13,3 +14,23 @@ data class CoinEntity(
     val price: Double?,
     val changePercent24h: Double?,
 )
+
+fun CoinEntity.asModel(): Coin =
+    Coin(
+        id = id,
+        symbol = symbol,
+        name = name,
+        imageUrl = imageUrl,
+        price = price,
+        changePercent24h = changePercent24h,
+    )
+
+fun Coin.asEntity(): CoinEntity =
+    CoinEntity(
+        id = id,
+        symbol = symbol,
+        name = name,
+        imageUrl = imageUrl,
+        price = price,
+        changePercent24h = changePercent24h,
+    )

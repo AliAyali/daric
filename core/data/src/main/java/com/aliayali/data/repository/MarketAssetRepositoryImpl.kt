@@ -4,7 +4,7 @@ import com.aliayali.data.error.asAppError
 import com.aliayali.data.local.MarketAssetLocalDataSource
 import com.aliayali.domain.repository.MarketAssetRepository
 import com.aliayali.model.market.MarketAsset
-import com.aliayali.model.result.AppResult
+import com.aliayali.common.result.AppResult
 import com.aliayali.network.BrsNetworkDataSource
 import com.aliayali.network.model.BrsMarketItemDto
 import kotlinx.coroutines.CancellationException
@@ -13,7 +13,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MarketAssetRepositoryImpl @Inject constructor(
+internal class MarketAssetRepositoryImpl @Inject constructor(
     private val networkDataSource: BrsNetworkDataSource,
     private val localDataSource: MarketAssetLocalDataSource,
 ) : MarketAssetRepository {

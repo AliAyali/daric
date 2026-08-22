@@ -15,12 +15,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ConnectivityNetworkMonitor @Inject constructor(
+internal class ConnectivityNetworkMonitor @Inject constructor(
     @ApplicationContext context: Context,
 ) : NetworkMonitor {
 
-    private val connectivityManager =
-        context.getSystemService<ConnectivityManager>()
+    private val connectivityManager = context.getSystemService<ConnectivityManager>()
 
     override val isOnline: Flow<Boolean> =
         callbackFlow {
@@ -34,12 +33,8 @@ class ConnectivityNetworkMonitor @Inject constructor(
                     connectivityManager.getNetworkCapabilities(network)
                         ?: return false
 
-                return capabilities.hasCapability(
-                    NetworkCapabilities.NET_CAPABILITY_INTERNET,
-                ) &&
-                        capabilities.hasCapability(
-                            NetworkCapabilities.NET_CAPABILITY_VALIDATED,
-                        )
+                return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                        && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
             }
 
             trySend(isCurrentlyOnline())

@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.aliayali.designsystem.component.DaricButton
 import com.aliayali.home.R
-import com.aliayali.model.error.AppError
+import com.aliayali.common.error.AppError
 
 @Composable
 fun HomeErrorContent(

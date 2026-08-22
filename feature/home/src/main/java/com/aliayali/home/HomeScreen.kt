@@ -111,10 +111,10 @@ fun HomeScreen(
                         contentPadding = PaddingValues(16.dp),
                         verticalArrangement = Arrangement.spacedBy(20.dp),
                     ) {
-                        homeOverview(uiState.overview)
+                        homeOverview(uiState.homeUiData.overview)
 
                         homeSections(
-                            coins = uiState.coins,
+                            coins = uiState.homeUiData.coins,
                             onMoreClick = {
                                 onEvent(HomeEvent.SectionMoreClick)
                             },

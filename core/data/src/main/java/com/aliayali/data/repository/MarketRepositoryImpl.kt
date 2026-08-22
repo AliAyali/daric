@@ -6,7 +6,7 @@ import com.aliayali.data.local.CoinLocalDataSource
 import com.aliayali.domain.repository.MarketRepository
 import com.aliayali.model.market.Coin
 import com.aliayali.model.market.MarketData
-import com.aliayali.model.result.AppResult
+import com.aliayali.common.result.AppResult
 import com.aliayali.network.CoinGeckoNetworkDataSource
 import com.aliayali.network.model.CoinGeckoCoinDto
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 import kotlin.coroutines.cancellation.CancellationException
 
 @Singleton
-class MarketRepositoryImpl @Inject constructor(
+internal class MarketRepositoryImpl @Inject constructor(
     private val networkDataSource: CoinGeckoNetworkDataSource,
     private val localDataSource: CoinLocalDataSource,
 ) : MarketRepository {
@@ -24,11 +24,7 @@ class MarketRepositoryImpl @Inject constructor(
     override fun observeMarketData(): Flow<MarketData> =
         localDataSource
             .observeCoins()
-            .map { coins ->
-                MarketData(
-                    coins = coins,
-                )
-            }
+            .map(::MarketData)
 
     override suspend fun syncMarketData(): AppResult<Unit> {
         return try {

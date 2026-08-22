@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.aliayali.common.error.isRetryable
+import com.aliayali.common.result.AppResult
 import com.aliayali.domain.sync.MarketSyncer
-import com.aliayali.model.error.isRetryable
-import com.aliayali.model.result.AppResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 

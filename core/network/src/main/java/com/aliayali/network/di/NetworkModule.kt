@@ -1,8 +1,8 @@
 package com.aliayali.network.di
 
-import com.aliayali.network.BrsApi
+import com.aliayali.network.retrofit.BrsApi
 import com.aliayali.network.BuildConfig
-import com.aliayali.network.CoinGeckoApi
+import com.aliayali.network.retrofit.CoinGeckoApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

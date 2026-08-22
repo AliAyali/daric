@@ -17,6 +17,7 @@ dependencies {
     implementation(libs.hilt.ext.work)
     implementation(projects.core.model)
     implementation(projects.core.domain)
+    implementation(projects.core.common)
 
     androidTestImplementation(libs.androidx.work.testing)
     androidTestImplementation(libs.hilt.android.testing)

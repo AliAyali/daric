@@ -1,8 +1,10 @@
 package com.aliayali.network.model
 
+import android.annotation.SuppressLint
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class CoinGeckoCoinDto(
     val id: String,

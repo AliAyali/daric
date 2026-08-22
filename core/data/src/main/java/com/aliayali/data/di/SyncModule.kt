@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class SyncModule {
+internal abstract class SyncModule {
 
     @Binds
     abstract fun bindMarketSyncer(
