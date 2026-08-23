@@ -7,14 +7,18 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun HomeRoute(
+    onCoinClick: (String) -> Unit,
+    onSectionMoreClick: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     HomeScreen(
         uiState = uiState,
-        onEvent = { event ->
-            viewModel.onEvent(event)
-        }
+        onRefresh = {
+            viewModel.onEvent(HomeEvent.Refresh)
+        },
+        onCoinClick = onCoinClick,
+        onSectionMoreClick = onSectionMoreClick,
     )
 }

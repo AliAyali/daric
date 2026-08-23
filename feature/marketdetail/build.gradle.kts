@@ -1,30 +1,20 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.daric.android.feature.impl)
+    alias(libs.plugins.daric.android.feature.api)
+    alias(libs.plugins.daric.android.library.compose)
+    alias(libs.plugins.roborazzi)
 }
 
 android {
     namespace = "com.aliayali.marketdetail"
-    compileSdk {
-        version = release(36)
-    }
-
-    defaultConfig {
-        minSdk = 28
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
+    implementation(projects.core.common)
+    implementation(libs.androidx.activity.compose)
+    testImplementation(libs.hilt.android.testing)
+    testImplementation(libs.robolectric)
+    testImplementation(projects.core.testing)
+    androidTestImplementation(projects.core.testing)
 }
