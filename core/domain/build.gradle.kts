@@ -7,9 +7,10 @@ android {
     namespace = "com.aliayali.daric.core.domain"
 }
 dependencies {
-    implementation(projects.core.data)
     implementation(projects.core.model)
+    implementation(projects.core.common)
 
+    api(libs.kotlinx.coroutines.core)
     implementation(libs.javax.inject)
 
     testImplementation(projects.core.testing)

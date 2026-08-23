@@ -6,6 +6,7 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy.Builder
 import coil.ImageLoader
 import coil.ImageLoaderFactory
+import com.aliayali.sync.Sync
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -17,9 +18,11 @@ class DaricApplication : Application(), ImageLoaderFactory {
     private fun isDebuggable(): Boolean {
         return 0 != applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE
     }
+
     override fun onCreate() {
         super.onCreate()
         setStrictModePolicy()
+        Sync.initialize(this)
     }
 
     override fun newImageLoader(): ImageLoader = imageLoader.get()

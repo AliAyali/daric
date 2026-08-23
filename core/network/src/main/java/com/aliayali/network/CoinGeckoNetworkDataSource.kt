@@ -1,0 +1,27 @@
+package com.aliayali.network
+
+import com.aliayali.network.error.safeNetworkCall
+import com.aliayali.network.model.CoinGeckoCoinDto
+import com.aliayali.network.retrofit.CoinGeckoApi
+import javax.inject.Inject
+import javax.inject.Singleton
+
+interface CoinGeckoNetworkDataSource {
+
+    suspend fun getMarkets(
+        ids: String,
+    ): List<CoinGeckoCoinDto>
+}
+
+@Singleton
+class RetrofitCoinGeckoNetworkDataSource @Inject constructor(
+    private val api: CoinGeckoApi,
+) : CoinGeckoNetworkDataSource {
+
+    override suspend fun getMarkets(
+        ids: String,
+    ): List<CoinGeckoCoinDto> =
+        safeNetworkCall {
+            api.getMarkets(ids = ids)
+        }
+}

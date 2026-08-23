@@ -39,7 +39,7 @@ val LightColorScheme = lightColorScheme(
 
     surfaceVariant = LightSurfaceVariant,
     onSurfaceVariant = LightOnSurfaceVariant,
-    surfaceContainer = BackgroundBlue,
+    surfaceContainer = BackgroundBlueLight,
 
     outline = LightOutline,
 )
@@ -74,6 +74,7 @@ val DarkColorScheme = darkColorScheme(
 
     surfaceVariant = DarkSurfaceVariant,
     onSurfaceVariant = DarkOnSurfaceVariant,
+    surfaceContainer = BackgroundBlueDark,
 
     outline = DarkOutline,
 )
