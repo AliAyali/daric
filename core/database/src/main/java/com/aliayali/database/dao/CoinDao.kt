@@ -8,6 +8,9 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CoinDao {
+    @Query("SELECT * FROM coins WHERE id = :id LIMIT 1")
+    fun observeById(id: String): Flow<CoinEntity?>
+
     @Upsert
     suspend fun upsertAll(coins: List<CoinEntity>)
 

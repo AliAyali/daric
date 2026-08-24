@@ -6,4 +6,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MarketDetailNavKey(
     val assetId: String,
+    val assetType: MarketDetailAssetType,
 ) : NavKey
+
+@Serializable
+enum class MarketDetailAssetType {
+    CRYPTO,
+    MARKET,
+}

@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MarketAssetDao {
+    @Query("SELECT * FROM market_assets WHERE id = :id LIMIT 1")
+    fun observeById(id: String): Flow<MarketAssetEntity?>
     @Upsert
     suspend fun upsertAll(assets: List<MarketAssetEntity>)
 

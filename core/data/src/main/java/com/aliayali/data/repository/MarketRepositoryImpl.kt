@@ -1,12 +1,12 @@
 package com.aliayali.data.repository
 
+import com.aliayali.common.result.AppResult
 import com.aliayali.data.config.MarketConfig.defaultCoinIds
 import com.aliayali.data.error.asAppError
 import com.aliayali.data.local.CoinLocalDataSource
 import com.aliayali.domain.repository.MarketRepository
 import com.aliayali.model.market.Coin
 import com.aliayali.model.market.MarketData
-import com.aliayali.common.result.AppResult
 import com.aliayali.network.CoinGeckoNetworkDataSource
 import com.aliayali.network.model.CoinGeckoCoinDto
 import kotlinx.coroutines.flow.Flow
@@ -20,6 +20,9 @@ internal class MarketRepositoryImpl @Inject constructor(
     private val networkDataSource: CoinGeckoNetworkDataSource,
     private val localDataSource: CoinLocalDataSource,
 ) : MarketRepository {
+    override fun observeMarketData(
+        id: String,
+    ): Flow<Coin?> = localDataSource.observeCoin(id)
 
     override fun observeMarketData(): Flow<MarketData> =
         localDataSource

@@ -32,6 +32,7 @@ fun Coin.asUiModel(
 
 fun MarketAsset.asUiModel(): MarketAssetUiModel =
     MarketAssetUiModel(
+        id = id,
         symbol = symbol,
         name = name,
         formattedPrice = price?.let {

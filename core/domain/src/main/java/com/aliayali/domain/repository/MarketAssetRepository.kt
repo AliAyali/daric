@@ -5,6 +5,9 @@ import com.aliayali.model.market.MarketAsset
 import kotlinx.coroutines.flow.Flow
 
 interface MarketAssetRepository {
+    fun observeMarketAsset(
+        id: String,
+    ): Flow<MarketAsset?>
 
     fun observeMarketAssets(): Flow<List<MarketAsset>>
 
