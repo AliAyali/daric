@@ -3,6 +3,7 @@ package com.aliayali.home.components.overview
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.aliayali.designsystem.icon.DaricIcons.ArrowDown
 import com.aliayali.designsystem.icon.DaricIcons.ArrowUp
@@ -34,6 +36,7 @@ fun MarketPriceCard(
     price: String?,
     change: String,
     isPositive: Boolean,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var visible by remember {
@@ -50,13 +53,15 @@ fun MarketPriceCard(
     )
     Column(
         modifier = modifier
+            .clip(RoundedCornerShape(20.dp))
+            .clickable(onClick = onClick)
             .background(
                 color = MaterialTheme.colorScheme.background.copy(alpha = .06f),
                 shape = RoundedCornerShape(20.dp),
             )
             .padding(16.dp)
             .offset(y = offsetY),
-        horizontalAlignment = Alignment.End
+        horizontalAlignment = Alignment.End,
     ) {
 
         Text(
@@ -92,27 +97,20 @@ fun MarketPriceCard(
         ) {
 
             Icon(
-                imageVector =
-                    if (isPositive) ArrowUp
-                    else ArrowDown,
+                imageVector = if (isPositive) ArrowUp
+                else ArrowDown,
 
                 contentDescription = null,
 
-                tint =
-                    if (isPositive)
-                        MaterialTheme.colorScheme.primary
-                    else
-                        MaterialTheme.colorScheme.error
+                tint = if (isPositive) MaterialTheme.colorScheme.primary
+                else MaterialTheme.colorScheme.error
             )
 
 
             Text(
                 text = change,
-                color =
-                    if (isPositive)
-                        MaterialTheme.colorScheme.primary
-                    else
-                        MaterialTheme.colorScheme.error,
+                color = if (isPositive) MaterialTheme.colorScheme.primary
+                else MaterialTheme.colorScheme.error,
 
                 style = MaterialTheme.typography.labelLarge,
             )

@@ -5,7 +5,7 @@ data class MarketDetailUiData(
     val name: String,
     val symbol: String,
     val imageUrl: String?,
-    val price: Double?,
-    val changePercent: Double?,
-    val unit: String?,
+    val formattedPrice: String,
+    val formattedChange: String,
+    val isPositive: Boolean,
 )

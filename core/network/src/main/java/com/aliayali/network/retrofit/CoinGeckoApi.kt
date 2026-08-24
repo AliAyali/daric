@@ -1,7 +1,9 @@
 package com.aliayali.network.retrofit
 
 import com.aliayali.network.model.CoinGeckoCoinDto
+import com.aliayali.network.model.CoinMarketChartDto
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CoinGeckoApi {
@@ -13,4 +15,12 @@ interface CoinGeckoApi {
         @Query("price_change_percentage")
         priceChangePercentage: String = "24h",
     ): List<CoinGeckoCoinDto>
+
+
+    @GET("coins/{id}/market_chart")
+    suspend fun getMarketChart(
+        @Path("id") id: String,
+        @Query("vs_currency") vsCurrency: String = "usd",
+        @Query("days") days: Int = 1,
+    ): CoinMarketChartDto
 }

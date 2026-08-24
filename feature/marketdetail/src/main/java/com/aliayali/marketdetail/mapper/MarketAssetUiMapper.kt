@@ -1,8 +1,10 @@
 package com.aliayali.marketdetail.mapper
 
 import com.aliayali.marketdetail.model.MarketDetailUiData
+import com.aliayali.marketdetail.model.MarketPricePointUiModel
 import com.aliayali.model.market.Coin
 import com.aliayali.model.market.MarketAsset
+import com.aliayali.model.market.MarketPricePoint
 
 fun MarketAsset.asUiData(): MarketDetailUiData =
     MarketDetailUiData(
@@ -10,9 +12,9 @@ fun MarketAsset.asUiData(): MarketDetailUiData =
         name = name,
         symbol = symbol,
         imageUrl = null,
-        price = price,
-        changePercent = changePercent,
-        unit = unit,
+        formattedPrice = price?.toString() ?: "-",
+        formattedChange = changePercent?.toString() ?: "-",
+        isPositive = changePercent?.let { it >= 0 } ?: false,
     )
 
 fun Coin.asUiData(): MarketDetailUiData =
@@ -21,7 +23,13 @@ fun Coin.asUiData(): MarketDetailUiData =
         name = name,
         symbol = symbol,
         imageUrl = imageUrl,
-        price = price,
-        changePercent = changePercent24h,
-        unit = null,
+        formattedPrice = price?.toString() ?: "-",
+        formattedChange = changePercent24h?.toString() ?: "-",
+        isPositive = changePercent24h?.let { it >= 0 } ?: false,
+    )
+
+fun MarketPricePoint.asUiModel(): MarketPricePointUiModel =
+    MarketPricePointUiModel(
+        timestamp = timestamp,
+        price = price.toFloat(),
     )

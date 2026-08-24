@@ -14,6 +14,8 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.domain)
     implementation(projects.core.model)
+    implementation(libs.vico.compose)
+    implementation(libs.vico.compose.m3)
     implementation(libs.androidx.activity.compose)
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.robolectric)

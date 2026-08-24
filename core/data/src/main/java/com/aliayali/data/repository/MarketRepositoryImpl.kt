@@ -7,8 +7,10 @@ import com.aliayali.data.local.CoinLocalDataSource
 import com.aliayali.domain.repository.MarketRepository
 import com.aliayali.model.market.Coin
 import com.aliayali.model.market.MarketData
+import com.aliayali.model.market.MarketPricePoint
 import com.aliayali.network.CoinGeckoNetworkDataSource
 import com.aliayali.network.model.CoinGeckoCoinDto
+import com.aliayali.network.model.CoinMarketChartDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -20,9 +22,11 @@ internal class MarketRepositoryImpl @Inject constructor(
     private val networkDataSource: CoinGeckoNetworkDataSource,
     private val localDataSource: CoinLocalDataSource,
 ) : MarketRepository {
+
     override fun observeMarketData(
         id: String,
-    ): Flow<Coin?> = localDataSource.observeCoin(id)
+    ): Flow<Coin?> =
+        localDataSource.observeCoin(id)
 
     override fun observeMarketData(): Flow<MarketData> =
         localDataSource
@@ -48,6 +52,18 @@ internal class MarketRepositoryImpl @Inject constructor(
             )
         }
     }
+
+    override suspend fun getCoinPriceHistory(
+        id: String,
+        days: Int,
+    ): List<MarketPricePoint> {
+        return networkDataSource
+            .getMarketChart(
+                id = id,
+                days = days,
+            )
+            .asMarketPricePoints()
+    }
 }
 
 fun CoinGeckoCoinDto.asModel(): Coin =
@@ -59,3 +75,15 @@ fun CoinGeckoCoinDto.asModel(): Coin =
         changePercent24h = priceChangePercentage24h,
         imageUrl = image,
     )
+
+fun CoinMarketChartDto.asMarketPricePoints(): List<MarketPricePoint> =
+    prices.mapNotNull { point ->
+        if (point.size < 2) {
+            return@mapNotNull null
+        }
+
+        MarketPricePoint(
+            timestamp = point[0].toLong(),
+            price = point[1],
+        )
+    }
