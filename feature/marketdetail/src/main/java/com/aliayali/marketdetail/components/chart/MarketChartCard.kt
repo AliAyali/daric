@@ -1,7 +1,8 @@
-package com.aliayali.marketdetail.components
+package com.aliayali.marketdetail.components.chart
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,15 +17,18 @@ import com.patrykandpatrick.vico.compose.cartesian.data.CartesianChartModelProdu
 import com.patrykandpatrick.vico.compose.cartesian.data.lineModel
 import com.patrykandpatrick.vico.compose.cartesian.layer.rememberLineCartesianLayer
 import com.patrykandpatrick.vico.compose.cartesian.rememberCartesianChart
+import com.patrykandpatrick.vico.compose.cartesian.rememberVicoScrollState
 
 @Composable
 fun MarketChartCard(
     points: List<MarketPricePointUiModel>,
     modifier: Modifier = Modifier,
 ) {
-    val modelProducer = remember {
-        CartesianChartModelProducer()
-    }
+    val modelProducer = remember { CartesianChartModelProducer() }
+
+    val scrollState = rememberVicoScrollState(
+        scrollEnabled = false
+    )
 
     LaunchedEffect(points) {
         modelProducer.runTransaction {
@@ -37,9 +41,7 @@ fun MarketChartCard(
         }
     }
 
-    Card(
-        modifier = modifier.fillMaxWidth(),
-    ) {
+    Card(modifier = modifier.fillMaxWidth()) {
         CartesianChartHost(
             chart = rememberCartesianChart(
                 rememberLineCartesianLayer(),
@@ -47,9 +49,12 @@ fun MarketChartCard(
                 bottomAxis = HorizontalAxis.rememberBottom(),
             ),
             modelProducer = modelProducer,
+            scrollState = scrollState,
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(16.dp)
                 .height(220.dp),
         )
     }
 }
+

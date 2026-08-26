@@ -22,6 +22,7 @@ fun EntryProviderScope<NavKey>.marketDetailEntry(
 
         MarketDetailRoute(
             viewModel = viewModel,
+            onBackClick = { navigator.goBack() }
         )
     }
 }

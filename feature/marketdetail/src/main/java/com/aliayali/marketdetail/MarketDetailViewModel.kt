@@ -1,18 +1,18 @@
 package com.aliayali.marketdetail
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aliayali.common.error.AppError
+import com.aliayali.common.result.AppResult
 import com.aliayali.domain.GetCoinDetailUseCase
 import com.aliayali.domain.GetCoinPriceHistoryUseCase
 import com.aliayali.domain.GetMarketAssetDetailUseCase
+import com.aliayali.domain.ObserveNetworkConnectivityUseCase
+import com.aliayali.domain.sync.MarketSyncer
 import com.aliayali.marketdetail.mapper.asUiData
 import com.aliayali.marketdetail.mapper.asUiModel
 import com.aliayali.marketdetail.navigation.MarketDetailAssetType
 import com.aliayali.marketdetail.navigation.MarketDetailNavKey
-import com.aliayali.marketdetail.uiState.MarketChartUiState
-import com.aliayali.marketdetail.uiState.MarketDetailUiState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -20,6 +20,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.cancellation.CancellationException
@@ -32,6 +33,8 @@ class MarketDetailViewModel @AssistedInject constructor(
     private val getMarketAssetDetailUseCase: GetMarketAssetDetailUseCase,
     private val getCoinDetailUseCase: GetCoinDetailUseCase,
     private val getCoinPriceHistoryUseCase: GetCoinPriceHistoryUseCase,
+    private val observeNetworkConnectivityUseCase: ObserveNetworkConnectivityUseCase,
+    private val marketSyncer: MarketSyncer,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<MarketDetailUiState>(
@@ -41,79 +44,111 @@ class MarketDetailViewModel @AssistedInject constructor(
     val uiState: StateFlow<MarketDetailUiState> =
         _uiState.asStateFlow()
 
-    init {
-        observeDetail()
+    private var isOnline: Boolean? = null
 
-        if (navKey.assetType == MarketDetailAssetType.CRYPTO) {
-            loadCoinPriceHistory()
+    init {
+        observeNetwork()
+        observeDetail()
+    }
+
+    private fun observeNetwork() {
+        viewModelScope.launch {
+            observeNetworkConnectivityUseCase()
+                .collect { online ->
+
+                    val wasOffline = isOnline == false
+                    isOnline = online
+
+                    _uiState.update { currentState ->
+                        if (currentState is MarketDetailUiState.Success) {
+                            currentState.copy(
+                                isOffline = !online,
+                            )
+                        } else {
+                            currentState
+                        }
+                    }
+
+                    if (wasOffline && online) {
+                        refresh()
+                    }
+                }
         }
     }
 
     private fun observeDetail() {
+        when (navKey.assetType) {
+            MarketDetailAssetType.MARKET -> observeMarketAsset()
+            MarketDetailAssetType.CRYPTO -> observeCoin()
+        }
+    }
+
+    private fun observeMarketAsset() {
         viewModelScope.launch {
-            when (navKey.assetType) {
+            getMarketAssetDetailUseCase(
+                id = navKey.assetId,
+            ).collect { asset ->
 
-                MarketDetailAssetType.MARKET -> {
-                    observeMarketAsset()
+                if (asset == null) {
+                    _uiState.value = MarketDetailUiState.Error(
+                        error = AppError.Unknown,
+                    )
+                    return@collect
                 }
 
-                MarketDetailAssetType.CRYPTO -> {
-                    observeCoin()
-                }
+                _uiState.value = MarketDetailUiState.Success(
+                    marketDetailUiData = asset.asUiData(),
+                    chart = MarketChartUiState.Unavailable,
+                    isRefreshing = false,
+                    isOffline = isOnline != true,
+                )
             }
         }
     }
 
-    private suspend fun observeMarketAsset() {
-        getMarketAssetDetailUseCase(
-            id = navKey.assetId,
-        ).collect { asset ->
+    private fun observeCoin() {
+        viewModelScope.launch {
+            combine(
+                getCoinDetailUseCase(
+                    id = navKey.assetId,
+                ),
+                getMarketAssetDetailUseCase(
+                    id = USD_ASSET_ID,
+                ),
+            ) { coin, dollarAsset ->
+                coin to dollarAsset?.price
+            }.collect { (coin, dollarToToman) ->
 
-            if (asset == null) {
-                _uiState.value = MarketDetailUiState.Error(
-                    error = AppError.Unknown,
+                if (coin == null) {
+                    _uiState.value = MarketDetailUiState.Error(
+                        error = AppError.Unknown,
+                    )
+                    return@collect
+                }
+
+                val currentState = _uiState.value
+
+                _uiState.value = MarketDetailUiState.Success(
+                    marketDetailUiData = coin.asUiData(
+                        dollarToToman = dollarToToman,
+                    ),
+                    chart = when (currentState) {
+                        is MarketDetailUiState.Success -> currentState.chart
+                        else -> MarketChartUiState.Loading
+                    },
+                    isRefreshing = currentState is MarketDetailUiState.Success &&
+                            currentState.isRefreshing,
+                    isOffline = isOnline != true,
                 )
-                return@collect
+
+                if (currentState !is MarketDetailUiState.Success) {
+                    loadCoinPriceHistory()
+                }
             }
-
-            _uiState.value = MarketDetailUiState.Success(
-                marketDetailUiData = asset.asUiData(),
-                chart = MarketChartUiState.Unavailable,
-            )
-        }
-    }
-
-    private suspend fun observeCoin() {
-        getCoinDetailUseCase(
-            id = navKey.assetId,
-        ).collect { coin ->
-
-            if (coin == null) {
-                _uiState.value = MarketDetailUiState.Error(
-                    error = AppError.Unknown,
-                )
-                return@collect
-            }
-
-            val currentState = _uiState.value
-
-            _uiState.value = MarketDetailUiState.Success(
-                marketDetailUiData = coin.asUiData(),
-                chart = when (currentState) {
-                    is MarketDetailUiState.Success -> {
-                        currentState.chart
-                    }
-
-                    else -> {
-                        MarketChartUiState.Loading
-                    }
-                },
-            )
         }
     }
 
     private fun loadCoinPriceHistory() {
-
         viewModelScope.launch {
 
             _uiState.update { currentState ->
@@ -131,6 +166,7 @@ class MarketDetailViewModel @AssistedInject constructor(
                     coinId = navKey.assetId,
                     days = 1,
                 ).map { it.asUiModel() }
+
                 _uiState.update { currentState ->
                     if (currentState is MarketDetailUiState.Success) {
                         currentState.copy(
@@ -144,7 +180,7 @@ class MarketDetailViewModel @AssistedInject constructor(
                 }
             } catch (error: CancellationException) {
                 throw error
-            } catch (error: Exception) {
+            } catch (_: Exception) {
                 _uiState.update { currentState ->
                     if (currentState is MarketDetailUiState.Success) {
                         currentState.copy(
@@ -160,6 +196,70 @@ class MarketDetailViewModel @AssistedInject constructor(
         }
     }
 
+    private fun performSync() {
+        viewModelScope.launch {
+
+            _uiState.update { currentState ->
+                if (currentState is MarketDetailUiState.Success) {
+                    currentState.copy(
+                        isRefreshing = true,
+                    )
+                } else {
+                    currentState
+                }
+            }
+
+            when (val result = marketSyncer.sync()) {
+
+                is AppResult.Success -> {
+                    if (navKey.assetType == MarketDetailAssetType.CRYPTO) {
+                        loadCoinPriceHistory()
+                    }
+
+                    _uiState.update { currentState ->
+                        if (currentState is MarketDetailUiState.Success) {
+                            currentState.copy(
+                                isRefreshing = false,
+                                isOffline = false,
+                            )
+                        } else {
+                            currentState
+                        }
+                    }
+                }
+
+                is AppResult.Failure -> {
+                    _uiState.update { currentState ->
+                        if (currentState is MarketDetailUiState.Success) {
+                            currentState.copy(
+                                isRefreshing = false,
+                                isOffline = true,
+                            )
+                        } else {
+                            MarketDetailUiState.Error(
+                                error = result.error,
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun refresh() {
+        val currentState = _uiState.value
+
+        if (currentState !is MarketDetailUiState.Success) {
+            return
+        }
+
+        if (currentState.isRefreshing) {
+            return
+        }
+
+        performSync()
+    }
+
     @AssistedFactory
     interface Factory {
         fun create(
@@ -169,7 +269,12 @@ class MarketDetailViewModel @AssistedInject constructor(
 
     fun onEvent(event: MarketDetailEvent) {
         when (event) {
-            MarketDetailEvent.Refresh -> Unit
+            MarketDetailEvent.Refresh -> refresh()
+            MarketDetailEvent.RetryChart -> loadCoinPriceHistory()
         }
+    }
+
+    private companion object {
+        const val USD_ASSET_ID = "USD"
     }
 }

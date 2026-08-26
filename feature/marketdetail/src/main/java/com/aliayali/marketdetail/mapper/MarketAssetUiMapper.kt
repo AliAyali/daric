@@ -1,5 +1,7 @@
 package com.aliayali.marketdetail.mapper
 
+import com.aliayali.common.util.formattedPercent
+import com.aliayali.common.util.formattedPrice
 import com.aliayali.marketdetail.model.MarketDetailUiData
 import com.aliayali.marketdetail.model.MarketPricePointUiModel
 import com.aliayali.model.market.Coin
@@ -12,20 +14,37 @@ fun MarketAsset.asUiData(): MarketDetailUiData =
         name = name,
         symbol = symbol,
         imageUrl = null,
-        formattedPrice = price?.toString() ?: "-",
-        formattedChange = changePercent?.toString() ?: "-",
-        isPositive = changePercent?.let { it >= 0 } ?: false,
+        formattedDollarPrice = null,
+        formattedTomanPrice = price
+            ?.formattedPrice()
+            ?.let { "$it تومان" },
+        formattedChange = changePercent?.let {
+            "${if (it >= 0) "+" else ""}${it.formattedPrice()}%"
+        } ?: "-",
+        isPositive = (changePercent ?: 0.0) >= 0,
     )
 
-fun Coin.asUiData(): MarketDetailUiData =
+fun Coin.asUiData(
+    dollarToToman: Double?,
+): MarketDetailUiData =
     MarketDetailUiData(
         id = id,
         name = name,
         symbol = symbol,
         imageUrl = imageUrl,
-        formattedPrice = price?.toString() ?: "-",
-        formattedChange = changePercent24h?.toString() ?: "-",
-        isPositive = changePercent24h?.let { it >= 0 } ?: false,
+        formattedDollarPrice = price
+            ?.formattedPrice()
+            ?.let { "$$it" },
+        formattedTomanPrice = price
+            ?.let { coinPrice ->
+                dollarToToman?.let { dollar ->
+                    coinPrice * dollar
+                }
+            }
+            ?.formattedPrice()
+            ?.let { "$it تومان" },
+        formattedChange = changePercent24h?.formattedPercent() ?: "-",
+        isPositive = (changePercent24h ?: 0.0) >= 0,
     )
 
 fun MarketPricePoint.asUiModel(): MarketPricePointUiModel =

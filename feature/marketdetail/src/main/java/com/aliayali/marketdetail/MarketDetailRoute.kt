@@ -7,11 +7,18 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun MarketDetailRoute(
     viewModel: MarketDetailViewModel,
+    onBackClick: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     MarketDetailScreen(
         uiState = uiState,
-        onEvent = viewModel::onEvent,
+        onBackClick = onBackClick,
+        onRefresh = {
+            viewModel.onEvent(MarketDetailEvent.Refresh)
+        },
+        retryChart = {
+            viewModel.onEvent(MarketDetailEvent.RetryChart)
+        },
     )
 }
