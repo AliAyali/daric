@@ -128,20 +128,30 @@ class MarketDetailViewModel @AssistedInject constructor(
 
                 val currentState = _uiState.value
 
+                val chartState = when (currentState) {
+                    is MarketDetailUiState.Success -> {
+                        currentState.chart
+                    }
+
+                    else -> {
+                        MarketChartUiState.Loading
+                    }
+                }
+
                 _uiState.value = MarketDetailUiState.Success(
                     marketDetailUiData = coin.asUiData(
                         dollarToToman = dollarToToman,
                     ),
-                    chart = when (currentState) {
-                        is MarketDetailUiState.Success -> currentState.chart
-                        else -> MarketChartUiState.Loading
-                    },
+                    chart = chartState,
                     isRefreshing = currentState is MarketDetailUiState.Success &&
                             currentState.isRefreshing,
                     isOffline = isOnline != true,
                 )
 
-                if (currentState !is MarketDetailUiState.Success) {
+                if (
+                    currentState !is MarketDetailUiState.Success ||
+                    chartState is MarketChartUiState.Error
+                ) {
                     loadCoinPriceHistory()
                 }
             }
@@ -150,7 +160,6 @@ class MarketDetailViewModel @AssistedInject constructor(
 
     private fun loadCoinPriceHistory() {
         viewModelScope.launch {
-
             _uiState.update { currentState ->
                 if (currentState is MarketDetailUiState.Success) {
                     currentState.copy(
