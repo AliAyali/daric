@@ -16,3 +16,13 @@ data class CoinGeckoCoinDto(
     @SerialName("price_change_percentage_24h")
     val priceChangePercentage24h: Double?,
 )
+
+@SuppressLint("UnsafeOptInUsageError")
+@Serializable
+data class CoinMarketChartDto(
+    val prices: List<List<Double>>,
+    @SerialName("market_caps")
+    val marketCaps: List<List<Double>>,
+    @SerialName("total_volumes")
+    val totalVolumes: List<List<Double>>,
+)

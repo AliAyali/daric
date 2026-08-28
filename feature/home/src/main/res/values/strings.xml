@@ -10,7 +10,7 @@
     <string name="feature_home_currency">ارزهای رایج</string>
 
     <!-- Market Analysis -->
-    <string name="feature_home_market_analysis_show_details">مشاهده جزئیات تحلیل</string>
+    <string name="feature_home_market_analysis_show_details">مشاهده جزئیات</string>
     <string name="feature_home_market_analysis_close_details">بستن جزئیات</string>
 
     <!-- Market Signals -->

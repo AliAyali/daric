@@ -190,10 +190,6 @@ class HomeViewModel @Inject constructor(
     fun onEvent(event: HomeEvent) {
         when (event) {
             HomeEvent.Refresh -> refresh()
-
-            is HomeEvent.CoinClick -> Unit
-
-            HomeEvent.SectionMoreClick -> Unit
         }
     }
 }

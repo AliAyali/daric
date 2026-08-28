@@ -37,7 +37,10 @@ import com.aliayali.home.model.MarketOverviewCardUiModel
 @Composable
 fun HomeScreen(
     uiState: HomeUiState,
-    onEvent: (HomeEvent) -> Unit,
+    onRefresh: () -> Unit,
+    onCoinClick: (String) -> Unit,
+    onMarketAssetClick: (String) -> Unit,
+    onSectionMoreClick: () -> Unit,
 ) {
     val snackbarHostState = remember {
         SnackbarHostState()
@@ -101,7 +104,7 @@ fun HomeScreen(
                     isRefreshing = uiState.isRefreshing,
                     isAtTop = isAtTop,
                     onRefresh = {
-                        onEvent(HomeEvent.Refresh)
+                        onRefresh()
                     },
                     modifier = Modifier.fillMaxSize(),
                 ) {
@@ -111,16 +114,15 @@ fun HomeScreen(
                         contentPadding = PaddingValues(16.dp),
                         verticalArrangement = Arrangement.spacedBy(20.dp),
                     ) {
-                        homeOverview(uiState.homeUiData.overview)
+                        homeOverview(
+                            overview = uiState.homeUiData.overview,
+                            onMarketAssetClick = onMarketAssetClick,
+                        )
 
                         homeSections(
                             coins = uiState.homeUiData.coins,
-                            onMoreClick = {
-                                onEvent(HomeEvent.SectionMoreClick)
-                            },
-                            onCoinClick = {
-                                onEvent(HomeEvent.CoinClick(it))
-                            },
+                            onMoreClick = onSectionMoreClick,
+                            onCoinClick = onCoinClick,
                         )
                     }
                 }
@@ -138,7 +140,7 @@ fun HomeScreen(
             HomeErrorContent(
                 error = uiState.error,
                 onRetry = {
-                    onEvent(HomeEvent.Refresh)
+                    onRefresh()
                 },
                 modifier = Modifier.fillMaxSize(),
             )
@@ -148,10 +150,12 @@ fun HomeScreen(
 
 private fun LazyListScope.homeOverview(
     overview: MarketOverviewCardUiModel,
+    onMarketAssetClick: (String) -> Unit,
 ) {
     item {
         MarketOverviewCard(
             overview = overview,
+            onMarketAssetClick = onMarketAssetClick,
         )
     }
 }

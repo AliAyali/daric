@@ -22,6 +22,7 @@ import com.aliayali.home.model.MarketOverviewCardUiModel
 @Composable
 fun MarketOverviewCard(
     overview: MarketOverviewCardUiModel,
+    onMarketAssetClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -86,6 +87,9 @@ fun MarketOverviewCard(
                     price = overview.usd.formattedPrice,
                     change = overview.usd.formattedChange,
                     isPositive = overview.usd.isPositive,
+                    onClick = {
+                        onMarketAssetClick(overview.usd.id)
+                    },
                 )
 
                 MarketPriceCard(
@@ -94,6 +98,9 @@ fun MarketOverviewCard(
                     price = overview.gold18.formattedPrice,
                     change = overview.gold18.formattedChange,
                     isPositive = overview.gold18.isPositive,
+                    onClick = {
+                        onMarketAssetClick(overview.gold18.id)
+                    },
                 )
             }
 

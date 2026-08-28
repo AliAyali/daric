@@ -12,6 +12,12 @@ import javax.inject.Inject
 internal class CoinLocalDataSourceImpl @Inject constructor(
     private val coinDao: CoinDao,
 ) : CoinLocalDataSource {
+    override fun observeCoin(
+        id: String,
+    ): Flow<Coin?> =
+        coinDao
+            .observeById(id)
+            .map { it?.asModel() }
 
     override fun observeCoins(): Flow<List<Coin>> =
         coinDao.observeAll()

@@ -13,6 +13,13 @@ internal class MarketAssetLocalDataSourceImpl @Inject constructor(
     private val marketAssetDao: MarketAssetDao,
 ) : MarketAssetLocalDataSource {
 
+    override fun observeMarketAsset(
+        id: String,
+    ): Flow<MarketAsset?> =
+        marketAssetDao
+            .observeById(id)
+            .map { it?.asModel() }
+
     override fun observeMarketAssets(): Flow<List<MarketAsset>> =
         marketAssetDao.observeAll()
             .map { it.map(MarketAssetEntity::asModel) }

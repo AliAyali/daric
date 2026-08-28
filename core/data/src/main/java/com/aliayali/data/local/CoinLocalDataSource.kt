@@ -4,7 +4,7 @@ import com.aliayali.model.market.Coin
 import kotlinx.coroutines.flow.Flow
 
 interface CoinLocalDataSource {
-
+    fun observeCoin(id: String): Flow<Coin?>
     fun observeCoins(): Flow<List<Coin>>
 
     suspend fun saveCoins(
