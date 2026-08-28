@@ -31,6 +31,7 @@ import com.aliayali.marketdetail.components.MarketDetailSkeleton
 import com.aliayali.marketdetail.components.MarketDetailTopBar
 import com.aliayali.marketdetail.components.MarketInfoCard
 import com.aliayali.marketdetail.components.chart.MarketChartErrorContent
+import com.aliayali.marketdetail.components.chart.MarketChartLoading
 import com.aliayali.marketdetail.components.chart.MarketChartUnavailable
 import com.aliayali.marketdetail.components.error.MarketDetailErrorContent
 import com.aliayali.marketdetail.model.MarketDetailUiData
@@ -156,12 +157,7 @@ private fun MarketDetailContent(
         item {
             when (chart) {
                 MarketChartUiState.Loading -> {
-                    ShimmerBox(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(250.dp),
-                        shape = RoundedCornerShape(24.dp),
-                    )
+                    MarketChartLoading()
                 }
 
                 is MarketChartUiState.Success -> {
