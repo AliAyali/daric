@@ -30,7 +30,7 @@ import com.aliayali.designsystem.icon.DaricIcons.ArrowUp
 import com.aliayali.home.model.CoinUiModel
 
 @Composable
-fun MarketAssetItem(
+fun CoinItem(
     item: CoinUiModel,
     onCoinClick: (id: String) -> Unit,
     modifier: Modifier = Modifier,

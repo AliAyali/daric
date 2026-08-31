@@ -14,6 +14,7 @@ import com.aliayali.marketdetail.mapper.asUiModel
 import com.aliayali.marketdetail.model.MarketPricePointUiModel
 import com.aliayali.marketdetail.navigation.MarketDetailAssetType
 import com.aliayali.marketdetail.navigation.MarketDetailNavKey
+import com.aliayali.model.market.MarketPricePoint
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -176,7 +177,7 @@ class MarketDetailViewModel @AssistedInject constructor(
                 val points = getCoinPriceHistoryUseCase(
                     coinId = navKey.assetId,
                     days = 1,
-                ).map { it.asUiModel() }
+                ).map(MarketPricePoint::asUiModel)
 
                 setChartSuccess(points)
             } catch (exception: CancellationException) {
