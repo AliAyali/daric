@@ -1,44 +1,28 @@
 package com.aliayali.search
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.key
-import androidx.compose.ui.input.key.onKeyEvent
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.aliayali.designsystem.icon.DaricIcons
 import com.aliayali.search.components.SearchEmpty
+import com.aliayali.search.components.SearchInitial
 import com.aliayali.search.components.SearchItem
 import com.aliayali.search.components.error.SearchError
 import com.aliayali.search.components.loading.SearchLoading
+import com.aliayali.search.components.search.SearchToolbar
 import com.aliayali.search.model.SearchItemUiModel
 
 @Composable
@@ -50,15 +34,40 @@ internal fun SearchScreen(
     onMarketAssetClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var searchFieldValue by rememberSaveable(
+        stateSaver = TextFieldValue.Saver,
+    ) {
+        mutableStateOf(
+            TextFieldValue(
+                text = uiState.query,
+            )
+        )
+    }
+
+    LaunchedEffect(uiState.query) {
+        if (searchFieldValue.text != uiState.query) {
+            searchFieldValue = searchFieldValue.copy(
+                text = uiState.query,
+                selection = TextRange(uiState.query.length),
+            )
+        }
+    }
+
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(top = 16.dp),
     ) {
 
         SearchToolbar(
-            searchQuery = uiState.query,
-            onSearchQueryChanged = {
+            searchFieldValue = searchFieldValue,
+            onSearchFieldValueChanged = { value ->
+                searchFieldValue = value
+
                 onEvent(
-                    SearchEvent.QueryChanged(it)
+                    SearchEvent.QueryChanged(
+                        query = value.text,
+                    )
                 )
             },
             onBackClick = onBackClick,
@@ -81,12 +90,18 @@ private fun SearchContent(
 ) {
     when (uiState) {
 
-        is SearchUiState.Idle -> {}
-
-        is SearchUiState.Loading -> {
-            SearchLoading(
+        is SearchUiState.Idle -> {
+            SearchInitial(
                 modifier = modifier,
             )
+        }
+
+        is SearchUiState.Loading -> {
+            repeat(7) {
+                SearchLoading(
+                    modifier = modifier,
+                )
+            }
         }
 
         is SearchUiState.Success -> {
@@ -121,7 +136,6 @@ private fun SearchContent(
 
         is SearchUiState.Empty -> {
             SearchEmpty(
-                query = uiState.query,
                 modifier = modifier,
             )
         }
@@ -131,108 +145,5 @@ private fun SearchContent(
                 modifier = modifier,
             )
         }
-    }
-}
-
-@Composable
-private fun SearchToolbar(
-    searchQuery: String,
-    onSearchQueryChanged: (String) -> Unit,
-    onBackClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.fillMaxWidth(),
-    ) {
-        SearchTextField(
-            searchQuery = searchQuery,
-            onSearchQueryChanged = onSearchQueryChanged,
-        )
-        IconButton(
-            modifier = Modifier.background(
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = .1f),
-                shape = CircleShape
-            ),
-            onClick = onBackClick
-        ) {
-            Icon(
-                imageVector = DaricIcons.ArrowDown,
-                contentDescription = null,
-            )
-        }
-    }
-}
-
-@Composable
-private fun SearchTextField(
-    searchQuery: String,
-    onSearchQueryChanged: (String) -> Unit,
-) {
-    val focusRequester = remember { FocusRequester() }
-    val keyboardController = LocalSoftwareKeyboardController.current
-
-    TextField(
-        colors = TextFieldDefaults.colors(
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
-        ),
-        leadingIcon = {
-            Icon(
-                imageVector = DaricIcons.Search,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface,
-            )
-        },
-        trailingIcon = {
-            if (searchQuery.isNotEmpty()) {
-                IconButton(
-                    onClick = {
-                        onSearchQueryChanged("")
-                    },
-                ) {
-                    Icon(
-                        imageVector = DaricIcons.Close,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface,
-                    )
-                }
-            }
-        },
-        onValueChange = {
-            if ("\n" !in it) {
-                onSearchQueryChanged(it)
-            }
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .focusRequester(focusRequester)
-            .onKeyEvent {
-                if (it.key == Key.Enter) {
-                    keyboardController?.hide()
-                    true
-                } else {
-                    false
-                }
-            }
-            .testTag("searchTextField"),
-        shape = RoundedCornerShape(32.dp),
-        value = searchQuery,
-        keyboardOptions = KeyboardOptions(
-            imeAction = ImeAction.Search,
-        ),
-        keyboardActions = KeyboardActions(
-            onSearch = {
-                keyboardController?.hide()
-            },
-        ),
-        maxLines = 1,
-        singleLine = true,
-    )
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
     }
 }

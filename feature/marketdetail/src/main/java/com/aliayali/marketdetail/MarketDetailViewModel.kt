@@ -23,7 +23,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.cancellation.CancellationException
@@ -120,45 +120,50 @@ class MarketDetailViewModel @AssistedInject constructor(
 
     private fun observeCoin() {
         viewModelScope.launch {
-            combine(
+
+            val coin = try {
                 getCoinDetailUseCase(
                     id = navKey.assetId,
-                ),
-                getMarketAssetDetailUseCase(
-                    id = USD_ASSET_ID,
-                ),
-            ) { coin, dollarAsset ->
-                coin to dollarAsset?.price
-            }.collect { (coin, dollarToToman) ->
+                )
+            } catch (exception: CancellationException) {
+                throw exception
+            } catch (_: Exception) {
+                null
+            }
 
-                if (coin == null) {
-                    setError(AppError.Unknown)
-                    return@collect
-                }
+            val dollarAsset = getMarketAssetDetailUseCase(
+                id = USD_ASSET_ID,
+            ).first()
 
-                val previousState = _uiState.value.successOrNull()
+            val dollarToToman = dollarAsset?.price
 
-                val shouldLoadChart =
-                    previousState == null ||
-                            previousState.chart is MarketChartUiState.Error
+            if (coin == null) {
+                setError(AppError.Unknown)
+                return@launch
+            }
 
-                _uiState.update {
-                    MarketDetailUiState.Success(
-                        marketDetailUiData = coin.asUiData(
-                            dollarToToman = dollarToToman,
-                        ),
-                        chart = previousState?.chart
-                            ?: MarketChartUiState.Loading,
-                        isRefreshing = previousState?.isRefreshing
-                            ?: false,
-                        isOffline = previousState?.isOffline
-                            ?: false,
-                    )
-                }
+            val previousState = _uiState.value.successOrNull()
 
-                if (shouldLoadChart) {
-                    loadCoinPriceHistory()
-                }
+            val shouldLoadChart =
+                previousState == null ||
+                        previousState.chart is MarketChartUiState.Error
+
+            _uiState.update {
+                MarketDetailUiState.Success(
+                    marketDetailUiData = coin.asUiData(
+                        dollarToToman = dollarToToman,
+                    ),
+                    chart = previousState?.chart
+                        ?: MarketChartUiState.Loading,
+                    isRefreshing = previousState?.isRefreshing
+                        ?: false,
+                    isOffline = previousState?.isOffline
+                        ?: false,
+                )
+            }
+
+            if (shouldLoadChart) {
+                loadCoinPriceHistory()
             }
         }
     }
@@ -225,14 +230,21 @@ class MarketDetailViewModel @AssistedInject constructor(
     }
 
     private fun refresh() {
-        val state = _uiState.value.successOrNull()
-            ?: return
+        when (val state = _uiState.value) {
 
-        if (state.isRefreshing) {
-            return
+            is MarketDetailUiState.Error -> {
+                _uiState.value = MarketDetailUiState.Loading
+                observeAssetDetail()
+            }
+
+            is MarketDetailUiState.Success -> {
+                if (!state.isRefreshing) {
+                    syncMarket()
+                }
+            }
+
+            MarketDetailUiState.Loading -> Unit
         }
-
-        syncMarket()
     }
 
     private fun syncMarket() {

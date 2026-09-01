@@ -9,7 +9,9 @@ class GetCoinDetailUseCase @Inject constructor(
     private val marketRepository: MarketRepository,
 ) {
 
-    operator fun invoke(
+    suspend operator fun invoke(
         id: String,
-    ): Flow<Coin?> = marketRepository.observeMarketData(id)
+    ): Coin? {
+        return marketRepository.getCoin(id)
+    }
 }

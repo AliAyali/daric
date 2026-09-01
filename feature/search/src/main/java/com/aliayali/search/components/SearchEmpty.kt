@@ -6,10 +6,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.aliayali.search.R
 
 @Composable
 fun SearchEmpty(
-    query: String,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -17,7 +18,7 @@ fun SearchEmpty(
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            text = "نتیجه‌ای برای \"$query\" پیدا نشد",
+            text = stringResource(R.string.feature_search_empty),
         )
     }
 }

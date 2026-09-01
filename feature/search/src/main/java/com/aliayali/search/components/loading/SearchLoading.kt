@@ -29,6 +29,10 @@ fun SearchLoading(
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .padding(
+                horizontal = 16.dp,
+                vertical = 8.dp,
+            )
             .background(
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = .15f),
                 shape = RoundedCornerShape(10.dp),

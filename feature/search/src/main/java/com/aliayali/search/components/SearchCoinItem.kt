@@ -91,7 +91,11 @@ fun SearchCoinItem(
                 Column {
 
                     Text(
-                        text = item.name,
+                        text = if (item.name.length > 15) {
+                            "...${item.name.take(15)}"
+                        } else {
+                            item.name
+                        },
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.onSurface,
                     )

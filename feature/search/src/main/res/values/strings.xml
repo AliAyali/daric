@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_search_error">خطایی رخ داد</string>
+    <string name="feature_search_empty">نتیجه‌ای پیدا نشد</string>
+    <string name="feature_search_hint">جستجو…</string>
+    <string name="feature_search_initial_title">دنبال چی می‌گردی؟</string>
+    <string name="feature_search_initial_description">نام یا نماد ارز موردنظر خود را جستجو کنید</string>
+</resources>
