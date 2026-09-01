@@ -20,4 +20,12 @@ interface MarketRepository {
         id: String,
         days: Int = 1,
     ): List<MarketPricePoint>
+
+    suspend fun searchCoins(
+        query: String,
+    ): List<Coin>
+
+    suspend fun getCoin(
+        id: String,
+    ): Coin?
 }

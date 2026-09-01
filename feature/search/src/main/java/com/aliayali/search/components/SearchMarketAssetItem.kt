@@ -1,4 +1,4 @@
-package com.aliayali.home.components.market
+package com.aliayali.search.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,15 +24,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.aliayali.designsystem.component.DaricAsyncImage
+import com.aliayali.designsystem.icon.DaricIcons
 import com.aliayali.designsystem.icon.DaricIcons.ArrowDown
 import com.aliayali.designsystem.icon.DaricIcons.ArrowUp
-import com.aliayali.home.model.CoinUiModel
+import com.aliayali.search.model.SearchItemUiModel
 
 @Composable
-fun MarketAssetItem(
-    item: CoinUiModel,
-    onCoinClick: (id: String) -> Unit,
+fun SearchMarketAssetItem(
+    item: SearchItemUiModel.MarketAsset,
+    onMarketAssetClick: (id: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -46,7 +46,7 @@ fun MarketAssetItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable {
-                onCoinClick(item.id)
+                onMarketAssetClick(item.id)
             },
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(
@@ -62,75 +62,8 @@ fun MarketAssetItem(
                 .fillMaxWidth()
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Absolute.SpaceBetween
+            horizontalArrangement = Arrangement.Absolute.SpaceBetween,
         ) {
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-
-                Box(
-                    modifier = Modifier
-                        .size(42.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.onBackground.copy(alpha = .10f)),
-                    contentAlignment = Alignment.Center,
-                ) {
-
-                    DaricAsyncImage(
-                        imageUrl = item.imageUrl,
-                        contentDescription = null,
-                        modifier = modifier
-                    )
-
-                }
-
-                Spacer(Modifier.width(12.dp))
-
-                Column {
-
-                    Text(
-                        text = item.name,
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-
-                    Spacer(Modifier.height(2.dp))
-
-                    Text(
-                        text = item.symbol,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-
-                }
-
-            }
-
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-
-                item.formattedDollarPrice?.let {
-                    Text(
-                        text = it,
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                }
-
-                Spacer(Modifier.height(2.dp))
-
-                item.formattedTomanPrice?.let {
-                    Text(
-                        text = it,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-
-            }
-
             Row(
                 modifier = Modifier
                     .background(
@@ -142,12 +75,16 @@ fun MarketAssetItem(
                         vertical = 5.dp,
                     ),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.Center,
             ) {
 
                 Icon(
                     modifier = Modifier.size(14.dp),
-                    imageVector = if (item.isPositive) ArrowUp else ArrowDown,
+                    imageVector = if (item.isPositive) {
+                        ArrowUp
+                    } else {
+                        ArrowDown
+                    },
                     contentDescription = null,
                     tint = changeColor,
                 )
@@ -159,11 +96,57 @@ fun MarketAssetItem(
                     color = changeColor,
                     style = MaterialTheme.typography.labelMedium,
                 )
-
             }
+            Text(
+                text = item.formattedPrice,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.End
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.End
+                ) {
 
+                    Text(
+                        text = if (item.name.length > 13) {
+                            "${item.name.take(15)}..."
+                        } else {
+                            item.name
+                        },
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+
+                    Spacer(Modifier.height(2.dp))
+
+                    Text(
+                        text = item.symbol,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                Spacer(Modifier.width(12.dp))
+                Box(
+                    modifier = Modifier
+                        .size(42.dp)
+                        .clip(CircleShape)
+                        .background(
+                            MaterialTheme.colorScheme.onBackground
+                                .copy(alpha = .10f),
+                        ),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        imageVector = DaricIcons.MonetizationOn,
+                        contentDescription = null,
+                        modifier = Modifier.size(22.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
         }
-
     }
-
 }

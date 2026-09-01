@@ -26,3 +26,23 @@ data class CoinMarketChartDto(
     @SerialName("total_volumes")
     val totalVolumes: List<List<Double>>,
 )
+
+@SuppressLint("UnsafeOptInUsageError")
+@Serializable
+data class CoinGeckoSearchResponseDto(
+    val coins: List<CoinGeckoSearchCoinDto>,
+)
+
+@SuppressLint("UnsafeOptInUsageError")
+@Serializable
+data class CoinGeckoSearchCoinDto(
+    val id: String,
+    val name: String,
+    @SerialName("api_symbol")
+    val apiSymbol: String,
+    val symbol: String,
+    @SerialName("market_cap_rank")
+    val marketCapRank: Int?,
+    val thumb: String?,
+    val large: String?,
+)

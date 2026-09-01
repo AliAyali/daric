@@ -12,6 +12,9 @@ android {
 
 dependencies {
     implementation(projects.core.domain)
+    implementation(projects.feature.marketdetail)
+    implementation(projects.core.common)
+    implementation(projects.core.model)
     testImplementation(projects.core.testing)
 
     androidTestImplementation(libs.bundles.androidx.compose.ui.test)

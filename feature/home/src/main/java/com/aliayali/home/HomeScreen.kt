@@ -28,7 +28,7 @@ import com.aliayali.designsystem.component.DaricPullToRefresh
 import com.aliayali.home.components.error.HomeErrorContent
 import com.aliayali.home.components.loading.MarketAssetItemSkeleton
 import com.aliayali.home.components.loading.MarketOverviewCardSkeleton
-import com.aliayali.home.components.market.MarketAssetItem
+import com.aliayali.home.components.market.CoinItem
 import com.aliayali.home.components.market.MarketListHeader
 import com.aliayali.home.components.overview.MarketOverviewCard
 import com.aliayali.home.model.CoinUiModel
@@ -172,7 +172,7 @@ private fun LazyListScope.homeSections(
     }
 
     items(coins) { coin ->
-        MarketAssetItem(
+        CoinItem(
             item = coin,
             onCoinClick = onCoinClick,
         )

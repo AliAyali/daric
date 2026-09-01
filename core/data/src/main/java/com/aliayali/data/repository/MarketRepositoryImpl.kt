@@ -22,6 +22,14 @@ internal class MarketRepositoryImpl @Inject constructor(
     private val networkDataSource: CoinGeckoNetworkDataSource,
     private val localDataSource: CoinLocalDataSource,
 ) : MarketRepository {
+    override suspend fun getCoin(
+        id: String,
+    ): Coin? {
+        return networkDataSource
+            .getMarkets(ids = id)
+            .firstOrNull()
+            ?.asModel()
+    }
 
     override fun observeMarketData(
         id: String,
@@ -63,6 +71,25 @@ internal class MarketRepositoryImpl @Inject constructor(
                 days = days,
             )
             .asMarketPricePoints()
+    }
+
+    override suspend fun searchCoins(
+        query: String,
+    ): List<Coin> {
+        val searchResults = networkDataSource
+            .searchCoins(query)
+            .take(7)
+
+        if (searchResults.isEmpty()) {
+            return emptyList()
+        }
+
+        val ids = searchResults
+            .joinToString(",") { it.id }
+
+        return networkDataSource
+            .getMarkets(ids = ids)
+            .map(CoinGeckoCoinDto::asModel)
     }
 }
 

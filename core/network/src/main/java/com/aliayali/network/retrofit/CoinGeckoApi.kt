@@ -1,6 +1,7 @@
 package com.aliayali.network.retrofit
 
 import com.aliayali.network.model.CoinGeckoCoinDto
+import com.aliayali.network.model.CoinGeckoSearchResponseDto
 import com.aliayali.network.model.CoinMarketChartDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,6 +17,10 @@ interface CoinGeckoApi {
         priceChangePercentage: String = "24h",
     ): List<CoinGeckoCoinDto>
 
+    @GET("search")
+    suspend fun search(
+        @Query("query") query: String,
+    ): CoinGeckoSearchResponseDto
 
     @GET("coins/{id}/market_chart")
     suspend fun getMarketChart(

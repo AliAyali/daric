@@ -4,13 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -24,12 +21,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.aliayali.designsystem.component.DaricOfflineSnackbar
 import com.aliayali.designsystem.component.DaricPullToRefresh
-import com.aliayali.designsystem.component.ShimmerBox
 import com.aliayali.marketdetail.components.MarketAssetHeader
-import com.aliayali.marketdetail.components.chart.MarketChartCard
 import com.aliayali.marketdetail.components.MarketDetailSkeleton
 import com.aliayali.marketdetail.components.MarketDetailTopBar
 import com.aliayali.marketdetail.components.MarketInfoCard
+import com.aliayali.marketdetail.components.chart.MarketChartCard
 import com.aliayali.marketdetail.components.chart.MarketChartErrorContent
 import com.aliayali.marketdetail.components.chart.MarketChartLoading
 import com.aliayali.marketdetail.components.chart.MarketChartUnavailable
