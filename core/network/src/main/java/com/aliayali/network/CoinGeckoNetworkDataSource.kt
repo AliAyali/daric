@@ -1,5 +1,6 @@
 package com.aliayali.network
 
+import android.util.Log
 import com.aliayali.model.market.Coin
 import com.aliayali.network.error.safeNetworkCall
 import com.aliayali.network.model.CoinGeckoCoinDto
@@ -10,6 +11,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 interface CoinGeckoNetworkDataSource {
+    suspend fun getMarketCoins(
+        perPage: Int = 50,
+        page: Int = 1,
+    ): List<CoinGeckoCoinDto>
 
     suspend fun getMarketChart(
         id: String,
@@ -29,6 +34,15 @@ interface CoinGeckoNetworkDataSource {
 class RetrofitCoinGeckoNetworkDataSource @Inject constructor(
     private val api: CoinGeckoApi,
 ) : CoinGeckoNetworkDataSource {
+    override suspend fun getMarketCoins(
+        perPage: Int,
+        page: Int,
+    ): List<CoinGeckoCoinDto> {
+        return api.getMarketCoins(
+            perPage = perPage,
+            page = page,
+        )
+    }
 
     override suspend fun getMarketChart(
         id: String,

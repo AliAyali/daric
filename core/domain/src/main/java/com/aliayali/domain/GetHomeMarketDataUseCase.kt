@@ -6,6 +6,7 @@ import com.aliayali.model.HomeMarketData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetHomeMarketDataUseCase @Inject constructor(
@@ -16,7 +17,12 @@ class GetHomeMarketDataUseCase @Inject constructor(
 
     fun observeHomeMarketData(): Flow<HomeMarketData> {
         return combine(
-            marketRepository.observeMarketData(),
+            marketRepository.observeMarketData()
+                .map { marketData ->
+                    marketData.copy(
+                        coins = marketData.coins.take(5),
+                    )
+                },
             marketAssetRepository.observeMarketAssets(),
         ) { marketData, marketAssets ->
 

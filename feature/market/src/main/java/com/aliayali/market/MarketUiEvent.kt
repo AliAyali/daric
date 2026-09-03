@@ -9,6 +9,4 @@ sealed interface MarketEvent {
     ) : MarketEvent
 
     data object Refresh : MarketEvent
-
-    data object Retry : MarketEvent
 }

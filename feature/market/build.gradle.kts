@@ -11,6 +11,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.feature.marketdetail)
+    implementation(projects.core.domain)
     implementation(projects.core.navigation)
     implementation(projects.core.model)
     implementation(projects.core.common)

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="feature_market_title">مارکت</string>
+    <string name="feature_market_tab_crypto">ارز دیجیتال</string>
+    <string name="feature_market_tab_market_asset">طلا و ارز</string>
+    <string name="feature_market_offline_title">اتصال به اینترنت برقرار نیست</string>
+    <string name="feature_market_offline_message">داده‌های ذخیره‌شده نمایش داده می‌شوند.</string>
 </resources>
