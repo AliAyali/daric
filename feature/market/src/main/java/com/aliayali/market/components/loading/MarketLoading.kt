@@ -1,4 +1,4 @@
-package com.aliayali.search.components.loading
+package com.aliayali.market.components.loading
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.aliayali.designsystem.component.ShimmerBox
 
 @Composable
-fun SearchLoading(
+fun MarketLoading(
     modifier: Modifier = Modifier,
 ) {
     Column(

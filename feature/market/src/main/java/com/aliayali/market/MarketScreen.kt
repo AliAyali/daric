@@ -24,6 +24,8 @@ import com.aliayali.designsystem.component.DaricOfflineSnackbar
 import com.aliayali.designsystem.component.DaricPullToRefresh
 import com.aliayali.market.components.MarketItem
 import com.aliayali.market.components.MarketTabs
+import com.aliayali.market.components.error.MarketErrorContent
+import com.aliayali.market.components.loading.MarketLoading
 import com.aliayali.market.model.MarketItemUiModel
 import com.aliayali.market.model.MarketListState
 import com.aliayali.market.model.MarketTab
@@ -103,7 +105,10 @@ fun MarketScreen(
         }
 
         is MarketUiState.Error -> {
-            // Global Error UI
+            MarketErrorContent(
+                error = uiState.error,
+                onRetry = onRefresh,
+            )
         }
     }
 }
@@ -120,7 +125,9 @@ private fun MarketContent(
     when (listState) {
 
         MarketListState.Loading -> {
-            // Loading UI
+            repeat(7) {
+                MarketLoading(modifier = modifier)
+            }
         }
 
         is MarketListState.Success -> {
@@ -134,9 +141,7 @@ private fun MarketContent(
             )
         }
 
-        is MarketListState.Error -> {
-            // Error UI
-        }
+        is MarketListState.Error -> {}
     }
 }
 
