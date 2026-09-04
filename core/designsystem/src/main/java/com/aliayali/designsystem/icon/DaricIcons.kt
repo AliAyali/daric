@@ -2,8 +2,10 @@ package com.aliayali.designsystem.icon
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.outlined.CandlestickChart
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.CandlestickChart
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
@@ -23,4 +25,7 @@ object DaricIcons {
     val Settings = Icons.Rounded.Settings
     val Home = Icons.Rounded.Home
     val HomeBorder = Icons.Outlined.Home
+
+    val Market = Icons.Rounded.CandlestickChart
+    val MarketBorder = Icons.Outlined.CandlestickChart
 }

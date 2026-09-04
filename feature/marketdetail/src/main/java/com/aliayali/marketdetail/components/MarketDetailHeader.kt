@@ -1,5 +1,6 @@
 package com.aliayali.marketdetail.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,9 +21,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.aliayali.designsystem.component.DaricAsyncImage
-import com.aliayali.designsystem.icon.DaricIcons
 import com.aliayali.designsystem.icon.DaricIcons.ArrowDown
 import com.aliayali.designsystem.icon.DaricIcons.ArrowUp
 import com.aliayali.marketdetail.model.MarketDetailUiData
@@ -126,12 +127,12 @@ fun MarketAssetHeader(
                         ),
                     contentAlignment = Alignment.Center,
                 ) {
-                    Icon(
-                        imageVector = DaricIcons.MonetizationOn,
-                        contentDescription = null,
-                        modifier = Modifier.size(22.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+                    data.icon?.let {
+                        Image(
+                            painter = painterResource(it),
+                            contentDescription = null,
+                        )
+                    }
                 }
             }
 

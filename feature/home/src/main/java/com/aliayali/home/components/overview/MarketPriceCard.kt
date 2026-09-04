@@ -3,7 +3,6 @@ package com.aliayali.home.components.overview
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,7 +35,6 @@ fun MarketPriceCard(
     price: String?,
     change: String,
     isPositive: Boolean,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var visible by remember {
@@ -54,7 +52,6 @@ fun MarketPriceCard(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(20.dp))
-            .clickable(onClick = onClick)
             .background(
                 color = MaterialTheme.colorScheme.background.copy(alpha = .06f),
                 shape = RoundedCornerShape(20.dp),

@@ -22,6 +22,27 @@ internal class MarketRepositoryImpl @Inject constructor(
     private val networkDataSource: CoinGeckoNetworkDataSource,
     private val localDataSource: CoinLocalDataSource,
 ) : MarketRepository {
+    override suspend fun syncMarketCoins(
+        perPage: Int,
+        page: Int,
+    ): AppResult<Unit> {
+        return try {
+            val coins = networkDataSource
+                .getMarketCoins(
+                    perPage = perPage,
+                    page = page,
+                )
+                .map(CoinGeckoCoinDto::asModel)
+            localDataSource.saveCoins(coins)
+
+            AppResult.Success(Unit)
+        } catch (error: CancellationException) {
+            throw error
+        } catch (error: Exception) {
+            AppResult.Failure(error = error.asAppError())
+        }
+    }
+
     override suspend fun getCoin(
         id: String,
     ): Coin? {

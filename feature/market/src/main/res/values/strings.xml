@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_market_title">مارکت</string>
+    <string name="feature_market_tab_crypto">ارز دیجیتال</string>
+    <string name="feature_market_tab_market_asset">طلا و ارز</string>
+
+    <!-- Error -->
+    <string name="feature_market_error_no_internet_title">اتصال به اینترنت برقرار نیست</string>
+    <string name="feature_market_error_no_internet_description">اتصال اینترنت خود را بررسی کنید و دوباره تلاش کنید.</string>
+    <string name="feature_market_error_timeout_title">ارتباط با سرور زمان‌بر شد</string>
+    <string name="feature_market_error_timeout_description">ارتباط با سرور بیش از حد طول کشید. دوباره تلاش کنید.</string>
+    <string name="feature_market_error_server_title">دریافت اطلاعات با خطا مواجه شد</string>
+    <string name="feature_market_error_server_description">در حال حاضر دریافت اطلاعات بازار امکان‌پذیر نیست.</string>
+    <string name="feature_market_error_unknown_title">خطایی رخ داد</string>
+    <string name="feature_market_error_unknown_description">مشکلی در دریافت اطلاعات رخ داده است. دوباره تلاش کنید.</string>
+    <string name="feature_market_error_retry">تلاش مجدد</string>
+    <string name="feature_market_offline_title">اتصال به اینترنت برقرار نیست</string>
+    <string name="feature_market_offline_message">داده‌های ذخیره‌شده نمایش داده می‌شوند.</string>
+</resources>

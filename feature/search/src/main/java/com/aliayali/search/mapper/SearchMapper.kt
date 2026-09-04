@@ -39,6 +39,7 @@ fun SearchResult.asUiModel(): SearchItemUiModel =
                 id = id,
                 symbol = symbol,
                 name = name,
+                icon = symbol.toMarketIcon(),
                 formattedPrice = price?.let {
                     "${it.formattedPrice()} $unit"
                 } ?: "-",

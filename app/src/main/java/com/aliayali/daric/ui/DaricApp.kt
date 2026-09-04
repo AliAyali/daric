@@ -36,7 +36,7 @@ import com.aliayali.designsystem.component.DaricNavigationSuiteScaffold
 import com.aliayali.designsystem.component.DaricTopAppBar
 import com.aliayali.designsystem.icon.DaricIcons
 import com.aliayali.home.navigation.homeEntry
-import com.aliayali.marketdetail.navigation.MarketDetailNavKey
+import com.aliayali.market.navigation.marketEntry
 import com.aliayali.marketdetail.navigation.marketDetailEntry
 import com.aliayali.navigation.Navigator
 import com.aliayali.navigation.toEntries
@@ -164,6 +164,7 @@ internal fun DaricApp(
                         homeEntry(navigator)
                         marketDetailEntry(navigator)
                         searchEntry(navigator)
+                        marketEntry(navigator)
                     }
                     NavDisplay(
                         entries = appState.navigationState.toEntries(entryProvider),

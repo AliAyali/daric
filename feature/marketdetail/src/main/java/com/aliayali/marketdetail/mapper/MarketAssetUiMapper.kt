@@ -14,6 +14,7 @@ fun MarketAsset.asUiData(): MarketDetailUiData =
         name = name,
         symbol = symbol,
         imageUrl = null,
+        icon = symbol.toMarketIcon(),
         formattedDollarPrice = null,
         formattedTomanPrice = price
             ?.formattedPrice()
@@ -32,6 +33,7 @@ fun Coin.asUiData(
         name = name,
         symbol = symbol,
         imageUrl = imageUrl,
+        icon = null,
         formattedDollarPrice = price
             ?.formattedPrice()
             ?.let { "$$it" },

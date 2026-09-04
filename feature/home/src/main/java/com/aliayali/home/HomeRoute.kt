@@ -8,7 +8,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun HomeRoute(
     onCoinClick: (String) -> Unit,
-    onMarketAssetClick: (String) -> Unit,
     onSectionMoreClick: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -20,7 +19,6 @@ fun HomeRoute(
             viewModel.onEvent(HomeEvent.Refresh)
         },
         onCoinClick = onCoinClick,
-        onMarketAssetClick = onMarketAssetClick,
         onSectionMoreClick = onSectionMoreClick,
     )
 }

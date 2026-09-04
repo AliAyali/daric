@@ -1,9 +1,9 @@
 package com.aliayali.data.sync
 
+import com.aliayali.common.result.AppResult
 import com.aliayali.domain.repository.MarketAssetRepository
 import com.aliayali.domain.repository.MarketRepository
 import com.aliayali.domain.sync.MarketSyncer
-import com.aliayali.common.result.AppResult
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,6 +19,15 @@ internal class MarketSyncerImpl @Inject constructor(
 
         if (marketResult is AppResult.Failure) {
             return marketResult
+        }
+
+        val marketCoinsResult = marketRepository.syncMarketCoins(
+            perPage = 50,
+            page = 1,
+        )
+
+        if (marketCoinsResult is AppResult.Failure) {
+            return marketCoinsResult
         }
 
         val assetResult = marketAssetRepository.syncMarketAssets()

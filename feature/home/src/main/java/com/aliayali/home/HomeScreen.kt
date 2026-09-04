@@ -39,7 +39,6 @@ fun HomeScreen(
     uiState: HomeUiState,
     onRefresh: () -> Unit,
     onCoinClick: (String) -> Unit,
-    onMarketAssetClick: (String) -> Unit,
     onSectionMoreClick: () -> Unit,
 ) {
     val snackbarHostState = remember {
@@ -116,7 +115,6 @@ fun HomeScreen(
                     ) {
                         homeOverview(
                             overview = uiState.homeUiData.overview,
-                            onMarketAssetClick = onMarketAssetClick,
                         )
 
                         homeSections(
@@ -150,12 +148,10 @@ fun HomeScreen(
 
 private fun LazyListScope.homeOverview(
     overview: MarketOverviewCardUiModel,
-    onMarketAssetClick: (String) -> Unit,
 ) {
     item {
         MarketOverviewCard(
-            overview = overview,
-            onMarketAssetClick = onMarketAssetClick,
+            overview = overview
         )
     }
 }

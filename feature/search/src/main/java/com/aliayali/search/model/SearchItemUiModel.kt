@@ -1,5 +1,7 @@
 package com.aliayali.search.model
 
+import androidx.annotation.DrawableRes
+
 sealed interface SearchItemUiModel {
 
     val id: String
@@ -21,6 +23,8 @@ sealed interface SearchItemUiModel {
         override val id: String,
         override val symbol: String,
         override val name: String,
+        @param:DrawableRes
+        val icon: Int,
         val formattedPrice: String,
         val formattedChange: String,
         val isPositive: Boolean,
