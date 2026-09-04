@@ -125,8 +125,13 @@ private fun MarketContent(
     when (listState) {
 
         MarketListState.Loading -> {
-            repeat(7) {
-                MarketLoading(modifier = modifier)
+            LazyColumn(
+                modifier = modifier.fillMaxSize(),
+                contentPadding = PaddingValues(vertical = 8.dp),
+            ) {
+                items(7) {
+                    MarketLoading()
+                }
             }
         }
 

@@ -17,12 +17,6 @@ fun EntryProviderScope<NavKey>.homeEntry(navigator: Navigator) {
                     assetType = MarketDetailAssetType.CRYPTO,
                 )
             },
-            onMarketAssetClick = { assetId ->
-                navigator.navigateToMarketDetail(
-                    assetId = assetId,
-                    assetType = MarketDetailAssetType.MARKET,
-                )
-            },
             onSectionMoreClick = { navigator.navigate(MarketNavKey) }
         )
     }

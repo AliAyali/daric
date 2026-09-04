@@ -1,5 +1,6 @@
 package com.aliayali.market.mapper
 
+import com.aliayali.marketdetail.mapper.toMarketIcon
 import com.aliayali.common.util.formattedPercent
 import com.aliayali.common.util.formattedPrice
 import com.aliayali.market.model.MarketItemUiModel
@@ -35,6 +36,7 @@ fun MarketAsset.asUiModel(): MarketItemUiModel.MarketAsset {
         id = id,
         name = name,
         symbol = symbol,
+        icon = symbol.toMarketIcon(),
         formattedPrice = price?.let {
             "${it.formattedPrice()} $unit"
         } ?: "-",
