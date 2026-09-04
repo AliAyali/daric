@@ -40,6 +40,7 @@ import com.aliayali.market.navigation.marketEntry
 import com.aliayali.marketdetail.navigation.marketDetailEntry
 import com.aliayali.navigation.Navigator
 import com.aliayali.navigation.toEntries
+import com.aliayali.news.navigation.newsEntry
 import com.aliayali.search.navigation.SearchNavKey
 import com.aliayali.search.navigation.searchEntry
 import com.aliayali.setting.SettingsDialog
@@ -165,6 +166,7 @@ internal fun DaricApp(
                         marketDetailEntry(navigator)
                         searchEntry(navigator)
                         marketEntry(navigator)
+                        newsEntry(navigator)
                     }
                     NavDisplay(
                         entries = appState.navigationState.toEntries(entryProvider),
