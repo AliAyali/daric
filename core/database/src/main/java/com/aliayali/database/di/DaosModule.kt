@@ -3,6 +3,7 @@ package com.aliayali.database.di
 import com.aliayali.database.DaricDatabase
 import com.aliayali.database.dao.CoinDao
 import com.aliayali.database.dao.MarketAssetDao
+import com.aliayali.database.dao.NewsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,4 +22,9 @@ internal object DaosModule {
     fun provideMarketAssetDao(
         database: DaricDatabase,
     ): MarketAssetDao = database.marketAssetDao()
+
+    @Provides
+    fun provideNewsDao(
+        database: DaricDatabase,
+    ): NewsDao = database.newsDao()
 }

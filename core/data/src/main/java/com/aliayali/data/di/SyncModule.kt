@@ -1,7 +1,9 @@
 package com.aliayali.data.di
 
 import com.aliayali.data.sync.MarketSyncerImpl
+import com.aliayali.data.sync.NewsSyncerImpl
 import com.aliayali.domain.sync.MarketSyncer
+import com.aliayali.domain.sync.NewsSyncer
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,4 +17,9 @@ internal abstract class SyncModule {
     abstract fun bindMarketSyncer(
         impl: MarketSyncerImpl,
     ): MarketSyncer
+
+    @Binds
+    abstract fun bindNewsSyncer(
+        impl: NewsSyncerImpl,
+    ): NewsSyncer
 }

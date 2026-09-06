@@ -2,8 +2,10 @@ package com.aliayali.network.di
 
 import com.aliayali.network.BrsNetworkDataSource
 import com.aliayali.network.CoinGeckoNetworkDataSource
+import com.aliayali.network.NewsNetworkDataSource
 import com.aliayali.network.RetrofitBrsNetworkDataSource
 import com.aliayali.network.RetrofitCoinGeckoNetworkDataSource
+import com.aliayali.network.RetrofitNewsNetworkDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -25,4 +27,10 @@ abstract class NetworkDataSourceModule {
     abstract fun bindBrsNetworkDataSource(
         impl: RetrofitBrsNetworkDataSource,
     ): BrsNetworkDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindNewsNetworkDataSource(
+        impl: RetrofitNewsNetworkDataSource,
+    ): NewsNetworkDataSource
 }

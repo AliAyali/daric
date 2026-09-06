@@ -31,6 +31,15 @@ dependencies {
 
     testImplementation(libs.kotlinx.coroutines.test)
 }
+
+val newsApiKey = providers.fileContents(
+    isolated.rootProject.projectDirectory.file("local.properties")
+).asText.map { text ->
+    val properties = Properties()
+    properties.load(StringReader(text))
+    properties["newsApiKey"]
+}.orElse("")
+
 val coinGeckoApiKey = providers.fileContents(
     isolated.rootProject.projectDirectory.file("local.properties")
 ).asText.map { text ->
@@ -49,6 +58,17 @@ val brsApiKey = providers.fileContents(
 
 androidComponents {
     onVariants {
+        it.buildConfigFields!!.put(
+            "NEWS_API_KEY",
+            newsApiKey.map { value ->
+                BuildConfigField(
+                    type = "String",
+                    value = "\"$value\"",
+                    comment = null,
+                )
+            },
+        )
+
         it.buildConfigFields!!.put(
             "COIN_GECKO_API_KEY",
             coinGeckoApiKey.map { value ->

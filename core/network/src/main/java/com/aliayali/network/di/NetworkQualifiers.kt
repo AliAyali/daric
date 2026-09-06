@@ -9,3 +9,7 @@ annotation class CoinGeckoRetrofit
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class BrsRetrofit
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class NewsRetrofit

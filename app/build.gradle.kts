@@ -76,6 +76,7 @@ dependencies {
 
     implementation(projects.sync)
     implementation(projects.feature.home)
+    implementation(projects.feature.news)
     implementation(projects.feature.market)
     implementation(projects.feature.marketdetail)
     implementation(projects.feature.search)
