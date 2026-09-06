@@ -8,6 +8,7 @@ import com.aliayali.model.news.News
 data class NewsEntity(
     @PrimaryKey
     val id: String,
+    val category: String,
     val sourceId: String?,
     val sourceName: String,
     val author: String?,
@@ -22,6 +23,7 @@ data class NewsEntity(
 fun NewsEntity.asModel(): News =
     News(
         id = id,
+        category = category,
         sourceId = sourceId,
         sourceName = sourceName,
         author = author,
@@ -36,6 +38,7 @@ fun NewsEntity.asModel(): News =
 fun News.asEntity(): NewsEntity =
     NewsEntity(
         id = id,
+        category = category,
         sourceId = sourceId,
         sourceName = sourceName,
         author = author,

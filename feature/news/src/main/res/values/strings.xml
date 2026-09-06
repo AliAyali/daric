@@ -3,4 +3,20 @@
     <string name="feature_news_title">اخبار</string>
     <string name="feature_news_title_screen">اخبار</string>
     <string name="feature_news_subtitle_screen">آخرین اخبار بازار و اقتصاد</string>
+
+    <string name="feature_news_category_all">همه</string>
+    <string name="feature_news_category_currency">ارز</string>
+    <string name="feature_news_category_gold">طلا</string>
+    <string name="feature_news_category_crypto">کریپتو</string>
+    <string name="feature_news_category_stock">بورس</string>
+    <string name="feature_news_category_economy">اقتصاد</string>
+    <string name="feature_news_category_oil">نفت</string>
+
+    <string name="feature_news_read_full">مشاهده خبر کامل</string>
+
+    <string name="feature_news_offline_title">اتصال به اینترنت برقرار نیست</string>
+    <string name="feature_news_offline_message">آخرین اخبار ذخیره‌شده نمایش داده می‌شوند.</string>
+    <string name="feature_news_error_title">خطا در دریافت اخبار</string>
+    <string name="feature_news_error_message">دریافت اخبار با مشکل مواجه شد. دوباره تلاش کنید.</string>
+    <string name="feature_news_retry">تلاش مجدد</string>
 </resources>

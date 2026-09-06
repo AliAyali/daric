@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 2,
-    "identityHash": "4a8617e0d92eae67a9ef0c6b9ac7ecba",
+    "version": 3,
+    "identityHash": "bc4de1c350194e88c983dc8f8435d937",
     "entities": [
       {
         "tableName": "coins",
@@ -98,7 +98,7 @@
       },
       {
         "tableName": "news",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `category` TEXT, `sourceId` TEXT, `sourceName` TEXT NOT NULL, `author` TEXT, `title` TEXT NOT NULL, `description` TEXT, `url` TEXT NOT NULL, `imageUrl` TEXT, `publishedAt` TEXT NOT NULL, `content` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `category` TEXT NOT NULL, `sourceId` TEXT, `sourceName` TEXT NOT NULL, `author` TEXT, `title` TEXT NOT NULL, `description` TEXT, `url` TEXT NOT NULL, `imageUrl` TEXT, `publishedAt` TEXT NOT NULL, `content` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -109,7 +109,8 @@
           {
             "fieldPath": "category",
             "columnName": "category",
-            "affinity": "TEXT"
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "sourceId",
@@ -171,7 +172,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4a8617e0d92eae67a9ef0c6b9ac7ecba')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bc4de1c350194e88c983dc8f8435d937')"
     ]
   }
 }

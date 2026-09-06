@@ -10,10 +10,9 @@ fun NewsRoute(
     viewModel: NewsViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     NewsScreen(
         uiState = uiState,
-        onRefresh = {
-            viewModel.onEvent(NewsEvent.Refresh)
-        }
+        onEvent = viewModel::onEvent,
     )
 }

@@ -17,12 +17,12 @@ internal class NewsRepositoryImpl @Inject constructor(
     private val networkDataSource: NewsNetworkDataSource,
     private val localDataSource: NewsLocalDataSource,
 ) : NewsRepository {
-
-    override fun observeNews(): Flow<List<News>> =
-        localDataSource.observeNews()
+    override fun observeNews(category: String): Flow<List<News>> =
+        localDataSource.observeNews(category)
 
     override suspend fun syncNews(
-        query: String?,
+        category: String,
+        query: String,
         queryInTitle: String?,
         pageSize: Int,
         page: Int,
@@ -35,7 +35,11 @@ internal class NewsRepositoryImpl @Inject constructor(
                     pageSize = pageSize,
                     page = page,
                 )
-                .map(NewsArticleDto::asModel)
+                .map {
+                    it.asModel(
+                        category = category,
+                    )
+                }
 
             localDataSource.saveNews(news)
 
@@ -50,9 +54,12 @@ internal class NewsRepositoryImpl @Inject constructor(
     }
 }
 
-fun NewsArticleDto.asModel(): News =
+fun NewsArticleDto.asModel(
+    category: String,
+): News =
     News(
         id = url,
+        category = category,
         sourceId = source.id,
         sourceName = source.name,
         author = author,

@@ -5,7 +5,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface NewsLocalDataSource {
 
-    fun observeNews(): Flow<List<News>>
+    fun observeNews(
+        category: String,
+    ): Flow<List<News>>
 
     suspend fun saveNews(
         news: List<News>,

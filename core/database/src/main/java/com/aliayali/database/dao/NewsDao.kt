@@ -13,30 +13,47 @@ interface NewsDao {
     @Query(
         """
         SELECT * FROM news
+        WHERE category = :category
         ORDER BY publishedAt DESC
         """
     )
-    fun observeAll(): Flow<List<NewsEntity>>
+    fun observeByCategory(
+        category: String,
+    ): Flow<List<NewsEntity>>
 
     @Upsert
-    suspend fun upsertAll(news: List<NewsEntity>)
+    suspend fun upsertAll(
+        news: List<NewsEntity>,
+    )
 
     @Query(
         """
         DELETE FROM news
-        WHERE id NOT IN (
+        WHERE category = :category
+        AND id NOT IN (
             SELECT id
             FROM news
+            WHERE category = :category
             ORDER BY publishedAt DESC
             LIMIT 50
         )
         """
     )
-    suspend fun deleteOldNews()
+    suspend fun deleteOldNews(
+        category: String,
+    )
 
     @Transaction
-    suspend fun upsertAndDeleteOld(news: List<NewsEntity>) {
+    suspend fun upsertAndDeleteOld(
+        news: List<NewsEntity>,
+    ) {
         upsertAll(news)
-        deleteOldNews()
+
+        news
+            .map { it.category }
+            .distinct()
+            .forEach { category ->
+                deleteOldNews(category)
+            }
     }
 }

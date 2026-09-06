@@ -6,10 +6,13 @@ import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {
 
-    fun observeNews(): Flow<List<News>>
+    fun observeNews(
+        category: String,
+    ): Flow<List<News>>
 
     suspend fun syncNews(
-        query: String? = null,
+        category: String,
+        query: String,
         queryInTitle: String? = null,
         pageSize: Int = 20,
         page: Int = 1,

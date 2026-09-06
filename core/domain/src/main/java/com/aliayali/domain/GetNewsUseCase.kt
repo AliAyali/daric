@@ -8,8 +8,11 @@ import javax.inject.Inject
 class GetNewsUseCase @Inject constructor(
     private val newsRepository: NewsRepository,
 ) {
-
-    operator fun invoke(): Flow<List<News>> {
-        return newsRepository.observeNews()
+    operator fun invoke(
+        category: String,
+    ): Flow<List<News>> {
+        return newsRepository.observeNews(
+            category = category,
+        )
     }
 }
