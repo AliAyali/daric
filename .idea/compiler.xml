@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="11">
       <module name="daric.core.sync" target="21" />
+      <module name="daric.datastore-proto" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>
