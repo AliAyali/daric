@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="top_app_bar_search">Search</string>
-    <string name="top_app_bar_settings">Settings</string>
+    <string name="feature_setting_top_app_bar_search">Search</string>
+
+    <string name="feature_setting_title">تنظیمات</string>
+    <string name="feature_settings_description">ظاهر و رفتار برنامه را شخصی‌سازی کنید.</string>
+    <string name="feature_settings_appearance">ظاهر برنامه</string>
+    <string name="feature_settings_theme_system">سیستم</string>
+    <string name="feature_settings_theme_system_description">مطابق تنظیمات دستگاه</string>
+    <string name="feature_settings_theme_light">روشن</string>
+    <string name="feature_settings_theme_light_description">استفاده از حالت روشن</string>
+    <string name="feature_settings_theme_dark">تیره</string>
+    <string name="feature_settings_theme_dark_description">استفاده از حالت تیره</string>
+    <string name="feature_settings_notifications">اعلان‌ها</string>
+    <string name="feature_settings_notifications_description">دریافت اعلان‌های برنامه</string>
+    <string name="feature_settings_notifications_enabled">اعلان‌ها فعال هستند</string>
+    <string name="feature_settings_notifications_disabled">اعلان‌ها غیرفعال هستند</string>
 </resources>

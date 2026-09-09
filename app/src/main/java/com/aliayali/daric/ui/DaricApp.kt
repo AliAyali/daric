@@ -43,7 +43,7 @@ import com.aliayali.navigation.toEntries
 import com.aliayali.news.navigation.newsEntry
 import com.aliayali.search.navigation.SearchNavKey
 import com.aliayali.search.navigation.searchEntry
-import com.aliayali.setting.SettingsDialog
+import com.aliayali.setting.SettingsRoute
 import com.aliayali.setting.R as settingR
 
 @Composable
@@ -78,8 +78,8 @@ internal fun DaricApp(
         Navigator(appState.navigationState)
     }
     if (showSettingsDialog) {
-        SettingsDialog(
-            onDismiss = { onSettingsDismissed() },
+        SettingsRoute(
+            onDismiss = onSettingsDismissed,
         )
     }
     val listDetailStrategy = rememberListDetailSceneStrategy<NavKey>()
@@ -137,11 +137,11 @@ internal fun DaricApp(
                         titleRes = destination.titleTextId,
                         navigationIcon = DaricIcons.Search,
                         navigationIconContentDescription = stringResource(
-                            id = settingR.string.top_app_bar_search,
+                            id = settingR.string.feature_setting_top_app_bar_search,
                         ),
                         actionIcon = DaricIcons.Settings,
                         actionIconContentDescription = stringResource(
-                            id = settingR.string.top_app_bar_settings
+                            id = settingR.string.feature_setting_title
                         ),
                         colors = TopAppBarDefaults.topAppBarColors(
                             containerColor = Color.Transparent,

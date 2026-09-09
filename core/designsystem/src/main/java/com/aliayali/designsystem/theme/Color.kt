@@ -18,10 +18,6 @@ internal val TertiaryContainer = Color(0xFFB7F5DD)
 internal val OnTertiaryContainer = Color(0xFF002116)
 
 internal val Success = Color(0xFF12D18E)
-internal val OnSuccess = Color(0xFFFFFFFF)
-
-internal val Warning = Color(0xFFFACC15)
-internal val OnWarning = Color(0xFF332500)
 
 internal val Error = Color(0xFFF75555)
 internal val OnError = Color(0xFFFFFFFF)
@@ -41,7 +37,7 @@ internal val LightOnSurfaceVariant = Color(0xFF4F4F4F)
 internal val LightOutline = Color(0xFFD8D8D8)
 
 internal val DarkBackground = Color(0xFF121212)
-internal val DarkOnBackground = Color(0xFFFFFFFF)
+internal val DarkOnBackground = Color(0xFFC9C6C6)
 
 internal val DarkSurface = Color(0xFF181A1D)
 internal val DarkOnSurface = Color(0xFFF3F3F3)
@@ -51,18 +47,9 @@ internal val DarkOnSurfaceVariant = Color(0xFFD8D8D8)
 
 internal val DarkOutline = Color(0xFF4A4A4A)
 
-internal val Info = Primary
-
-internal val Disabled = Color(0xFFD8D8D8)
-internal val DisabledDark = Color(0xFF23252B)
-internal val DisabledButton = Color(0xFF80BA59)
-
 internal val BackgroundTeal = Color(0xFFF0FBFA)
-internal val BackgroundPurple = Color(0xFFF8F0FE)
 internal val BackgroundBlueLight = Color(0xFFF3F6FF)
 internal val BackgroundBlueDark = Color(0xFF1A202B)
-internal val BackgroundRed = Color(0xFFFFF3F3)
 
 internal val White = Color.White
 internal val Black = Color.Black
-internal val Transparent = Color.Transparent

@@ -2,6 +2,9 @@ package com.aliayali.designsystem.icon
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.filled.SystemSecurityUpdateGood
 import androidx.compose.material.icons.outlined.CandlestickChart
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Newspaper
@@ -33,4 +36,8 @@ object DaricIcons {
 
     val News = Icons.Rounded.Newspaper
     val NewsBorder = Icons.Outlined.Newspaper
+
+    val WbSunny = Icons.Default.SystemSecurityUpdateGood
+    val LightMode = Icons.Default.LightMode
+    val DarkMode = Icons.Default.DarkMode
 }
