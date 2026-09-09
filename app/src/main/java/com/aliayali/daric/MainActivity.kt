@@ -33,7 +33,6 @@ class MainActivity : ComponentActivity() {
                 AppTheme.LIGHT -> false
                 AppTheme.DARK -> true
             }
-
             DaricTheme(
                 darkTheme = darkTheme,
             ) {

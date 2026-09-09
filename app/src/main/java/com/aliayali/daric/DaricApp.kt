@@ -23,6 +23,7 @@ class DaricApplication : Application(), ImageLoaderFactory {
         super.onCreate()
         setStrictModePolicy()
         Sync.initialize(this)
+        Sync.initializeDailyNotification(this)
     }
 
     override fun newImageLoader(): ImageLoader = imageLoader.get()

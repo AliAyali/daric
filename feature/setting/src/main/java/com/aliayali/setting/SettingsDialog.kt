@@ -10,10 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DarkMode
-import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -26,6 +23,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import com.aliayali.designsystem.icon.DaricIcons
 import com.aliayali.model.settings.AppTheme
 import com.aliayali.setting.components.NotificationOption
 import com.aliayali.setting.components.ThemeOption
@@ -87,7 +85,7 @@ fun SettingsDialog(
                 ThemeOption(
                     title = stringResource(R.string.feature_settings_theme_system),
                     subtitle = stringResource(R.string.feature_settings_theme_system_description),
-                    icon = Icons.Default.WbSunny,
+                    icon = DaricIcons.WbSunny,
                     selected = uiState.theme == AppTheme.SYSTEM,
                     onClick = {
                         onAction(SettingAction.ChangeTheme(AppTheme.SYSTEM))
@@ -97,7 +95,7 @@ fun SettingsDialog(
                 ThemeOption(
                     title = stringResource(R.string.feature_settings_theme_light),
                     subtitle = stringResource(R.string.feature_settings_theme_light_description),
-                    icon = Icons.Default.LightMode,
+                    icon = DaricIcons.LightMode,
                     selected = uiState.theme == AppTheme.LIGHT,
                     onClick = {
                         onAction(SettingAction.ChangeTheme(AppTheme.LIGHT))
@@ -107,7 +105,7 @@ fun SettingsDialog(
                 ThemeOption(
                     title = stringResource(R.string.feature_settings_theme_dark),
                     subtitle = stringResource(R.string.feature_settings_theme_dark_description),
-                    icon = Icons.Default.DarkMode,
+                    icon = DaricIcons.DarkMode,
                     selected = uiState.theme == AppTheme.DARK,
                     onClick = {
                         onAction(SettingAction.ChangeTheme(AppTheme.DARK))
