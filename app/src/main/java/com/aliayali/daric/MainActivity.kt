@@ -6,16 +6,23 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.aliayali.analytics.AnalyticsHelper
+import com.aliayali.analytics.LocalAnalyticsHelper
 import com.aliayali.daric.ui.DaricApp
 import com.aliayali.daric.ui.rememberDaricAppState
 import com.aliayali.designsystem.theme.DaricTheme
 import com.aliayali.model.settings.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var analyticsHelper: AnalyticsHelper
 
     private val viewModel: MainActivityViewModel by viewModels()
 
@@ -36,8 +43,12 @@ class MainActivity : ComponentActivity() {
             DaricTheme(
                 darkTheme = darkTheme,
             ) {
-                val appState = rememberDaricAppState()
-                DaricApp(appState)
+                CompositionLocalProvider(
+                    LocalAnalyticsHelper provides analyticsHelper,
+                ) {
+                    val appState = rememberDaricAppState()
+                    DaricApp(appState)
+                }
             }
         }
     }

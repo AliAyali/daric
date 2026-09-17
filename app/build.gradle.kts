@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.baselineprofile)
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.daric.android.application.firebase)
 }
 
 android {
@@ -74,6 +75,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.testManifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
+    implementation(projects.core.analytics)
     implementation(projects.sync)
     implementation(projects.feature.home)
     implementation(projects.feature.news)

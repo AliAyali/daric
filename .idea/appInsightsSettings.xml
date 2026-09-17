@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.aliayali.daric.demo.debug" />
+                  <option name="mobileSdkAppId" value="1:812042948303:android:d12cb51f52e1fe4889f1ba" />
+                  <option name="projectId" value="daric-f61eb" />
+                  <option name="projectNumber" value="812042948303" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
