@@ -26,7 +26,9 @@ fun MarketListHeader(
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         DaricOutlinedButton(
-            onClick = onMoreClick,
+            onClick = {
+                error("Test Crashlytics")
+            },
             contentPadding = PaddingValues(
                 horizontal = 12.dp,
                 vertical = 6.dp,

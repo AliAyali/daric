@@ -20,6 +20,7 @@ import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneStrategy
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +32,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
+import com.aliayali.analytics.LocalAnalyticsHelper
+import com.aliayali.analytics.logScreenView
 import com.aliayali.daric.navigation.TOP_LEVEL_NAV_ITEMS
 import com.aliayali.designsystem.component.DaricNavigationSuiteScaffold
 import com.aliayali.designsystem.component.DaricTopAppBar
@@ -74,6 +77,12 @@ internal fun DaricApp(
     onTopAppBarActionClick: () -> Unit,
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),
 ) {
+    val analyticsHelper = LocalAnalyticsHelper.current
+    LaunchedEffect(appState.navigationState.currentKey) {
+        analyticsHelper.logScreenView(
+            screenName = appState.navigationState.currentKey::class.simpleName.orEmpty(),
+        )
+    }
     val navigator = remember(appState.navigationState) {
         Navigator(appState.navigationState)
     }
