@@ -29,10 +29,16 @@ android {
         release {
             isMinifyEnabled = providers.gradleProperty("minifyWithR8")
                 .map(String::toBooleanStrict).getOrElse(true)
+
+            isShrinkResources = true
+
             applicationIdSuffix = DaricBuildType.RELEASE.applicationIdSuffix
+
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
+
             signingConfig = signingConfigs.named("debug").get()
             baselineProfile.automaticGenerationDuringBuild = false
         }

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Daric</string>
     <string name="feature_home_title">خانه</string>
+    <string name="security_root_detected_title">هشدار امنیتی</string>
+    <string name="security_root_detected_message">این برنامه به دلیل شناسایی دسترسی Root روی این دستگاه قابل اجرا نیست.</string>
+    <string name="security_root_detected_exit">خروج از برنامه</string>
 </resources>

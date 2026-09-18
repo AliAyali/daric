@@ -11,6 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.aliayali.analytics.AnalyticsHelper
 import com.aliayali.analytics.LocalAnalyticsHelper
+import com.aliayali.daric.security.root.RootDetectedScreen
+import com.aliayali.daric.security.root.SecurityManager
+import com.aliayali.daric.security.root.SecurityStatus
 import com.aliayali.daric.ui.DaricApp
 import com.aliayali.daric.ui.rememberDaricAppState
 import com.aliayali.designsystem.theme.DaricTheme
@@ -24,12 +27,17 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var analyticsHelper: AnalyticsHelper
 
+    @Inject
+    lateinit var securityManager: SecurityManager
+
     private val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
+
+        val securityStatus = securityManager.check()
 
         setContent {
 
@@ -40,14 +48,27 @@ class MainActivity : ComponentActivity() {
                 AppTheme.LIGHT -> false
                 AppTheme.DARK -> true
             }
+
             DaricTheme(
                 darkTheme = darkTheme,
             ) {
-                CompositionLocalProvider(
-                    LocalAnalyticsHelper provides analyticsHelper,
-                ) {
-                    val appState = rememberDaricAppState()
-                    DaricApp(appState)
+                when (securityStatus) {
+                    SecurityStatus.Secure -> {
+                        CompositionLocalProvider(
+                            LocalAnalyticsHelper provides analyticsHelper,
+                        ) {
+                            val appState = rememberDaricAppState()
+                            DaricApp(appState)
+                        }
+                    }
+
+                    SecurityStatus.RootDetected -> {
+                        RootDetectedScreen(
+                            onExit = {
+                                finish()
+                            },
+                        )
+                    }
                 }
             }
         }
