@@ -3,7 +3,6 @@ package com.aliayali.market.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.aliayali.designsystem.component.DaricResponsivePriceText
 import com.aliayali.designsystem.icon.DaricIcons.ArrowDown
 import com.aliayali.designsystem.icon.DaricIcons.ArrowUp
 import com.aliayali.market.model.MarketItemUiModel
@@ -62,9 +62,9 @@ fun MarketAssetItem(
                 .fillMaxWidth()
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
 
+            // Change
             Row(
                 modifier = Modifier
                     .background(
@@ -77,14 +77,9 @@ fun MarketAssetItem(
                     ),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-
                 Icon(
                     modifier = Modifier.size(14.dp),
-                    imageVector = if (item.isPositive) {
-                        ArrowUp
-                    } else {
-                        ArrowDown
-                    },
+                    imageVector = if (item.isPositive) ArrowUp else ArrowDown,
                     contentDescription = null,
                     tint = changeColor,
                 )
@@ -95,31 +90,40 @@ fun MarketAssetItem(
                     text = item.formattedChange,
                     color = changeColor,
                     style = MaterialTheme.typography.labelMedium,
+                    maxLines = 1,
                 )
             }
 
-            Text(
-                text = item.formattedPrice,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
+            // Price
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 8.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                DaricResponsivePriceText(
+                    price = item.formattedPrice,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            }
 
+            // Name + Icon
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-
                 Column(
                     horizontalAlignment = Alignment.End,
                 ) {
-
                     Text(
                         text = if (item.name.length > 13) {
-                            "${item.name.take(15)}..."
+                            "${item.name.take(11)}..."
                         } else {
                             item.name
                         },
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.onSurface,
+                        maxLines = 1,
                     )
 
                     Spacer(Modifier.height(2.dp))
@@ -128,6 +132,7 @@ fun MarketAssetItem(
                         text = item.symbol,
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
                     )
                 }
 
@@ -138,14 +143,13 @@ fun MarketAssetItem(
                         .size(42.dp)
                         .clip(CircleShape)
                         .background(
-                            MaterialTheme.colorScheme.onBackground
-                                .copy(alpha = .10f),
+                            MaterialTheme.colorScheme.onBackground.copy(alpha = .10f),
                         ),
                     contentAlignment = Alignment.Center,
                 ) {
                     Image(
                         painter = painterResource(item.icon),
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }
             }

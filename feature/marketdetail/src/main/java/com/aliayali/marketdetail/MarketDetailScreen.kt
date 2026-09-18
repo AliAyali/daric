@@ -92,7 +92,9 @@ fun MarketDetailScreen(
                     isRefreshing = uiState.isRefreshing,
                     isAtTop = isAtTop,
                     onRefresh = onRefresh,
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 10.dp),
                 ) {
                     MarketDetailContent(
                         data = uiState.marketDetailUiData,

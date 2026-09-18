@@ -105,7 +105,9 @@ fun HomeScreen(
                     onRefresh = {
                         onRefresh()
                     },
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 10.dp),
                 ) {
                     LazyColumn(
                         state = listState,

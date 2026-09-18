@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.aliayali.designsystem.component.DaricResponsivePriceText
 import com.aliayali.designsystem.icon.DaricIcons.ArrowDown
 import com.aliayali.designsystem.icon.DaricIcons.ArrowUp
 
@@ -72,20 +73,17 @@ fun MarketPriceCard(
             modifier = Modifier.height(10.dp)
         )
 
-
         price?.let {
-            Text(
-                text = it,
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.background,
+            DaricResponsivePriceText(
+                modifier = Modifier.fillMaxWidth(),
+                price = it,
+                color = MaterialTheme.colorScheme.background.copy(alpha = .65f)
             )
         }
-
 
         Spacer(
             modifier = Modifier.height(12.dp)
         )
-
 
         Row(
             verticalAlignment = Alignment.CenterVertically,

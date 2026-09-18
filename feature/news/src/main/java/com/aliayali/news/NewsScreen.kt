@@ -93,7 +93,6 @@ fun NewsScreen(
             Box(
                 modifier = Modifier.fillMaxSize(),
             ) {
-
                 DaricPullToRefresh(
                     isRefreshing = uiState.isRefreshing,
                     isAtTop = isAtTop,
