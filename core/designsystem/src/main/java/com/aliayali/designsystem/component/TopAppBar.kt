@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,7 +30,14 @@ fun DaricTopAppBar(
     onActionClick: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
-        title = { Text(text = stringResource(id = titleRes)) },
+        title = {
+            Text(
+                text = stringResource(id = titleRes),
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontFamily = FontFamily.Cursive,
+                ),
+            )
+        },
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
                 Icon(

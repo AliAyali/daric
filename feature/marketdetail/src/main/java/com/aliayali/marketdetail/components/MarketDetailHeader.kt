@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.aliayali.designsystem.component.DaricAsyncImage
+import com.aliayali.designsystem.component.DaricResponsivePriceText
 import com.aliayali.designsystem.icon.DaricIcons.ArrowDown
 import com.aliayali.designsystem.icon.DaricIcons.ArrowUp
 import com.aliayali.marketdetail.model.MarketDetailUiData
@@ -86,8 +87,8 @@ fun MarketAssetHeader(
                 )
             }
 
-            Text(
-                text = data.formattedTomanPrice ?: "-",
+            DaricResponsivePriceText(
+                price = data.formattedTomanPrice ?: "-",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
             )

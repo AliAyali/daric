@@ -175,7 +175,8 @@ private fun MarketList(
         modifier = modifier
             .fillMaxSize()
             .padding(
-                vertical = 8.dp
+                top = 8.dp,
+                bottom = 10.dp
             ),
     ) {
         LazyColumn(

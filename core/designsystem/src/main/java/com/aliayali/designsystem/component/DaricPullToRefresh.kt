@@ -26,6 +26,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -50,7 +51,6 @@ fun DaricPullToRefresh(
                 available: Offset,
                 source: NestedScrollSource,
             ): Offset {
-
                 if (
                     source == NestedScrollSource.UserInput &&
                     available.y > 0f &&
@@ -129,31 +129,7 @@ fun DaricPullToRefresh(
         modifier = modifier.fillMaxSize(),
     ) {
 
-        if (pullOffset.value > 0f || isRefreshing) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .graphicsLayer {
-                        alpha = (pullOffset.value / PullThreshold)
-                            .coerceIn(0f, 1f)
-                    },
-            ) {
-                if (isRefreshing) {
-                    CircularProgressIndicator(
-                        modifier = Modifier,
-                        strokeWidth = 2.dp,
-                        color = MaterialTheme.colorScheme.primary,
-                    )
-                } else {
-                    Icon(
-                        imageVector = Icons.Default.Refresh,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                    )
-                }
-            }
-        }
-
+        // Content
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -166,6 +142,33 @@ fun DaricPullToRefresh(
                 .nestedScroll(connection),
         ) {
             content()
+        }
+
+        // Pull-to-refresh indicator
+        if (pullOffset.value > 0f || isRefreshing) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .offset(y = 12.dp)
+                    .zIndex(10f)
+                    .graphicsLayer {
+                        alpha = (pullOffset.value / PullThreshold)
+                            .coerceIn(0f, 1f)
+                    },
+            ) {
+                if (isRefreshing) {
+                    CircularProgressIndicator(
+                        strokeWidth = 2.dp,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Default.Refresh,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                    )
+                }
+            }
         }
     }
 }
