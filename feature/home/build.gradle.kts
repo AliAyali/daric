@@ -12,6 +12,7 @@ android {
 dependencies {
     implementation(libs.accompanist.permissions)
     implementation(projects.core.domain)
+    implementation(projects.core.testing)
     implementation(projects.feature.marketdetail)
     implementation(projects.feature.market)
     implementation(projects.core.model)
