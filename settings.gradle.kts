@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -17,6 +18,7 @@ plugins {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        maven { url = uri("https://maven.myket.ir/") }
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
@@ -29,5 +31,25 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "daric"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
- 
+include(":core:model")
+include(":core:domain")
+include(":core:data")
+include(":core:network")
+include(":core:navigation")
+include(":core:designsystem")
+include(":core:testing")
+include(":feature:home")
+include(":core:common")
+include(":feature:setting")
+include(":feature:search")
+include(":core:database")
+include(":sync")
+include(":feature:marketdetail")
+include(":feature:market")
+include(":feature:news")
+include(":core:datastore")
+include(":core:datastore-proto")
+include(":core:notifications")
+include(":core:analytics")

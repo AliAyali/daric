@@ -1,47 +1,94 @@
 package com.aliayali.daric
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.aliayali.daric.ui.theme.DaricTheme
+import androidx.activity.viewModels
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.core.net.toUri
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.aliayali.analytics.AnalyticsHelper
+import com.aliayali.analytics.LocalAnalyticsHelper
+import com.aliayali.daric.security.root.RootDetectedScreen
+import com.aliayali.daric.security.root.SecurityManager
+import com.aliayali.daric.security.root.SecurityStatus
+import com.aliayali.daric.ui.DaricApp
+import com.aliayali.daric.ui.rememberDaricAppState
+import com.aliayali.designsystem.theme.DaricTheme
+import com.aliayali.model.settings.AppTheme
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var analyticsHelper: AnalyticsHelper
+
+    @Inject
+    lateinit var securityManager: SecurityManager
+
+    private val viewModel: MainActivityViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
+
+        val securityStatus = securityManager.check()
+
         setContent {
-            DaricTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+
+            val theme by viewModel.theme.collectAsStateWithLifecycle()
+
+            val darkTheme = when (theme) {
+                AppTheme.SYSTEM -> isSystemInDarkTheme()
+                AppTheme.LIGHT -> false
+                AppTheme.DARK -> true
+            }
+
+            DaricTheme(
+                darkTheme = darkTheme,
+            ) {
+                when (securityStatus) {
+                    SecurityStatus.Secure -> {
+                        CompositionLocalProvider(
+                            LocalAnalyticsHelper provides analyticsHelper,
+                        ) {
+                            val appState = rememberDaricAppState()
+                            DaricApp(
+                                appState = appState,
+                                onRateApp = ::openMyketReview,
+                            )
+                        }
+                    }
+
+                    SecurityStatus.RootDetected -> {
+                        RootDetectedScreen(
+                            onExit = {
+                                finish()
+                            },
+                        )
+                    }
                 }
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+    private fun openMyketReview() {
+        val uri = "myket://comment?id=$packageName".toUri()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DaricTheme {
-        Greeting("Android")
+        val intent = Intent(
+            Intent.ACTION_VIEW,
+            uri,
+        )
+
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        }
     }
 }

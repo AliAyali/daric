@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_marketdetail_market_info_title">اطلاعات بازار</string>
+    <string name="feature_marketdetail_label_symbol">نماد</string>
+    <string name="feature_marketdetail_label_price_usd">قیمت (دلار)</string>
+    <string name="feature_marketdetail_label_price_toman">قیمت (تومان)</string>
+    <string name="feature_marketdetail_label_change_24h">تغییرات ۲۴ ساعته</string>
+    <string name="feature_marketdetail_error_no_internet_title">اتصال به اینترنت برقرار نیست</string>
+    <string name="feature_marketdetail_error_no_internet_description">اتصال اینترنت خود را بررسی کنید و دوباره تلاش کنید.</string>
+    <string name="feature_marketdetail_error_timeout_title">ارتباط با سرور زمان‌بر شد</string>
+    <string name="feature_marketdetail_error_timeout_description">ارتباط با سرور بیش از حد طول کشید. دوباره تلاش کنید.</string>
+    <string name="feature_marketdetail_error_server_title">دریافت اطلاعات با خطا مواجه شد</string>
+    <string name="feature_marketdetail_error_server_description">در حال حاضر دریافت اطلاعات بازار امکان‌پذیر نیست.</string>
+    <string name="feature_marketdetail_error_unknown_title">خطایی رخ داد</string>
+    <string name="feature_marketdetail_error_unknown_description">مشکلی در دریافت اطلاعات رخ داده است. دوباره تلاش کنید.</string>
+    <string name="feature_marketdetail_error_retry">تلاش مجدد</string>
+    <string name="feature_marketdetail_chart_error_title">دریافت نمودار با خطا مواجه شد</string>
+    <string name="feature_marketdetail_chart_error_description">در حال حاضر دریافت اطلاعات نمودار امکان‌پذیر نیست. دوباره تلاش کنید.</string>
+    <string name="feature_marketdetail_chart_unavailable_title">نمودار قیمت در دسترس نیست</string>
+    <string name="feature_marketdetail_chart_unavailable_description">نمایش تاریخچه قیمت این دارایی فعلاً امکان‌پذیر نیست.</string>
+    <string name="feature_marketdetail_chart_coming_soon">این قابلیت به‌زودی در دسترس خواهد بود</string>
+    <string name="feature_marketdetail_offline_title">اتصال به اینترنت برقرار نیست</string>
+    <string name="feature_marketdetail_offline_message">داده‌های ذخیره‌شده نمایش داده می‌شوند.</string>
+</resources>

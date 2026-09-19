@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "com.aliayali.datastore.proto";
+option java_multiple_files = true;
+
+message UserPreferences {
+    Theme theme = 1;
+    bool notifications_enabled = 2;
+}
+
+enum Theme {
+    THEME_UNSPECIFIED = 0;
+    THEME_FOLLOW_SYSTEM = 1;
+    THEME_LIGHT = 2;
+    THEME_DARK = 3;
+}
