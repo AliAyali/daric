@@ -15,4 +15,6 @@
     <string name="feature_settings_notifications_description">دریافت اعلان‌های برنامه</string>
     <string name="feature_settings_notifications_enabled">اعلان‌ها فعال هستند</string>
     <string name="feature_settings_notifications_disabled">اعلان‌ها غیرفعال هستند</string>
+    <string name="feature_settings_rate_app">امتیاز دادن به داریک</string>
+    <string name="feature_settings_rate_app_description">تجربه خود را در مایکت با ما و سایر کاربران به اشتراک بگذارید.</string>
 </resources>

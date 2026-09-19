@@ -8,6 +8,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun SettingsRoute(
     onDismiss: () -> Unit,
+    onRateApp: () -> Unit,
     viewModel: SettingViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -16,5 +17,6 @@ fun SettingsRoute(
         uiState = uiState,
         onAction = viewModel::onAction,
         onDismiss = onDismiss,
+        onRateApp = onRateApp,
     )
 }

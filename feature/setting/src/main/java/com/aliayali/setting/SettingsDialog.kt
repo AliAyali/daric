@@ -26,6 +26,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.aliayali.designsystem.icon.DaricIcons
 import com.aliayali.model.settings.AppTheme
 import com.aliayali.setting.components.NotificationOption
+import com.aliayali.setting.components.RateAppOption
 import com.aliayali.setting.components.ThemeOption
 
 @SuppressLint("ConfigurationScreenWidthHeight")
@@ -34,6 +35,7 @@ fun SettingsDialog(
     uiState: SettingUiState,
     onAction: (SettingAction) -> Unit,
     onDismiss: () -> Unit,
+    onRateApp: () -> Unit,
 ) {
     val configuration = LocalConfiguration.current
 
@@ -123,6 +125,16 @@ fun SettingsDialog(
                     onCheckedChange = { enabled ->
                         onAction(SettingAction.ChangeNotifications(enabled))
                     },
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                HorizontalDivider()
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                RateAppOption(
+                    onClick = onRateApp,
                 )
             }
         },

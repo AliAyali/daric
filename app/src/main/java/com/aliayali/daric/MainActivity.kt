@@ -1,5 +1,6 @@
 package com.aliayali.daric
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.aliayali.analytics.AnalyticsHelper
 import com.aliayali.analytics.LocalAnalyticsHelper
@@ -58,7 +60,10 @@ class MainActivity : ComponentActivity() {
                             LocalAnalyticsHelper provides analyticsHelper,
                         ) {
                             val appState = rememberDaricAppState()
-                            DaricApp(appState)
+                            DaricApp(
+                                appState = appState,
+                                onRateApp = ::openMyketReview,
+                            )
                         }
                     }
 
@@ -71,6 +76,19 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private fun openMyketReview() {
+        val uri = "myket://comment?id=$packageName".toUri()
+
+        val intent = Intent(
+            Intent.ACTION_VIEW,
+            uri,
+        )
+
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
         }
     }
 }
