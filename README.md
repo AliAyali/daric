@@ -1,9 +1,5 @@
 # Daric
 
-<p align="center">
-  <img src="docs/images/daric-logo.png" width="120" alt="Daric Logo"/>
-</p>
-
 <h3 align="center">A modern Android application for tracking financial markets</h3>
 
 <p align="center">
@@ -27,10 +23,13 @@
 
 The application brings market prices, economic information, and financial news together in a clean and responsive interface.
 
+Daric follows an **offline-first approach**, using local data as an important part of the application's data flow while synchronizing with remote APIs when network connectivity is available.
+
 Daric was built with a strong focus on:
 
 * Modern Android development
 * Clean and maintainable architecture
+* Offline-first data flow
 * Reactive UI and state management
 * Modular project structure
 * Security-aware development
@@ -41,7 +40,7 @@ The project is also part of my journey toward specializing in **Android Applicat
 
 ---
 
-## ✨ Features
+# ✨ Features
 
 ### 📊 Market Monitoring
 
@@ -49,12 +48,14 @@ The project is also part of my journey toward specializing in **Android Applicat
 * Track gold and currency information
 * Quickly access important market data
 * Responsive layouts for different screen sizes
+* Local data support for a smoother experience
 
 ### 📰 Financial News
 
 * Browse economic and financial news
 * Stay informed about important market events
 * Clean reading experience optimized for mobile
+* Local data caching for improved availability
 
 ### ⚙️ Settings
 
@@ -118,6 +119,7 @@ The project separates UI, business logic, data access, and shared infrastructure
 * Reactive state management
 * Dependency injection
 * Feature-based organization
+* Offline-first data flow
 * Testability
 
 ### High-level architecture
@@ -142,16 +144,55 @@ The project separates UI, business logic, data access, and shared infrastructure
                      │
                      ▼
 ┌──────────────────────────────────────────┐
-│                Data                      │
-│     Repositories • API • Local Data      │
+│                 Data                     │
+│  Repositories • Local Data • Remote API │
 └────────────────────┬─────────────────────┘
                      │
-                     ▼
-┌──────────────────────────────────────────┐
-│             Infrastructure               │
-│ Retrofit • Serialization • OkHttp • ... │
-└──────────────────────────────────────────┘
+             ┌───────┴───────┐
+             ▼               ▼
+┌────────────────────┐  ┌─────────────────┐
+│    Local Data      │  │   Remote API    │
+│                    │  │                 │
+│ DataStore / Local  │  │ Retrofit/OkHttp │
+│ Persistence        │  │                 │
+└────────────────────┘  └─────────────────┘
 ```
+
+---
+
+# 📡 Offline-First Architecture
+
+Daric uses an **offline-first data flow**, where local data plays an important role in what the UI consumes.
+
+The general data flow is:
+
+```text
+                Remote API
+                    │
+                    ▼
+             Repository Layer
+                    │
+                    ▼
+              Local Storage
+                    │
+                    ▼
+                  Flow
+                    │
+                    ▼
+                    UI
+```
+
+When network connectivity is available, remote data can be synchronized with the local data source. The UI observes the local data through reactive streams rather than depending directly on network responses.
+
+This approach helps provide:
+
+* Faster access to previously available data
+* Better behavior during temporary network interruptions
+* A single observable source for the UI
+* Clear separation between remote and local data sources
+* More predictable state management
+
+The exact synchronization strategy may evolve as the project grows.
 
 ---
 
@@ -186,6 +227,9 @@ Daric/
 │
 ├── docs/
 │   └── images/
+│       ├── home.png
+│       ├── market.png
+│       └── news.png
 │
 ├── gradle/
 │
@@ -208,6 +252,7 @@ The exact module structure may evolve as the project grows.
 | **Hilt**                 | Dependency injection           |
 | **Coroutines**           | Asynchronous programming       |
 | **Flow**                 | Reactive data streams          |
+| **DataStore**            | Local persistence              |
 | **Retrofit**             | HTTP networking                |
 | **OkHttp**               | Network client                 |
 | **Kotlin Serialization** | JSON serialization             |
@@ -215,8 +260,8 @@ The exact module structure may evolve as the project grows.
 | **R8**                   | Code shrinking and obfuscation |
 | **Gradle Kotlin DSL**    | Build configuration            |
 | **JUnit**                | Unit testing                   |
-| **Compose UI Testing**   | UI testing                     |
-| **Jacoco**               | Code coverage                  |
+| **Compose UI Testing**   | UI testing infrastructure      |
+| **JaCoCo**               | Code coverage                  |
 | **Roborazzi**            | Screenshot testing             |
 | **Baseline Profiles**    | Startup/runtime performance    |
 
@@ -241,13 +286,18 @@ Kotlin Serialization
 Repository
    │
    ▼
-Use Case
+Local Data
+   │
+   ▼
+Flow
    │
    ▼
 UI
 ```
 
 API configuration is injected at build time rather than hardcoded directly into the source code.
+
+Remote data is handled through the repository/data layer and integrated with the application's offline-first architecture.
 
 ---
 
@@ -355,22 +405,6 @@ Then run the application using the `debug` configuration.
 
 ---
 
-# 🔑 Configuration
-
-Some development configuration values are provided through `local.properties`.
-
-For example:
-
-```properties
-newsApiKey=YOUR_API_KEY
-```
-
-> Do not commit secrets or private credentials to the repository.
-
-If you are setting up the project locally, create the required configuration values in your local environment before building.
-
----
-
 # 📦 Release
 
 Daric uses **Git Flow** for release management.
@@ -435,6 +469,7 @@ The main goals are:
 
 * Build a real-world Android application
 * Practice modern Android architecture
+* Implement an offline-first data flow
 * Improve testing discipline
 * Apply secure development practices
 * Explore Android application security
@@ -455,6 +490,7 @@ The security roadmap is intentionally incremental.
 * [x] Modularization
 * [x] Dependency injection
 * [x] Networking layer
+* [x] Offline-first data flow
 * [x] Testing infrastructure
 * [x] Release workflow
 * [x] Myket integration
@@ -534,7 +570,6 @@ Android Developer focused on Kotlin, Jetpack Compose, Clean Architecture, and An
 * GitHub: [@AliAyali](https://github.com/AliAyali)
 * Website: [aliayali.ir](https://aliayali.ir)
 * LinkedIn: [Ali Ayali](https://www.linkedin.com/in/ali-ayali2004/)
-* Telegram: [@ali_ayali](https://t.me/ali_ayali)
 
 ---
 
