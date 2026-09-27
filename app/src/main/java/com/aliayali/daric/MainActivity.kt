@@ -1,5 +1,6 @@
 package com.aliayali.daric
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -60,6 +61,7 @@ class MainActivity : ComponentActivity() {
                             LocalAnalyticsHelper provides analyticsHelper,
                         ) {
                             val appState = rememberDaricAppState()
+
                             DaricApp(
                                 appState = appState,
                                 onRateApp = ::openMyketReview,
@@ -80,15 +82,15 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun openMyketReview() {
-        val uri = "myket://comment?id=$packageName".toUri()
-
         val intent = Intent(
             Intent.ACTION_VIEW,
-            uri,
+            "myket://comment?id=$packageName".toUri(),
         )
 
-        if (intent.resolveActivity(packageManager) != null) {
+        try {
             startActivity(intent)
+        } catch (_: ActivityNotFoundException) {
+            // Myket is not installed or cannot handle the intent.
         }
     }
 }
