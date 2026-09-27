@@ -15,4 +15,10 @@
     <string name="feature_settings_notifications_description">دریافت اعلان‌های برنامه</string>
     <string name="feature_settings_notifications_enabled">اعلان‌ها فعال هستند</string>
     <string name="feature_settings_notifications_disabled">اعلان‌ها غیرفعال هستند</string>
+    <string name="feature_settings_rate_app_confirmation_title">امتیاز به داریک</string>
+    <string name="feature_settings_rate_app_confirmation_message">اگر از داریک راضی هستید، می‌توانید با ثبت امتیاز و نظر خود به بهبود برنامه و کمک به کاربران دیگر کمک کنید.</string>
+    <string name="feature_settings_rate_app_confirmation_confirm">ثبت امتیاز</string>
+    <string name="feature_settings_rate_app_confirmation_cancel">بعداً</string>
+    <string name="feature_settings_rate_app">امتیاز دادن به داریک</string>
+    <string name="feature_settings_rate_app_description">تجربه خود را در مایکت با ما و سایر کاربران به اشتراک بگذارید.</string>
 </resources>

@@ -26,6 +26,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.aliayali.designsystem.icon.DaricIcons
 import com.aliayali.model.settings.AppTheme
 import com.aliayali.setting.components.NotificationOption
+import com.aliayali.setting.components.RateAppOption
 import com.aliayali.setting.components.ThemeOption
 
 @SuppressLint("ConfigurationScreenWidthHeight")
@@ -34,6 +35,7 @@ fun SettingsDialog(
     uiState: SettingUiState,
     onAction: (SettingAction) -> Unit,
     onDismiss: () -> Unit,
+    onRateApp: () -> Unit,
 ) {
     val configuration = LocalConfiguration.current
 
@@ -49,13 +51,17 @@ fun SettingsDialog(
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = stringResource(R.string.feature_setting_title),
                     style = MaterialTheme.typography.titleLarge,
                 )
-                Spacer(modifier = Modifier.padding(start = 10.dp))
+
+                Spacer(
+                    modifier = Modifier.padding(start = 10.dp),
+                )
+
                 Icon(
                     imageVector = Icons.Default.Settings,
                     contentDescription = null,
@@ -68,61 +74,115 @@ fun SettingsDialog(
                 horizontalAlignment = Alignment.End,
             ) {
                 Text(
-                    text = stringResource(R.string.feature_settings_description),
+                    text = stringResource(
+                        R.string.feature_settings_description,
+                    ),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(
+                    modifier = Modifier.height(20.dp),
+                )
 
                 Text(
-                    text = stringResource(R.string.feature_settings_appearance),
+                    text = stringResource(
+                        R.string.feature_settings_appearance,
+                    ),
                     style = MaterialTheme.typography.titleMedium,
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(
+                    modifier = Modifier.height(8.dp),
+                )
 
                 ThemeOption(
-                    title = stringResource(R.string.feature_settings_theme_system),
-                    subtitle = stringResource(R.string.feature_settings_theme_system_description),
+                    title = stringResource(
+                        R.string.feature_settings_theme_system,
+                    ),
+                    subtitle = stringResource(
+                        R.string.feature_settings_theme_system_description,
+                    ),
                     icon = DaricIcons.WbSunny,
                     selected = uiState.theme == AppTheme.SYSTEM,
                     onClick = {
-                        onAction(SettingAction.ChangeTheme(AppTheme.SYSTEM))
+                        onAction(
+                            SettingAction.ChangeTheme(
+                                AppTheme.SYSTEM,
+                            ),
+                        )
                     },
                 )
 
                 ThemeOption(
-                    title = stringResource(R.string.feature_settings_theme_light),
-                    subtitle = stringResource(R.string.feature_settings_theme_light_description),
+                    title = stringResource(
+                        R.string.feature_settings_theme_light,
+                    ),
+                    subtitle = stringResource(
+                        R.string.feature_settings_theme_light_description,
+                    ),
                     icon = DaricIcons.LightMode,
                     selected = uiState.theme == AppTheme.LIGHT,
                     onClick = {
-                        onAction(SettingAction.ChangeTheme(AppTheme.LIGHT))
+                        onAction(
+                            SettingAction.ChangeTheme(
+                                AppTheme.LIGHT,
+                            ),
+                        )
                     },
                 )
 
                 ThemeOption(
-                    title = stringResource(R.string.feature_settings_theme_dark),
-                    subtitle = stringResource(R.string.feature_settings_theme_dark_description),
+                    title = stringResource(
+                        R.string.feature_settings_theme_dark,
+                    ),
+                    subtitle = stringResource(
+                        R.string.feature_settings_theme_dark_description,
+                    ),
                     icon = DaricIcons.DarkMode,
                     selected = uiState.theme == AppTheme.DARK,
                     onClick = {
-                        onAction(SettingAction.ChangeTheme(AppTheme.DARK))
+                        onAction(
+                            SettingAction.ChangeTheme(
+                                AppTheme.DARK,
+                            ),
+                        )
                     },
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(
+                    modifier = Modifier.height(16.dp),
+                )
 
                 HorizontalDivider()
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(
+                    modifier = Modifier.height(16.dp),
+                )
 
                 NotificationOption(
                     enabled = uiState.notificationsEnabled,
                     onCheckedChange = { enabled ->
-                        onAction(SettingAction.ChangeNotifications(enabled))
+                        onAction(
+                            SettingAction.ChangeNotifications(
+                                enabled,
+                            ),
+                        )
                     },
+                )
+
+                Spacer(
+                    modifier = Modifier.height(16.dp),
+                )
+
+                HorizontalDivider()
+
+                Spacer(
+                    modifier = Modifier.height(16.dp),
+                )
+
+                RateAppOption(
+                    onClick = onRateApp,
                 )
             }
         },

@@ -1,5 +1,7 @@
 package com.aliayali.daric
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.aliayali.analytics.AnalyticsHelper
 import com.aliayali.analytics.LocalAnalyticsHelper
@@ -58,7 +61,11 @@ class MainActivity : ComponentActivity() {
                             LocalAnalyticsHelper provides analyticsHelper,
                         ) {
                             val appState = rememberDaricAppState()
-                            DaricApp(appState)
+
+                            DaricApp(
+                                appState = appState,
+                                onRateApp = ::openMyketReview,
+                            )
                         }
                     }
 
@@ -71,6 +78,19 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private fun openMyketReview() {
+        val intent = Intent(
+            Intent.ACTION_VIEW,
+            "myket://comment?id=$packageName".toUri(),
+        )
+
+        try {
+            startActivity(intent)
+        } catch (_: ActivityNotFoundException) {
+            // Myket is not installed or cannot handle the intent.
         }
     }
 }

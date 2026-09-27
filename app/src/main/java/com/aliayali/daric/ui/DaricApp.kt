@@ -52,6 +52,7 @@ import com.aliayali.setting.R as settingR
 @Composable
 fun DaricApp(
     appState: DaricAppState,
+    onRateApp: () -> Unit,
     modifier: Modifier = Modifier,
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),
 ) {
@@ -63,6 +64,7 @@ fun DaricApp(
         showSettingsDialog = showSettingsDialog,
         onSettingsDismissed = { showSettingsDialog = false },
         onTopAppBarActionClick = { showSettingsDialog = true },
+        onRateApp = onRateApp,
         windowAdaptiveInfo = windowAdaptiveInfo,
     )
 }
@@ -75,6 +77,7 @@ internal fun DaricApp(
     showSettingsDialog: Boolean,
     onSettingsDismissed: () -> Unit,
     onTopAppBarActionClick: () -> Unit,
+    onRateApp: () -> Unit,
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),
 ) {
     val analyticsHelper = LocalAnalyticsHelper.current
@@ -89,6 +92,7 @@ internal fun DaricApp(
     if (showSettingsDialog) {
         SettingsRoute(
             onDismiss = onSettingsDismissed,
+            onRateApp = onRateApp,
         )
     }
     val listDetailStrategy = rememberListDetailSceneStrategy<NavKey>()
