@@ -62,7 +62,7 @@ internal class SystemTrayNotifier @Inject constructor(
             context,
             NOTIFICATION_CHANNEL_ID,
         )
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.core_notifications_ic_notification)
             .setContentTitle(titleText)
             .setContentText(messageText)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

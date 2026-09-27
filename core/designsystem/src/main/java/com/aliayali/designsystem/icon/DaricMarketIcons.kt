@@ -7,107 +7,107 @@ object DaricMarketIcons {
 
     // Currency
     @DrawableRes
-    val USD = R.drawable.ic_market_usd
+    val USD = R.drawable.core_designsystem_ic_market_usd
 
     @DrawableRes
-    val EUR = R.drawable.ic_market_eur
+    val EUR = R.drawable.core_designsystem_ic_market_eur
 
     @DrawableRes
-    val AED = R.drawable.ic_market_aed
+    val AED = R.drawable.core_designsystem_ic_market_aed
 
     @DrawableRes
-    val GBP = R.drawable.ic_market_gbp
+    val GBP = R.drawable.core_designsystem_ic_market_gbp
 
     @DrawableRes
-    val JPY = R.drawable.ic_market_jpy
+    val JPY = R.drawable.core_designsystem_ic_market_jpy
 
     @DrawableRes
-    val KWD = R.drawable.ic_market_kwd
+    val KWD = R.drawable.core_designsystem_ic_market_kwd
 
     @DrawableRes
-    val AUD = R.drawable.ic_market_aud
+    val AUD = R.drawable.core_designsystem_ic_market_aud
 
     @DrawableRes
-    val CAD = R.drawable.ic_market_cad
+    val CAD = R.drawable.core_designsystem_ic_market_cad
 
     @DrawableRes
-    val CNY = R.drawable.ic_market_cny
+    val CNY = R.drawable.core_designsystem_ic_market_cny
 
     @DrawableRes
-    val TRY = R.drawable.ic_market_try
+    val TRY = R.drawable.core_designsystem_ic_market_try
 
     @DrawableRes
-    val SAR = R.drawable.ic_market_sar
+    val SAR = R.drawable.core_designsystem_ic_market_sar
 
     @DrawableRes
-    val CHF = R.drawable.ic_market_chf
+    val CHF = R.drawable.core_designsystem_ic_market_chf
 
     @DrawableRes
-    val INR = R.drawable.ic_market_inr
+    val INR = R.drawable.core_designsystem_ic_market_inr
 
     @DrawableRes
-    val PKR = R.drawable.ic_market_pkr
+    val PKR = R.drawable.core_designsystem_ic_market_pkr
 
     @DrawableRes
-    val IQD = R.drawable.ic_market_iqd
+    val IQD = R.drawable.core_designsystem_ic_market_iqd
 
     @DrawableRes
-    val SYP = R.drawable.ic_market_syp
+    val SYP = R.drawable.core_designsystem_ic_market_syp
 
     @DrawableRes
-    val SEK = R.drawable.ic_market_sek
+    val SEK = R.drawable.core_designsystem_ic_market_sek
 
     @DrawableRes
-    val QAR = R.drawable.ic_market_qar
+    val QAR = R.drawable.core_designsystem_ic_market_qar
 
     @DrawableRes
-    val OMR = R.drawable.ic_market_qar
+    val OMR = R.drawable.core_designsystem_ic_market_qar
 
     @DrawableRes
-    val BHD = R.drawable.ic_market_bhd
+    val BHD = R.drawable.core_designsystem_ic_market_bhd
 
     @DrawableRes
-    val AFN = R.drawable.ic_market_afn
+    val AFN = R.drawable.core_designsystem_ic_market_afn
 
     @DrawableRes
-    val MYR = R.drawable.ic_market_myr
+    val MYR = R.drawable.core_designsystem_ic_market_myr
 
     @DrawableRes
-    val THB = R.drawable.ic_market_thb
+    val THB = R.drawable.core_designsystem_ic_market_thb
 
     @DrawableRes
-    val RUB = R.drawable.ic_market_rub
+    val RUB = R.drawable.core_designsystem_ic_market_rub
 
     @DrawableRes
-    val AZN = R.drawable.ic_market_azn
+    val AZN = R.drawable.core_designsystem_ic_market_azn
 
     @DrawableRes
-    val AMD = R.drawable.ic_market_amd
+    val AMD = R.drawable.core_designsystem_ic_market_amd
 
     @DrawableRes
-    val GEL = R.drawable.ic_market_gel
+    val GEL = R.drawable.core_designsystem_ic_market_gel
 
     // Gold
     @DrawableRes
-    val GOLD = R.drawable.ic_market_gold
+    val GOLD = R.drawable.core_designsystem_ic_market_gold
 
     // Coins
     @DrawableRes
-    val COIN_1G = R.drawable.ic_market_coin_1g
+    val COIN_1G = R.drawable.core_designsystem_ic_market_coin_1g
 
     @DrawableRes
-    val COIN_QUARTER = R.drawable.ic_market_coin_1g
+    val COIN_QUARTER = R.drawable.core_designsystem_ic_market_coin_1g
 
     @DrawableRes
-    val COIN_HALF = R.drawable.ic_market_coin_1g
+    val COIN_HALF = R.drawable.core_designsystem_ic_market_coin_1g
 
     @DrawableRes
-    val COIN_EMAMI = R.drawable.ic_market_coin_1g
+    val COIN_EMAMI = R.drawable.core_designsystem_ic_market_coin_1g
 
     @DrawableRes
-    val COIN_BAHAR = R.drawable.ic_market_coin_1g
+    val COIN_BAHAR = R.drawable.core_designsystem_ic_market_coin_1g
 
     // Fallback
     @DrawableRes
-    val DEFAULT = R.drawable.ic_market_coin_1g
+    val DEFAULT = R.drawable.core_designsystem_ic_market_coin_1g
 }

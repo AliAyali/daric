@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.daric.android.application.flavors)
     alias(libs.plugins.daric.android.application.jacoco)
     alias(libs.plugins.daric.hilt)
-    alias(libs.plugins.google.osslicenses)
+    //alias(libs.plugins.google.osslicenses)
     alias(libs.plugins.baselineprofile)
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.kotlin.serialization)

@@ -5,9 +5,6 @@ plugins {
 }
 
 android {
-    defaultConfig {
-        consumerProguardFiles("consumer-proguard-rules.pro")
-    }
     namespace = "com.aliayali.datastore"
 }
 
